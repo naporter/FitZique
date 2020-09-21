@@ -20,7 +20,11 @@
         android:id="@+id/legsFragment"
         android:name="com.example.workoutapp.ui.home.LegsFragment"
         android:label="fragment_legs"
-        tools:layout="@layout/fragment_legs" />
+        tools:layout="@layout/fragment_legs" >
+        <action
+            android:id="@+id/action_legsFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.workoutapp.ui.home.HomeFragment"
