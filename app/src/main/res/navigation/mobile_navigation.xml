@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.workoutapp.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.workoutapp.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/legsFragment"
+        android:name="com.example.workoutapp.ui.home.LegsFragment"
+        android:label="fragment_legs"
+        tools:layout="@layout/fragment_legs" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.workoutapp.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_legsFragment"
+            app:destination="@id/legsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_armsFragment"
+            app:destination="@id/armsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/armsFragment"
+        android:name="com.example.workoutapp.ui.home.ArmsFragment"
+        android:label="fragment_arms"
+        tools:layout="@layout/fragment_arms" >
+        <action
+            android:id="@+id/action_armsFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.workoutapp.ui.home.ExerciseFragment"
+        android:label="fragment_exercise"
+        tools:layout="@layout/fragment_exercise" />
+</navigation>
