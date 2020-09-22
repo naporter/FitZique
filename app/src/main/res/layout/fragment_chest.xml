@@ -21,108 +21,108 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/curlsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Curls" />
+                android:background="@android:color/transparent"
+                android:text="Barbell Bench Press" />
 
             <Button
                 android:id="@+id/button18"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Tricep Dip" />
+                android:text="Incline Bench Press" />
 
             <Button
                 android:id="@+id/button19"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Tricep Extension" />
+                android:text="Dumbbell Bench Press" />
 
             <Button
                 android:id="@+id/button20"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Skull Crusher" />
+                android:text="Peckdeck Fly" />
 
             <Button
                 android:id="@+id/button21"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Row Extension" />
+                android:text="Dumbbell Incline Fly" />
 
             <Button
                 android:id="@+id/button22"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Forward Extension" />
+                android:text="Dumbbell Squeeze Press" />
 
             <Button
                 android:id="@+id/button23"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Dumbell Kickback" />
+                android:text="Incline Barbell Bench Press" />
 
             <Button
                 android:id="@+id/button24"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Over/Under Pull-ups" />
+                android:text="Incline Dumbell Bench Press" />
 
             <Button
                 android:id="@+id/button25"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Diamond Pushups" />
+                android:text="Close-grip Barbell Bench Press" />
 
             <Button
                 android:id="@+id/button26"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Decline Press-up" />
 
             <Button
                 android:id="@+id/button27"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Cable Fly" />
 
             <Button
                 android:id="@+id/button28"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Decline Barbell Bench Press" />
 
             <Button
                 android:id="@+id/button29"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Staggered Press-up" />
 
             <Button
                 android:id="@+id/button30"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Chest Dips" />
 
             <Button
                 android:id="@+id/button31"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Clap Press-up" />
 
         </LinearLayout>
     </ScrollView>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -17,16 +17,7 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
-        android:id="@+id/legsFragment"
-        android:name="com.example.workoutapp.ui.home.LegsFragment"
-        android:label="fragment_legs"
-        tools:layout="@layout/fragment_legs" >
-        <action
-            android:id="@+id/action_legsFragment_to_exerciseFragment"
-            app:destination="@id/exerciseFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/navigation_home"
         android:name="com.example.workoutapp.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
@@ -36,6 +27,24 @@
         <action
             android:id="@+id/action_homeFragment_to_armsFragment"
             app:destination="@id/armsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chestFragment"
+            app:destination="@id/chestFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_backFragment"
+            app:destination="@id/backFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_absFragment"
+            app:destination="@id/absFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/legsFragment"
+        android:name="com.example.workoutapp.ui.home.LegsFragment"
+        android:label="fragment_legs"
+        tools:layout="@layout/fragment_legs" >
+        <action
+            android:id="@+id/action_legsFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
     </fragment>
     <fragment
         android:id="@+id/armsFragment"
@@ -51,4 +60,31 @@
         android:name="com.example.workoutapp.ui.home.ExerciseFragment"
         android:label="fragment_exercise"
         tools:layout="@layout/fragment_exercise" />
+    <fragment
+        android:id="@+id/chestFragment"
+        android:name="com.example.workoutapp.ui.home.ChestFragment"
+        android:label="fragment_chest"
+        tools:layout="@layout/fragment_chest" >
+        <action
+            android:id="@+id/action_chestFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/absFragment"
+        android:name="com.example.workoutapp.ui.home.AbsFragment"
+        android:label="fragment_abs"
+        tools:layout="@layout/fragment_abs" >
+        <action
+            android:id="@+id/action_absFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/backFragment"
+        android:name="com.example.workoutapp.ui.home.BackFragment"
+        android:label="fragment_back"
+        tools:layout="@layout/fragment_back" >
+        <action
+            android:id="@+id/action_backFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
 </navigation>

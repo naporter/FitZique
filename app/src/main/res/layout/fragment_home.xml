@@ -10,39 +10,52 @@
         android:id="@+id/armsBtn"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="52dp"
-        android:text="Arms"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/transparent"
+        android:text="@string/arms"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/backBtn"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="52dp"
-        android:text="Back"
+        android:layout_marginEnd="32dp"
+        android:background="@android:color/transparent"
+        android:text="@string/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/legsBtn" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/chestBtn"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="4dp"
-        android:text="Core"
+        android:layout_marginStart="32dp"
+        android:background="@android:color/transparent"
+        android:text="@string/chest"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/armsBtn" />
+
+    <Button
+        android:id="@+id/absBtn"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="32dp"
+        android:background="@android:color/transparent"
+        android:text="@string/abs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chestBtn" />
 
     <Button
         android:id="@+id/legsBtn"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="52dp"
-        android:text="Legs"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@android:color/transparent"
+        android:text="@string/legs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

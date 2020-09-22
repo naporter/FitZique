@@ -27,11 +27,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         navController = Navigation.findNavController(view);
         view.findViewById(R.id.armsBtn).setOnClickListener(this);
         view.findViewById(R.id.legsBtn).setOnClickListener(this);
+        view.findViewById(R.id.absBtn).setOnClickListener(this);
+        view.findViewById(R.id.chestBtn).setOnClickListener(this);
+        view.findViewById(R.id.backBtn).setOnClickListener(this);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         return root;
     }
@@ -45,6 +47,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.legsBtn:
                 navController.navigate(R.id.action_homeFragment_to_legsFragment);
+                break;
+            case R.id.absBtn:
+                navController.navigate(R.id.action_homeFragment_to_absFragment);
+                break;
+            case R.id.chestBtn:
+                navController.navigate(R.id.action_homeFragment_to_chestFragment);
+                break;
+            case R.id.backBtn:
+                navController.navigate(R.id.action_homeFragment_to_backFragment);
                 break;
             default:
                 break;
