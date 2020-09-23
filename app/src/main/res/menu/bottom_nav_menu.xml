@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/abc_vector_test"
-        android:title="Workouts" />
+        android:icon="@drawable/dumbbell"
+        android:title="@string/workouts" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/abc_vector_test"
-        android:title="Leaderboard" />
+        android:icon="@drawable/graph"
+        android:title="@string/leaderboard" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/abc_vector_test"
-        android:title="Badges" />
+        android:icon="@drawable/badge"
+        android:title="@string/badges" />
 
 </menu>
