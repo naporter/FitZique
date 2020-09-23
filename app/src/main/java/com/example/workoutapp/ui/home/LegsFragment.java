@@ -17,6 +17,8 @@ import com.example.workoutapp.R;
 
 public class LegsFragment extends Fragment implements View.OnClickListener{
 
+    public static String button = "null";
+
     NavController navController = null;
 
     public LegsFragment() {
@@ -52,11 +54,12 @@ public class LegsFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.frontSquatsBtn:
-                navController.navigate(R.id.action_legsFragment_to_exerciseFragment);
-                break;
-            default:
-                break;
+                case R.id.frontSquatsBtn:
+                    button = "frontSquatsBtn";
+                    navController.navigate(R.id.action_legsFragment_to_exerciseFragment);
+                    break;
+                default:
+                    break;
         }
     }
 }
