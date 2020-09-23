@@ -21,6 +21,9 @@ import android.widget.TextView;
 
 import com.example.workoutapp.R;
 
+import static com.example.workoutapp.ui.home.LegsFragment.button;
+
+import org.w3c.dom.Text;
 
 public class ExerciseFragment extends Fragment {
 
