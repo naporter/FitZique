@@ -21,108 +21,60 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/curlsBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Curls" />
-
-            <Button
-                android:id="@+id/button18"
+                android:id="@+id/bentOverRowsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Tricep Dip" />
+                android:text="Band Bent Over Rows" />
 
             <Button
-                android:id="@+id/button19"
+                android:id="@+id/renegadeRowBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Tricep Extension" />
+                android:text="Renegade Row" />
 
             <Button
-                android:id="@+id/button20"
+                android:id="@+id/dumbbellSingleArmBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Skull Crusher" />
+                android:text="Dumbbell Single Arm Row" />
 
             <Button
-                android:id="@+id/button21"
+                android:id="@+id/chestSupportBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Row Extension" />
+                android:text="Chest Support Dumbbell Row" />
 
             <Button
-                android:id="@+id/button22"
+                android:id="@+id/invertedRowBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Forward Extension" />
+                android:text="Inverted Row" />
 
             <Button
-                android:id="@+id/button23"
+                android:id="@+id/bentOverDumbbellBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Dumbell Kickback" />
+                android:text="Bent Over Row Dumbbell" />
 
             <Button
-                android:id="@+id/button24"
+                android:id="@+id/bentOverBarbellBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Over/Under Pull-ups" />
+                android:text="Bent-Over Barbell Row" />
 
             <Button
-                android:id="@+id/button25"
+                android:id="@+id/pullUpsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Diamond Pushups" />
-
-            <Button
-                android:id="@+id/button26"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button27"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button28"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button29"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button30"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/button31"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Pull Ups" />
 
         </LinearLayout>
     </ScrollView>
