@@ -1,19 +1,40 @@
 package com.example.workoutapp.ui.home;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel { //Possible unused class, may delete
 
-    private MutableLiveData<String> mText;
+public class HomeViewModel extends ViewModel {
 
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+    private MutableLiveData<String> text;
+    private MutableLiveData<Drawable> image;
+
+    public HomeViewModel() { //creates defaults in the event that an image and/or text is not provided
+        text = new MutableLiveData<>();
+        image = new MutableLiveData<>();
+        text.setValue("No Description Found");
+//        image.setValue(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_launcher_foreground, getContext().getTheme()));
+    }
+
+    //setters for ExerciseFragments ImageView and TextView
+    public void setText(String text){
+        this.text.setValue(text);
+    }
+
+    public void setImage(Drawable image){
+        this.image.setValue(image);
+    }
+
+    //getters for ExerciseFragments ImageView and TextView
+    public LiveData<Drawable> getImage(){
+        return image;
     }
 
     public LiveData<String> getText() {
-        return mText;
+        return text;
     }
 }

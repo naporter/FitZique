@@ -1,12 +1,23 @@
 package com.example.workoutapp.ui.home;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.fragment.app.Fragment;
 
 import com.example.workoutapp.R;
 
@@ -14,14 +25,17 @@ import static com.example.workoutapp.ui.home.LegsFragment.button;
 
 import org.w3c.dom.Text;
 
+public class ExerciseFragment extends Fragment {
 
-public class ExerciseFragment extends Fragment{
+    private ImageView imageView;
+    private TextView descriptionText;
+    private HomeViewModel homeViewModel;
 
     public ExerciseFragment() {
         // Required empty public constructor
     }
 
-    public static ExerciseFragment newInstance(String param1, String param2) {
+    public static ExerciseFragment newInstance() {
         ExerciseFragment fragment = new ExerciseFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -34,28 +48,28 @@ public class ExerciseFragment extends Fragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        LayoutInflater lf = getActivity().getLayoutInflater();
-        View view =  lf.inflate(R.layout.fragment_exercise, container, false); //pass the correct layout name for the fragment
-
-        TextView text = (TextView) view.findViewById(R.id.descriptionText);
-        switch (button){
-            case "frontSquatsBtn":
-                button = "frontSquatsBtn";
-                text.setText("Set a barbell on a power rack at about shoulder height. Grab the " +
-                        "power with an overhand grip at shoulder width and raise your elbows until " +
-                        "your upper arms are parallel to the floor. Take the bar out of the rack " +
-                        "and let it rest on your fingertips. Your elbows should be all the way up " +
-                        "throughout the movement. Step back and set your feet at shoulder width " +
-                        "with toes turned out slightly. Squat as low as you can without losing " +
-                        "the arch in your lower back.");
-                break;
-            default:
-                break;
-        }
-        return view;
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                descriptionText.setText(s);
+            }
+        });
+        homeViewModel.getImage().observe(getViewLifecycleOwner(), new Observer<Drawable>() {
+            @Override
+            public void onChanged(Drawable drawable) {
+                imageView.setBackground(drawable);
+            }
+        });
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_exercise, container, false);
+        imageView = view.findViewById(R.id.imageView);
+        descriptionText = view.findViewById(R.id.descriptionText);
+        return view;
+    }
 }

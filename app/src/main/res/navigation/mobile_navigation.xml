@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.workoutapp.ui.home.HomeFragment"
-        android:label="fragment_home"
+        android:label="Workouts"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_legsFragment"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/legsFragment"
         android:name="com.example.workoutapp.ui.home.LegsFragment"
-        android:label="fragment_legs"
+        android:label="Leg Exercises"
         tools:layout="@layout/fragment_legs" >
         <action
             android:id="@+id/action_legsFragment_to_exerciseFragment"
@@ -49,7 +49,7 @@
     <fragment
         android:id="@+id/armsFragment"
         android:name="com.example.workoutapp.ui.home.ArmsFragment"
-        android:label="fragment_arms"
+        android:label="Arm Exercises"
         tools:layout="@layout/fragment_arms" >
         <action
             android:id="@+id/action_armsFragment_to_exerciseFragment"
@@ -58,12 +58,12 @@
     <fragment
         android:id="@+id/exerciseFragment"
         android:name="com.example.workoutapp.ui.home.ExerciseFragment"
-        android:label="fragment_exercise"
+        android:label="Details"
         tools:layout="@layout/fragment_exercise" />
     <fragment
         android:id="@+id/chestFragment"
         android:name="com.example.workoutapp.ui.home.ChestFragment"
-        android:label="fragment_chest"
+        android:label="Chest Exercises"
         tools:layout="@layout/fragment_chest" >
         <action
             android:id="@+id/action_chestFragment_to_exerciseFragment"
@@ -72,7 +72,7 @@
     <fragment
         android:id="@+id/absFragment"
         android:name="com.example.workoutapp.ui.home.AbsFragment"
-        android:label="fragment_abs"
+        android:label="Abdominal Exercises"
         tools:layout="@layout/fragment_abs" >
         <action
             android:id="@+id/action_absFragment_to_exerciseFragment"
@@ -81,7 +81,7 @@
     <fragment
         android:id="@+id/backFragment"
         android:name="com.example.workoutapp.ui.home.BackFragment"
-        android:label="fragment_back"
+        android:label="Back Exercises"
         tools:layout="@layout/fragment_back" >
         <action
             android:id="@+id/action_backFragment_to_exerciseFragment"
