@@ -21,6 +21,7 @@
             android:orientation="vertical">
 
             <Button
+
                 android:id="@+id/curlsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -74,14 +75,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Over/Under Pull-ups" />
+                android:text="Band Bent Over Rows" />
 
             <Button
-                android:id="@+id/button25"
+                android:id="@+id/renegadeRowBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Diamond Pushups" />
+                android:text="Renegade Row" />
+
+            <Button
+                android:id="@+id/dumbbellSingleArmBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:text="Dumbbell Single Arm Row" />
+
+            <Button
+                android:id="@+id/chestSupportBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:text="Chest Support Dumbbell Row" />
+
+            <Button
+                android:id="@+id/invertedRowBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:text="Inverted Row" />
+
+            <Button
+                android:id="@+id/bentOverDumbbellBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:text="Bent Over Row Dumbbell" />
+
+            <Button
+                android:id="@+id/bentOverBarbellBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:text="Bent-Over Barbell Row" />
+
+            <Button
+                android:id="@+id/pullUpsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:text="Pull Ups" />
 
         </LinearLayout>
     </ScrollView>
