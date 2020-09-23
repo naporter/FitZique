@@ -25,105 +25,105 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Curls" />
+                android:text="Crunches" />
 
             <Button
                 android:id="@+id/button18"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Tricep Dip" />
+                android:text="Sitting Twists" />
 
             <Button
                 android:id="@+id/button19"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Tricep Extension" />
+                android:text="Raised Leg Hold" />
 
             <Button
                 android:id="@+id/button20"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Skull Crusher" />
+                android:text="Plank Hold" />
 
             <Button
                 android:id="@+id/button21"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Row Extension" />
+                android:text="Plank Leg Raises" />
 
             <Button
                 android:id="@+id/button22"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Forward Extension" />
+                android:text="Knee-to-elbows" />
 
             <Button
                 android:id="@+id/button23"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Dumbell Kickback" />
+                android:text="Side-to-side chops" />
 
             <Button
                 android:id="@+id/button24"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Over/Under Pull-ups" />
+                android:text="Cross Chops" />
 
             <Button
                 android:id="@+id/button25"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Diamond Pushups" />
+                android:text="High Knees" />
 
             <Button
                 android:id="@+id/button26"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="V-ups" />
 
             <Button
                 android:id="@+id/button27"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Wipers" />
 
             <Button
                 android:id="@+id/button28"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="L-sit" />
 
             <Button
                 android:id="@+id/button29"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Scissors" />
 
             <Button
                 android:id="@+id/button30"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Sit-Ups" />
 
             <Button
                 android:id="@+id/button31"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="Button" />
+                android:text="Toe Taps" />
 
         </LinearLayout>
     </ScrollView>
