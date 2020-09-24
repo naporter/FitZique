@@ -43,8 +43,6 @@ public class AbsFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        homeViewModel.setImage(ResourcesCompat.getDrawable(getResources(), R.drawable.no_image_found, getContext().getTheme()));
-        homeViewModel.setText("No description found.");
         ViewGroup group = view.findViewById(R.id.absLayout);
         View id;
         for (int i = 0; i < group.getChildCount(); i++){ //sets onClickListener for all buttons
