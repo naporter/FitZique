@@ -42,8 +42,6 @@ public class ChestFragment extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        homeViewModel.setImage(ResourcesCompat.getDrawable(getResources(), R.drawable.no_image_found, getContext().getTheme()));
-        homeViewModel.setText("No description found.");
         ViewGroup group = view.findViewById(R.id.chestLayout);
         View id;
         for (int i = 0; i < group.getChildCount(); i++){ //sets onClickListener for all buttons
@@ -57,7 +55,6 @@ public class ChestFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_chest, container, false);
     }
 

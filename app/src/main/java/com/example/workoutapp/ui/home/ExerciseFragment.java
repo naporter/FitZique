@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -56,6 +57,13 @@ public class ExerciseFragment extends Fragment {
                 imageView.setBackground(drawable);
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        homeViewModel.setImage(ResourcesCompat.getDrawable(getResources(), R.drawable.no_image_found, getContext().getTheme()));
+        homeViewModel.setText("No description found.");
+        super.onDestroy();
     }
 
     @Override
