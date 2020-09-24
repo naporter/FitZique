@@ -2,48 +2,32 @@ package com.example.workoutapp.ui.home;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.workoutapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BackFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class BackFragment extends Fragment {
+public class BackFragment extends Fragment implements View.OnClickListener{
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private NavController navController = null;
+    private HomeViewModel homeViewModel;
 
     public BackFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BackFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BackFragment newInstance(String param1, String param2) {
+    public static BackFragment newInstance() {
         BackFragment fragment = new BackFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,9 +35,22 @@ public class BackFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        homeViewModel.setImage(ResourcesCompat.getDrawable(getResources(), R.drawable.no_image_found, getContext().getTheme()));
+        homeViewModel.setText("No description found.");
+        ViewGroup group = view.findViewById(R.id.backLayout);
+        View id;
+        for (int i = 0; i < group.getChildCount(); i++){ //sets onClickListener for all buttons
+            id = group.getChildAt(i);
+            if(id instanceof Button){
+                id.setOnClickListener(this);
+            }
         }
     }
 
@@ -62,5 +59,32 @@ public class BackFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_back, container, false);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tricepDipBtn:
+                break;
+            case R.id.tricepExtensionBtn:
+                break;
+            case R.id.skullCrusherBtn:
+                break;
+            case R.id.rowExtensionBtn:
+                break;
+            case R.id.forwardExtensionBtn:
+                break;
+            case R.id.dumbellKickbackBtn:
+                break;
+            case R.id.bandBentOverRowsBtn:
+                break;
+            case R.id.renegadeRowBtn:
+                break;
+            case R.id.dumbbellSingleArmBtn:
+                break;
+            default:
+                break;
+        }
+        navController.navigate(R.id.action_backFragment_to_exerciseFragment);
     }
 }

@@ -7,7 +7,7 @@
     tools:context=".ui.home.AbsFragment" >
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/chestScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,110 +16,111 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/absLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/curlsBtn"
+                android:id="@+id/cruntchesBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Crunches" />
 
             <Button
-                android:id="@+id/button18"
+                android:id="@+id/sittingTwistsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Sitting Twists" />
 
             <Button
-                android:id="@+id/button19"
+                android:id="@+id/raisedLegHoldBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Raised Leg Hold" />
 
             <Button
-                android:id="@+id/button20"
+                android:id="@+id/plankHoldBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Plank Hold" />
 
             <Button
-                android:id="@+id/button21"
+                android:id="@+id/plankLegRaisesBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Plank Leg Raises" />
 
             <Button
-                android:id="@+id/button22"
+                android:id="@+id/kneeToElbowsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Knee-to-elbows" />
 
             <Button
-                android:id="@+id/button23"
+                android:id="@+id/sideToSideChopsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Side-to-side chops" />
 
             <Button
-                android:id="@+id/button24"
+                android:id="@+id/crossChopsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Cross Chops" />
 
             <Button
-                android:id="@+id/button25"
+                android:id="@+id/highKneesBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="High Knees" />
 
             <Button
-                android:id="@+id/button26"
+                android:id="@+id/vupsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="V-ups" />
 
             <Button
-                android:id="@+id/button27"
+                android:id="@+id/wipersBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Wipers" />
 
             <Button
-                android:id="@+id/button28"
+                android:id="@+id/lsitBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="L-sit" />
 
             <Button
-                android:id="@+id/button29"
+                android:id="@+id/scissorsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Scissors" />
 
             <Button
-                android:id="@+id/button30"
+                android:id="@+id/sitUpsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="Sit-Ups" />
 
             <Button
-                android:id="@+id/button31"
+                android:id="@+id/toeTapsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
