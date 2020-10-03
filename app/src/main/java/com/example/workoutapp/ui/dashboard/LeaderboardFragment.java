@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import static com.example.workoutapp.ui.Activites.LoginActivity.user;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,6 +19,8 @@ import com.example.workoutapp.R;
 public class LeaderboardFragment extends Fragment {
 
     private LeaderboardViewModel leaderboardViewModel;
+//    used to display how many points the user has
+    String points = String.valueOf(user.getPoints());
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         leaderboardViewModel = new ViewModelProvider(requireActivity()).get(LeaderboardViewModel.class);

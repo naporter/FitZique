@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText InputNumber, InputPassword;
     private ProgressDialog loadingBar;
     private TextView registerLink;
+    public static Users user = new Users();
 
     private String parentDbName = "Users";
 
@@ -90,13 +91,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.i("Info: ", "Inside onDataChange.");
                 if (dataSnapshot.child(parentDbName).child(phone).exists()) {
-
+                    Log.i("Info: ", "phone exists");
                     Users usersData = dataSnapshot.child(parentDbName).child(phone).getValue(Users.class);
 
                     if (usersData.getPhone().equals(phone)) {
                         if (usersData.getPassword().equals(password)) {
                             if (parentDbName.equals("Users")) {
                                 Toast.makeText(LoginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT);
+                                user.setPhone(phone);
                                 loadingBar.dismiss();
 
                                 Intent intent = new Intent(LoginActivity.this,

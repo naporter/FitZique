@@ -2,15 +2,17 @@ package com.example.workoutapp;
 
 public class Users {
     private String name, phone, password;
+    int points;
 
     public Users() {
 //        default
     }
 
-    public Users(String name, String phone, String password) {
+    public Users(String name, String phone, String password, int points) {
         this.name = name;
         this.phone = phone;
         this.password = password;
+        this.points = points;
     }
 
     public String getName() {
@@ -35,5 +37,13 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }
