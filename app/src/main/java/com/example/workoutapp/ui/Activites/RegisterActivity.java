@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                     HashMap<String, Object> userdataMap = new HashMap<>();
                     userdataMap.put("phone", phone);
                     userdataMap.put("password", password);
-                    userdataMap.put("name", name);
+                    userdataMap.put("Man", name);
                     userdataMap.put("points", points);
 
                     rootRef.child("Users").child(phone).updateChildren(userdataMap)
@@ -108,12 +108,12 @@ public class RegisterActivity extends AppCompatActivity {
                             });
 
                 } else {
+                    loadingBar.dismiss();
                     Toast.makeText(RegisterActivity.this, "This " + phone + " already " +
                             "exists", Toast.LENGTH_SHORT);
-                    loadingBar.dismiss();
 
-                    Intent intent = new Intent(RegisterActivity.this, Activity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(RegisterActivity.this, Activity.class);
+//                    startActivity(intent);
                 }
             }
 

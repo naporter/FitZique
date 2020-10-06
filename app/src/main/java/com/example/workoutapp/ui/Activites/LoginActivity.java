@@ -15,6 +15,8 @@ import com.example.workoutapp.MainActivity;
 import com.example.workoutapp.R;
 import com.example.workoutapp.Users;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,8 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
 
+//    declared variables
     private Button loginButton;
     private EditText InputNumber, InputPassword;
     private ProgressDialog loadingBar;
@@ -39,12 +44,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+//      Initialized variables
         loginButton = (Button) findViewById(R.id.login_btn);
         InputNumber = (EditText) findViewById(R.id.login_phone_number_input);
         InputPassword = (EditText) findViewById(R.id.login_password_input);
         registerLink = (TextView) findViewById(R.id.register_link);
         loadingBar = new ProgressDialog(this);
 
+//        This method executes when you click the login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+//        This method executes when you click the register link
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +70,9 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
+//  This method is called when you click the login button. It stores the phone and password the
+//    user typed in the edit text boxes. If they are not blank we will run a method called
+//    AllowAccessToAccount().
     private void LoginUser() {
         String phone = InputNumber.getText().toString();
         String password = InputPassword.getText().toString();
@@ -81,7 +91,8 @@ public class LoginActivity extends AppCompatActivity {
             AllowAccessToAccount(phone, password);
         }
     }
-
+//  This method checks the phone and password and tries to find the phone number in our database
+//  if found it will let us enter the app otherwise it will tell us our account doesn't exitst
     private void AllowAccessToAccount(final String phone, final String password) {
         final DatabaseReference rootRef;
         rootRef = FirebaseDatabase.getInstance().getReference();
@@ -91,7 +102,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.i("Info: ", "Inside onDataChange.");
                 if (dataSnapshot.child(parentDbName).child(phone).exists()) {
-                    Log.i("Info: ", "phone exists");
                     Users usersData = dataSnapshot.child(parentDbName).child(phone).getValue(Users.class);
 
                     if (usersData.getPhone().equals(phone)) {
@@ -113,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
                     loadingBar.dismiss();
-                    Toast.makeText(LoginActivity.this, "This account number does not exist", Toast.LENGTH_LONG);
+                    Toast.makeText(LoginActivity.this, "This phone number does not exist", Toast.LENGTH_LONG);
                 }
             }
 
