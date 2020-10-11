@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.home;
+package com.example.workoutapp.ui.workouts;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

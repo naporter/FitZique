@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.home;
+package com.example.workoutapp.ui.workouts;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,13 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.workoutapp.R;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
@@ -57,42 +55,42 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             }
         });
 
-//        viewPager.setPageTransformer(new ViewPager2.PageTransformer() { //Adds a Depth transformation between fragments
-//            @Override
-//            public void transformPage(@NonNull View page, float position) {
-//                final float MIN_SCALE = 0.75f;
-//                int pageWidth = page.getWidth();
-//
-//                if ( position < -1 ) { // [ -Infinity,-1 )
-//                    // This page is way off-screen to the left.
-//                    page.setAlpha( 0 );
-//
-//                } else if ( position <= 0 ) { // [-1,0]
-//                    // Use the default slide transition when moving to the left page
-//                    page.setAlpha( 1 );
-//                    page.setTranslationX( 0 );
-//                    page.setScaleX( 1 );
-//                    page.setScaleY( 1 );
-//
-//                } else if ( position <= 1 ) { // (0,1]
-//                    // Fade the page out.
-//                    page.setAlpha( 1 - position );
-//
-//                    // Counteract the default slide transition
-//                    page.setTranslationX( pageWidth * -position );
-//
-//                    // Scale the page down ( between MIN_SCALE and 1 )
-//                    float scaleFactor = MIN_SCALE
-//                            + ( 1 - MIN_SCALE ) * ( 1 - Math.abs( position ) );
-//                    page.setScaleX( scaleFactor );
-//                    page.setScaleY( scaleFactor );
-//
-//                } else { // ( 1, +Infinity ]
-//                    // This page is way off-screen to the right.
-//                    page.setAlpha( 0 );
-//                }
-//            }
-//        });
+        viewPager.setPageTransformer(new ViewPager2.PageTransformer() { //Adds a Depth transformation between fragments
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                final float MIN_SCALE = 0.75f;
+                int pageWidth = page.getWidth();
+
+                if ( position < -1 ) { // [ -Infinity,-1 )
+                    // This page is way off-screen to the left.
+                    page.setAlpha( 0 );
+
+                } else if ( position <= 0 ) { // [-1,0]
+                    // Use the default slide transition when moving to the left page
+                    page.setAlpha( 1 );
+                    page.setTranslationX( 0 );
+                    page.setScaleX( 1 );
+                    page.setScaleY( 1 );
+
+                } else if ( position <= 1 ) { // (0,1]
+                    // Fade the page out.
+                    page.setAlpha( 1 - position );
+
+                    // Counteract the default slide transition
+                    page.setTranslationX( pageWidth * -position );
+
+                    // Scale the page down ( between MIN_SCALE and 1 )
+                    float scaleFactor = MIN_SCALE
+                            + ( 1 - MIN_SCALE ) * ( 1 - Math.abs( position ) );
+                    page.setScaleX( scaleFactor );
+                    page.setScaleY( scaleFactor );
+
+                } else { // ( 1, +Infinity ]
+                    // This page is way off-screen to the right.
+                    page.setAlpha( 0 );
+                }
+            }
+        });
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() { //Changes tab focus while sliding
             @Override
             public void onPageSelected(int position) {
@@ -101,11 +99,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         });
 
         navController = Navigation.findNavController(view);
-        view.findViewById(R.id.armsBtn).setOnClickListener(this);
-        view.findViewById(R.id.legsBtn).setOnClickListener(this);
-        view.findViewById(R.id.absBtn).setOnClickListener(this);
-        view.findViewById(R.id.chestBtn).setOnClickListener(this);
-        view.findViewById(R.id.backBtn).setOnClickListener(this);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -122,24 +115,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.armsBtn:
-                navController.navigate(R.id.action_homeFragment_to_armsFragment);
-                break;
-            case R.id.legsBtn:
-                navController.navigate(R.id.action_homeFragment_to_legsFragment);
-                break;
-            case R.id.absBtn:
-                navController.navigate(R.id.action_homeFragment_to_absFragment);
-                break;
-            case R.id.chestBtn:
-                navController.navigate(R.id.action_homeFragment_to_chestFragment);
-                break;
-            case R.id.backBtn:
-                navController.navigate(R.id.action_homeFragment_to_backFragment);
-                break;
-            default:
-                break;
-        }
     }
 }

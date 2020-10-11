@@ -1,14 +1,10 @@
-package com.example.workoutapp.ui.home;
+package com.example.workoutapp.ui.workouts;
 
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.example.workoutapp.R;
 
 public class HomeViewModel extends ViewModel {
 

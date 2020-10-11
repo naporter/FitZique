@@ -4,64 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
-
-    <Button
-        android:id="@+id/armsBtn"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:background="@android:color/transparent"
-        android:text="@string/arms"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/backBtn"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="32dp"
-        android:background="@android:color/transparent"
-        android:text="@string/back"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/legsBtn" />
-
-    <Button
-        android:id="@+id/chestBtn"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="32dp"
-        android:background="@android:color/transparent"
-        android:text="@string/chest"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/armsBtn" />
-
-    <Button
-        android:id="@+id/absBtn"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="32dp"
-        android:background="@android:color/transparent"
-        android:text="@string/abs"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chestBtn" />
-
-    <Button
-        android:id="@+id/legsBtn"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@android:color/transparent"
-        android:text="@string/legs"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.workouts.HomeFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

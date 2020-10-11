@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.home;
+package com.example.workoutapp.ui.workouts;
 
 import android.os.Bundle;
 
@@ -10,7 +10,12 @@ import android.view.ViewGroup;
 
 import com.example.workoutapp.R;
 
-public class MediumFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link HardFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class HardFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,7 +26,7 @@ public class MediumFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MediumFragment() {
+    public HardFragment() {
         // Required empty public constructor
     }
 
@@ -31,11 +36,11 @@ public class MediumFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MediumFragment.
+     * @return A new instance of fragment HardFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MediumFragment newInstance(String param1, String param2) {
-        MediumFragment fragment = new MediumFragment();
+    public static HardFragment newInstance(String param1, String param2) {
+        HardFragment fragment = new HardFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -56,6 +61,6 @@ public class MediumFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_medium, container, false);
+        return inflater.inflate(R.layout.fragment_hard, container, false);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.notifications;
+package com.example.workoutapp.ui.badges;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

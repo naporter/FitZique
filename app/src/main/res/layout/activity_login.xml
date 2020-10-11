@@ -1,91 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login"
-    tools:context=".MainActivity">
+    android:background="@color/colorPrimary"
+    android:theme="@style/LoginTheme"
+    tools:context=".LoginPageActivity">
 
     <TextView
-        android:id="@+id/login_applogo"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="100dp"
-        android:layout_centerHorizontal="true"
-        android:text="FitZique"
-        android:textSize="40dp"
-        android:textStyle="bold"
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:fontFamily="sans-serif-light"
+        android:padding="10dp"
+        android:text="@string/app_name"
+        android:textColor="@color/textColor"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/userPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-light"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        />
+        android:textColor="@color/textColor"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appName" />
 
-    <EditText
-        android:id="@+id/login_phone_number_input"
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_applogo"
-        android:background="@drawable/input_design"
-        android:padding="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:hint="Phone Number"
-        android:inputType="number"
-        android:textColor="@color/colorPrimaryDark"
-        android:textColorHint="@color/colorPrimaryDark"
-        android:textSize="17sp"
-        android:textStyle="bold"/>
+        android:layout_marginTop="8dp"
+        android:progressTint="@color/colorAccent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userPrompt" />
 
-    <EditText
-        android:id="@+id/login_password_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_phone_number_input"
-        android:background="@drawable/input_design"
-        android:padding="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="6dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColor="@color/colorPrimaryDark"
-        android:textColorHint="@color/colorPrimaryDark"
-        android:textSize="17sp"
-        android:textStyle="bold"/>
-
-    <LinearLayout
-        android:id="@+id/linear_layout_1"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/login_password_input"
-        android:layout_marginTop="5dp">
+        app:layout_constraintGuide_percent=".25" />
 
-        <TextView
-            android:id="@+id/register_link"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="300dp"
-            android:text="Register"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragmentLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
 
-    </LinearLayout>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/navLoginFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:navGraph="@navigation/login_navigation" >
 
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_layout_1"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/buttons"
-        android:padding="17dp"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:text="Login"
-        android:textColor="@android:color/white"/>
+        </androidx.fragment.app.FragmentContainerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

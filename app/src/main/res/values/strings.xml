@@ -1,19 +1,22 @@
 <resources>
     <string name="app_name">FitZique</string>
     <string name="title_home">Home</string>
-    <string name="title_leaderboard">Leaderboard</string>
-    <string name="title_badges">Badges</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
     <string name="statistics">Statistics</string>
+    <string name="scoreboard">Scoreboard</string>
     <string name="shoulders">Shoulders</string>
     <string name="chest">Chest</string>
     <string name="legs">Legs</string>
     <string name="calves">Calves</string>
     <string name="back">Back</string>
     <string name="arms">Arms</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="abs">Abs</string>
     <string name="workouts">Workouts</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="badges">Badges</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_leaderboard">title_leaderboard</string>
+    <string name="title_badges">title_badges</string>
 </resources>

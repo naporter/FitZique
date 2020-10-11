@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.dashboard;
+package com.example.workoutapp.ui.leaderboard;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -9,6 +9,7 @@ public class LeaderboardViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
     public LeaderboardViewModel() {
+
         mText = new MutableLiveData<>();
         mText.setValue("This is the Leaderboard fragment");
     }
