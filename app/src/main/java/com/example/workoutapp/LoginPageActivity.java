@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.workoutapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -82,24 +81,24 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                     thisUser = new User(email,"0",firstName,lastName);
                     firebaseUser = mAuth.getCurrentUser();
                     updateUI("Account created successfully.");
+                    database = FirebaseDatabase.getInstance().getReference("Users/" + firebaseUser.getUid());
+                    database.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) { //this method will run initially and again anytime data changes
+                            database.setValue(thisUser); //sets the values based on what is in the class
+                            snapshot.getValue(thisUser.getClass()); //gets the values from the database
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     startActivity();
                 }else{
                     //TODO: handle event of user already exists
                     updateUI("A user with " + email + " email already exists.");
                 }
-            }
-        });
-        database = FirebaseDatabase.getInstance().getReference("Users/" + firebaseUser.getUid());
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) { //this method will run initially and again anytime data changes
-                database.setValue(thisUser); //sets the values based on what is in the class
-                snapshot.getValue(thisUser.getClass()); //gets the values from the database
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
