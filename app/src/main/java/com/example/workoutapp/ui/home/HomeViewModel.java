@@ -1,12 +1,14 @@
 package com.example.workoutapp.ui.home;
 
-import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.workoutapp.R;
 
 public class HomeViewModel extends ViewModel {
 
@@ -17,7 +19,6 @@ public class HomeViewModel extends ViewModel {
         text = new MutableLiveData<>();
         image = new MutableLiveData<>();
         text.setValue("No Description Found");
-//        image.setValue(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_launcher_foreground, getContext().getTheme()));
     }
 
     //setters for ExerciseFragments ImageView and TextView

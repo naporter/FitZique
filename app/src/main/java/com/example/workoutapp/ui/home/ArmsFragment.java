@@ -4,25 +4,28 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.workoutapp.R;
 
-
 public class ArmsFragment extends Fragment implements View.OnClickListener{
 
-    NavController navController = null;
+    private NavController navController = null;
+    private HomeViewModel homeViewModel;
 
     public ArmsFragment() {
     }
 
-    public static ArmsFragment newInstance(String param1, String param2) {
+    public static ArmsFragment newInstance() {
         ArmsFragment fragment = new ArmsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -38,8 +41,15 @@ public class ArmsFragment extends Fragment implements View.OnClickListener{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        view.findViewById(R.id.curlsBtn).setOnClickListener(this);
-
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        ViewGroup group = view.findViewById(R.id.armsLayout);
+        View id;
+        for (int i = 0; i < group.getChildCount(); i++){ //sets onClickListener for all buttons
+            id = group.getChildAt(i);
+            if(id instanceof Button){
+                id.setOnClickListener(this);
+            }
+        }
     }
 
     @Override
@@ -53,10 +63,26 @@ public class ArmsFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.curlsBtn:
-                navController.navigate(R.id.action_armsFragment_to_exerciseFragment);
+                break;
+            case R.id.tricepDipBtn:
+                break;
+            case R.id.tricepExtensionBtn:
+                break;
+            case R.id.skullCrusherBtn:
+                break;
+            case R.id.rowExtensionBtn:
+                break;
+            case R.id.forwardExtensionBtn:
+                break;
+            case R.id.dumbellKickbackBtn:
+                break;
+            case R.id.overUnderPullupsBtn:
+                break;
+            case R.id.diamondPushupsBtn:
                 break;
             default:
                 break;
         }
+        navController.navigate(R.id.action_armsFragment_to_exerciseFragment);
     }
 }
