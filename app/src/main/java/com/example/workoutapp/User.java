@@ -8,16 +8,19 @@ public class User {
     private ArrayList<String> friends;
     private String firstName;
     private String lastName;
+    private String phoneNumber;
 
     public User(){
 
     }
 
-    public User(String email, String points, String firstName, String lastName){
+    public User(String email, String points, String firstName, String lastName, String phoneNumber){
+        this.phoneNumber = phoneNumber;
         this.setEmail(email);
         this.setPoints(points);
         this.setFirstName(firstName);
         this.setLastName(lastName);
+        this.setPhoneNumber(phoneNumber);
     }
 
     public String getPoints() {
@@ -58,5 +61,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

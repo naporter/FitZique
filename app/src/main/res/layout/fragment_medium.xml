@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.workouts.MediumFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMedium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fragment Medium" />
-
+        tools:listitem="@layout/workout_button" />
 </FrameLayout>

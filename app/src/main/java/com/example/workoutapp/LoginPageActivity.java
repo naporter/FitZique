@@ -68,7 +68,6 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                 }
             }
         });
-
     }
 
     public void createAccount(final String email, final String firstName, final String lastName, final String phoneNumber, final String password) { //creates users account
@@ -78,7 +77,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    thisUser = new User(email,"0",firstName,lastName);
+                    thisUser = new User(email,"0",firstName,lastName,phoneNumber);
                     firebaseUser = mAuth.getCurrentUser();
                     updateUI("Account created successfully.");
                     database = FirebaseDatabase.getInstance().getReference("Users/" + firebaseUser.getUid());

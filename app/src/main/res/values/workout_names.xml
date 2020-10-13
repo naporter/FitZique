@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="easy_workouts">
+        <item>Push-ups1</item>
+        <item>Push-ups2</item>
+        <item>Push-ups3</item>
+        <item>Push-ups4</item>
+        <item>Push-ups5</item>
+        <item>Push-ups6</item>
+        <item>Push-ups7</item>
+    </string-array>
+    <string-array name="medium_workouts">
+        <item>Push-ups8</item>
+        <item>Push-ups9</item>
+        <item>Push-ups10</item>
+        <item>Push-ups11</item>
+        <item>Push-ups12</item>
+        <item>Push-ups13</item>
+        <item>Push-ups14</item>
+        <item>Push-ups15</item>
+    </string-array>
+    <string-array name="hard_workouts">
+        <item>Push-ups16</item>
+        <item>Push-ups17</item>
+        <item>Push-ups18</item>
+        <item>Push-ups19</item>
+        <item>Push-ups20</item>
+        <item>Push-ups21</item>
+        <item>Push-ups22</item>
+        <item>Push-ups23</item>
+    </string-array>
+</resources>
