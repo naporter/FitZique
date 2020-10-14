@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="easy_workouts">
-        <item>Push-ups1</item>
-        <item>Push-ups2</item>
-        <item>Push-ups3</item>
-        <item>Push-ups4</item>
-        <item>Push-ups5</item>
-        <item>Push-ups6</item>
-        <item>Push-ups7</item>
+        <item>Push_ups</item>
+        <item>Jumping_jacks</item>
+        <item>Crunches</item>
+        <item>Planks</item>
+        <item>High_knees</item>
+        <item>Squats</item>
+        <item>Lunges</item>
+        <item>Side_leg_raises</item>
+        <item>Climbers</item>
+        <item>Knee_push_ups</item>
+        <item>Jump_squats</item>
+        <item>Sit_ups</item>
+        <item>Bicycle_crunches</item>
+        <item>Flutter_kicks</item>
     </string-array>
     <string-array name="medium_workouts">
-        <item>Push-ups8</item>
-        <item>Push-ups9</item>
-        <item>Push-ups10</item>
-        <item>Push-ups11</item>
-        <item>Push-ups12</item>
-        <item>Push-ups13</item>
-        <item>Push-ups14</item>
-        <item>Push-ups15</item>
+        <item>Plank_arm_raises</item>
+        <item>Plank_leg_raises</item>
+        <item>Plank_jump_ins</item>
+        <item>Sitting_twists</item>
+        <item>Crunch_kicks</item>
+        <item>Butterfly_sit_ups</item>
+        <item>Jumping_lunges</item>
+        <item>Side_to_side_lunges</item>
     </string-array>
     <string-array name="hard_workouts">
-        <item>Push-ups16</item>
-        <item>Push-ups17</item>
-        <item>Push-ups18</item>
-        <item>Push-ups19</item>
-        <item>Push-ups20</item>
-        <item>Push-ups21</item>
-        <item>Push-ups22</item>
-        <item>Push-ups23</item>
+        <item>Planks_with_rotations</item>
+        <item>Raised_leg_circles</item>
+        <item>Get_ups</item>
+        <item>Single_leg_bridges</item>
+        <item>Side_planks</item>
+        <item>Side_plank_rotations</item>
+        <item>Back_kicks</item>
+        <item>Raised_leg_push_ups</item>
     </string-array>
 </resources>
