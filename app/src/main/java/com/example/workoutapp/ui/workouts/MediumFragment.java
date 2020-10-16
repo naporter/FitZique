@@ -1,8 +1,12 @@
 package com.example.workoutapp.ui.workouts;
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,10 +16,16 @@ import android.view.ViewGroup;
 
 import com.example.workoutapp.R;
 
-public class MediumFragment extends Fragment {
+import java.util.Objects;
+
+public class MediumFragment extends Fragment implements RecyclerViewAdapter.WorkoutViewHolder.OnClickListener {
 
     private String[] workoutNames;
+    private TypedArray workoutImages;
     private RecyclerView recyclerView;
+    private NavController navController;
+    private RecyclerViewAdapter recyclerViewAdapter;
+    private HomeViewModel homeViewModel;
 
     public MediumFragment() {
         // Required empty public constructor
@@ -32,10 +42,20 @@ public class MediumFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_medium, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewMedium);
         workoutNames = getResources().getStringArray(R.array.medium_workouts);
-
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), workoutNames);
+        workoutImages = getResources().obtainTypedArray(R.array.medium_workout_images);
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        recyclerViewAdapter = new RecyclerViewAdapter(getContext(), workoutNames, workoutImages,this);
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
+    }
+
+    @Override
+    public void onClickListener(int position, String workoutName) {
+        String[] description = getResources().getStringArray(R.array.medium_workouts_descriptions);
+        homeViewModel.setText(description[position]);
+        homeViewModel.setImage(getResources().getDrawable(workoutImages.getResourceId(position, -1)));
+        navController.navigate(R.id.action_navigation_workouts_to_exerciseFragment);
     }
 }

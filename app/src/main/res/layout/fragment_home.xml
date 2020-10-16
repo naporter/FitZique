@@ -12,24 +12,28 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorColor="@color/colorAccent">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/easyTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
             android:text="Easy" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/mediumTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
             android:text="Medium" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/hardTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
             android:text="Hard" />
     </com.google.android.material.tabs.TabLayout>
 

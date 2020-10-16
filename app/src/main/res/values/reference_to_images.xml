@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <integer-array name="easy_workout_images">
+        <item>@drawable/pushupimage</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+    </integer-array>
+
+    <integer-array name="medium_workout_images">
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+    </integer-array>
+
+    <integer-array name="hard_workout_images">
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+        <item>@drawable/no_image_found</item>
+    </integer-array>
+
+</resources>
