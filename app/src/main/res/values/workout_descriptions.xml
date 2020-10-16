@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="easy_workouts_descriptions">
+        <item name="push_ups">Place hands slightly wider than shoulder-width, keep feet at a comfortable and balanced position, keep body as straight as possible, and keep head forward. Then slowly lower your body to the floor without touching and raise back up until your arms are straight. Works chest muscles, shoulder muscles, deltoids and triceps.  </item>
+        <item name="jumping_jacks">A Jumping Jack is performed by jumping into a position with legs spread wide and hands going overhead then returning to that position with feet together and arms at your sides. Works glutes, quads, hip flexors, and deltoids.</item>
+        <item name="crunches">Laying flat on the floor with hands behind your head, tilt chin inward towards your chest and contract your abdominal muscles to curl up so that your head, neck and shoulder blades lift off the floor.  Works rectus abdominis muscle and obliques.</item>
+        <item name="planks">Maintain a push-up position with forearms on the floor.  Works rhomboids, trapezius, and abdominal muscles</item>
+        <item name="high_knees">Raise knees towards your chest at a fast pace.  Works glutes, quads, hamstrings, and calves. </item>
+        <item name="squats">Standing position and arms out, bend knees towards a sitting position then raise back up. Works quadriceps, hamstrings, glutes, abdominals, calves.</item>
+        <item name="lunges">Place feet apart, one in front and one behind. Lower back leg knee towards the ground but do not touch and then raise back up. Works quadriceps, hamstrings, glutes, calves.</item>
+        <item name="side_leg_raises">Lay on your side and lift your top leg upwards.  Works hips, glutes and obliques.</item>
+        <item name="climbers">Get into a plank position and alternate between pulling each knee towards your chest.  Works glutes, legs, triceps, and shoulders.</item>
+        <item name="knee_push_ups">Normal push-ups instead using knees instead of feet. Works legs, glutes, and core.</item>
+        <item name="jump_squats">Like normal squats, however with Jump Squats, you jump up and down into the squat instead of standing still.  Works quadriceps, hamstrings, glutes, abdominals, calves.</item>
+        <item name="sit_ups">Lay on your back with knees bent and pull your chest towards your knees. Works abdominal muscles and hip flexors.</item>
+        <item name="bicycle_crunches">Lie flat on the floor with your lower back pressed to the ground. Put your hands behind your head, then bring your knees in towards your chest and lift your shoulder blades off the ground. Works abdominal muscles, hips, and obliques.</item>
+        <item name="flutter_kicks">Lay on back with legs in the air. Slowly lower one leg toward the ground getting close to the floor but not touching. Works abdominal muscles and hip flexors.</item>
+    </string-array>
+    <string-array name="medium_workouts_descriptions">
+        <item name="plank_arm_raises">In plank position, alternate between raising each arm in front of you. Works shoulders, core, and lower back.</item>
+        <item name="plank_leg_raises">In plank position, alternate between raising each leg for about 2 seconds. Works abdominal muscles and hip flexors.</item>
+        <item name="plank_jump_ins">In plank position, jump and bring both knees towards your chest and then return to plank position.  Works shoulders, triceps, lower abs, core, hip flexors, glutes, lower back, quads.</item>
+        <item name="sitting_twists">Sit on the ground with knees bent and lean back slightly.  Pull navel towards your spine and slowly twist to the right or left.  Works abdominal muscles, hip flexors, and obliques.</item>
+        <item name="crunch_kicks">Lay on the flower with lower back on the ground.  Pull knees to chest and return to crunch position. Works abdominal muscles, hips, and obliques.</item>
+        <item name="butterfly_sit_ups">Lay on the ground, bring the bottoms of your feet together, and let your legs open to a butterfly stretch. Perform a normal situp and reach toward your feet. Works abdominals and hip flexors.</item>
+        <item name="jumping_lunges">Perform a normal lunge but instead jump into the lunge instead. Works quads, glutes, hamstrings, and calves.</item>
+        <item name="side_to_side_lunges">Stand with legs spread wide apart and alternate between shifting your weight from left to right. Works glutes, hamstrings, quads, and inner thigh muscles.</item>
+    </string-array>
+    <string-array name="hard_workouts_descriptions">
+        <item name="planks_with_rotations">Start in plank form, then raise your hand towards the sky while twisting your body. Works core, triceps, shoulders, quads, lower back, lower abs, upper abs, lateral abs</item>
+        <item name="raised_leg_circles">Lay on the ground, raise your feet about 8 inches above the ground and move legs in small controlled circles. Works core and hip flexors.</item>
+        <item name="get_ups">Start sitting on the ground. Raise and twist your body off the ground with hand raised towards the sky.  Have one leg bent and one leg straight. Works shoulder muscles, arm muscles, core, and leg muscles.</item>
+        <item name="single_leg_bridges">Lie flat on the floor, with your knees bent and your arms by your side. Lift the opposite foot towards the ceiling, whilst holding your knee directly above your hip. Then lift your bottom up from the floor by pushing through your weight-bearing heel.  Works glutes and hamstrings.</item>
+        <item name="side_planks">Use your left or right arm to hold your body up sideways and raise other arm to the sky. Works core muscles.</item>
+        <item name="side_plank_rotations">While doing a side plank, lower the raised arm towards the floor while twisting body slightly then raise arm back towards the sky. Works core, triceps, shoulders, quads, lower back, lower abs, upper abs, lateral abs.</item>
+        <item name="back_kicks">Start with knees and hands on the ground. Extend leg behind you and return to starting position. Works glutes.</item>
+        <item name="raised_leg_push_ups">Perform a normal push-up with one leg raised. Works chest, shoulders, and triceps.</item>
+    </string-array>
+</resources>
