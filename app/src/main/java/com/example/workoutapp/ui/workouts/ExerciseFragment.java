@@ -12,17 +12,25 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.workoutapp.MainActivity;
 import com.example.workoutapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 
-public class ExerciseFragment extends Fragment {
+public class ExerciseFragment extends Fragment implements View.OnClickListener{
 
     private ImageView imageView;
     private TextView descriptionText;
     private HomeViewModel homeViewModel;
+    private Button addPointsBtn;
 
     public ExerciseFragment() {
         // Required empty public constructor
@@ -63,6 +71,14 @@ public class ExerciseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_exercise, container, false);
         imageView = view.findViewById(R.id.imageView);
         descriptionText = view.findViewById(R.id.descriptionText);
+        addPointsBtn = view.findViewById(R.id.addPointsBtn);
+        addPointsBtn.setOnClickListener(this);
         return view;
     }
+
+    @Override
+    public void onClick(View v) {
+        MainActivity.updatePoints(1);
+    }
+
 }

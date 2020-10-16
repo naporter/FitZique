@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class User {
     private String email;
-    private String points;
+    private int points;
     private ArrayList<String> friends;
     private String firstName;
     private String lastName;
@@ -14,7 +14,7 @@ public class User {
 
     }
 
-    public User(String email, String points, String firstName, String lastName, String phoneNumber){
+    public User(String email, int points, String firstName, String lastName, String phoneNumber){
         this.phoneNumber = phoneNumber;
         this.setEmail(email);
         this.setPoints(points);
@@ -23,11 +23,11 @@ public class User {
         this.setPhoneNumber(phoneNumber);
     }
 
-    public String getPoints() {
+    public int getPoints() {
         return points;
     }
 
-    public void setPoints(String points) {
+    public void setPoints(int points) {
         this.points = points;
     }
 

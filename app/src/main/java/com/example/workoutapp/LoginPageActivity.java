@@ -61,7 +61,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                     updateUI("Login Successful.\nRetrieving your data... Please wait.");
                     firebaseUser = mAuth.getCurrentUser();
                     database = FirebaseDatabase.getInstance().getReference("Users/" + firebaseUser.getUid());
-                    startActivity();
+                    startActivity(firebaseUser);
                 } else {
                     userPrompt.setText("Incorrect credentials.");
                     //TODO: handle event when credentials are incorrect
@@ -77,23 +77,12 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    thisUser = new User(email,"0",firstName,lastName,phoneNumber);
+                    thisUser = new User(email,0,firstName,lastName,phoneNumber);
                     firebaseUser = mAuth.getCurrentUser();
                     updateUI("Account created successfully.");
                     database = FirebaseDatabase.getInstance().getReference("Users/" + firebaseUser.getUid());
-                    database.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) { //this method will run initially and again anytime data changes
-                            database.setValue(thisUser); //sets the values based on what is in the class
-                            snapshot.getValue(thisUser.getClass()); //gets the values from the database
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                    startActivity();
+                    database.setValue(thisUser);
+                    startActivity(firebaseUser);
                 }else{
                     //TODO: handle event of user already exists
                     updateUI("A user with " + email + " email already exists.");
@@ -109,8 +98,10 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         appName.setTextSize(50);
     }
 
-    public void startActivity(){
-        startActivity(new Intent(this, MainActivity.class)); //may need to bundle this classes instance of User to use in MainActivity
+    public void startActivity(FirebaseUser firebaseUser){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("User", firebaseUser);
+        startActivity(intent); //may need to bundle this classes instance of User to use in MainActivity
         finish();
     }
 

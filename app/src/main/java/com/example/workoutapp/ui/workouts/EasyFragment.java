@@ -1,10 +1,9 @@
 package com.example.workoutapp.ui.workouts;
 
-import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 
 import com.example.workoutapp.R;
 
-import java.util.Objects;
 
 public class EasyFragment extends Fragment implements RecyclerViewAdapter.WorkoutViewHolder.OnClickListener {
 
@@ -57,7 +55,7 @@ public class EasyFragment extends Fragment implements RecyclerViewAdapter.Workou
     public void onClickListener(int position, String workoutName) {
         String[] description = getResources().getStringArray(R.array.easy_workouts_descriptions);
         homeViewModel.setText(description[position]);
-        homeViewModel.setImage(getResources().getDrawable(workoutImages.getResourceId(position, -1)));
+        homeViewModel.setImage(ContextCompat.getDrawable(requireActivity(), workoutImages.getResourceId(position, -1)));
         navController.navigate(R.id.action_navigation_workouts_to_exerciseFragment);
     }
 }
