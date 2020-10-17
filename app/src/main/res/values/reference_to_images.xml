@@ -2,19 +2,19 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <integer-array name="easy_workout_images">
         <item>@drawable/pushupimage</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
+        <item>@drawable/jumpingjack</item>
+        <item>@drawable/crunches</item>
+        <item>@drawable/plank</item>
+        <item>@drawable/high_knees</item>
+        <item>@drawable/squats</item>
+        <item>@drawable/lunges</item>
+        <item>@drawable/side_leg_raise</item>
+        <item>@drawable/climbers</item>
+        <item>@drawable/knee_pushups</item>
+        <item>@drawable/jump_squats</item>
+        <item>@drawable/situps</item>
+        <item>@drawable/bicycle_crunches</item>
+        <item>@drawable/flutter_kicks</item>
     </integer-array>
 
     <integer-array name="medium_workout_images">
