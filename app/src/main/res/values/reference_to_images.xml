@@ -18,14 +18,14 @@
     </integer-array>
 
     <integer-array name="medium_workout_images">
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
+        <item>@drawable/arm_raises</item>
+        <item>@drawable/plank_leg_raises</item>
+        <item>@drawable/plank_jumpins</item>
+        <item>@drawable/sitting_twist</item>
+        <item>@drawable/crunch_kicks</item>
+        <item>@drawable/butterfly_situps</item>
+        <item>@drawable/jumping_lunges</item>
+        <item>@drawable/side_to_side_lunges</item>
     </integer-array>
 
     <integer-array name="hard_workout_images">
