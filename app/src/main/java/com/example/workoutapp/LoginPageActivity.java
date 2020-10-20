@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView appName;
@@ -30,13 +34,12 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     private FirebaseAuth mAuth;
     private DatabaseReference database;
     private FirebaseUser firebaseUser;
-    private User thisUser;
 
     @Override
     protected void onStart() {
         super.onStart();
         firebaseUser = mAuth.getCurrentUser();
-        thisUser = new User();
+//        thisUser = new User();
         //TODO: handle event when user is already signed in
 //        updateUI(currentUser.toString());
     }
@@ -60,7 +63,6 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                 if (task.isSuccessful()) {
                     updateUI("Login Successful.\nRetrieving your data... Please wait.");
                     firebaseUser = mAuth.getCurrentUser();
-                    database = FirebaseDatabase.getInstance().getReference("Users/" + firebaseUser.getUid());
                     startActivity(firebaseUser);
                 } else {
                     userPrompt.setText("Incorrect credentials.");
@@ -70,19 +72,72 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
-    public void createAccount(final String email, final String firstName, final String lastName, final String phoneNumber, final String password) { //creates users account
+    public void createAccount(final String email, String password, final String firstName, final String lastName, final String phoneNumber,
+                              final int weight, final int height, final int neckSize, final int waistSize, final int hipSize, final String birthday,
+                              final String gender){ //creates users account
         updateUI("Creating account...");
         mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    thisUser = new User(email,0,firstName,lastName,phoneNumber);
                     firebaseUser = mAuth.getCurrentUser();
-                    updateUI("Account created successfully.");
-                    database = FirebaseDatabase.getInstance().getReference("Users/" + firebaseUser.getUid());
-                    database.setValue(thisUser);
-                    startActivity(firebaseUser);
+                    database = FirebaseDatabase.getInstance().getReference();
+//                    User userPoints = new User(0, 0,0 );
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("dailyPoints", 0);
+                    map.put("weeklyPoints", 0);
+                    map.put("lifetimePoints", 0);
+                    database.child("Users").child(firebaseUser.getUid()).child("points").setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            updateUI("Points initialized.");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            updateUI("An error has occurred while initializing points: " + e.toString());
+                        }
+                    });
+//                    User userMeasurements = new User(weight, height, neckSize, waistSize, hipSize);
+                    map.clear();
+                    map.put("weight", weight);
+                    map.put("height", height);
+                    map.put("neckSize", neckSize);
+                    map.put("waistSize", waistSize);
+                    map.put("hipSize", hipSize);
+                    database.child("Users").child(firebaseUser.getUid()).child("measurements").setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            updateUI("Setting your measurements.");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            updateUI("An error has occurred while setting measurements: " + e.toString());
+                        }
+                    });
+//                    User userDemographics = new User(email, firstName, lastName, phoneNumber, birthday, gender);
+                    map.clear();
+                    map.put("email", email);
+                    map.put("firstName", firstName);
+                    map.put("lastName", lastName);
+                    map.put("phoneNumber", phoneNumber);
+                    map.put("birthday", birthday);
+                    map.put("gender", gender);
+                    database.child("Users").child(firebaseUser.getUid()).child("demographics").setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            updateUI("Demographics added.");
+                            updateUI("Account created successfully.");
+                            startActivity(firebaseUser);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            updateUI("An error has occurred: " + e.toString());
+                        }
+                    });
                 }else{
                     //TODO: handle event of user already exists
                     updateUI("A user with " + email + " email already exists.");
@@ -117,6 +172,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                     fragmentLayout.setVisibility(View.GONE);
                     appName.setTextSize(50);
                 } else{
+                    progressBar.setVisibility(View.GONE);
                     fragmentLayout.setVisibility(View.VISIBLE);
                     appName.setTextSize(36);
                 }

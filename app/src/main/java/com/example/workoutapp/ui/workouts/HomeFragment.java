@@ -20,9 +20,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
-    private HomeViewModel homeViewModel;
     private NavController navController = null;
-
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private TabItem easyTab, mediumTab, hardTab;
@@ -54,6 +52,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
             }
         });
+
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() { //Changes tab focus while sliding
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.selectTab(tabLayout.getTabAt(position));
+            }
+        });
+        navController = Navigation.findNavController(view);
+    }
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onClick(View v) {
+    }
+}
+
+
+                    //*******************SAVING IN CASE WE NEED******************//
 
 //        viewPager.setPageTransformer(new ViewPager2.PageTransformer() { //Adds a Depth transformation between fragments
 //            @Override
@@ -91,28 +111,3 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //                }
 //            }
 //        });
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() { //Changes tab focus while sliding
-            @Override
-            public void onPageSelected(int position) {
-                tabLayout.selectTab(tabLayout.getTabAt(position));
-            }
-        });
-        navController = Navigation.findNavController(view);
-    }
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        homeViewModel.setImage(ResourcesCompat.getDrawable(getResources(), R.drawable.no_image_found, getContext().getTheme()));
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onClick(View v) {
-    }
-}

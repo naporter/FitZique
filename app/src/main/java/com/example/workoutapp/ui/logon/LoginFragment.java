@@ -25,6 +25,8 @@ import android.widget.TextView;
 import com.example.workoutapp.LoginPageActivity;
 import com.example.workoutapp.R;
 
+import java.util.Objects;
+
 public class LoginFragment extends Fragment implements View.OnClickListener, TextWatcher {
 
     private EditText loginNumber;
@@ -103,7 +105,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     @Override
     public void afterTextChanged(Editable s) {
         if (!TextUtils.isEmpty(loginNumber.getText().toString()) && !TextUtils.isEmpty(loginPassword.getText().toString())) {
-            loginBtn.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ripple_effect));
+            loginBtn.setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.ripple_effect));
             loginBtn.setClickable(true);
         }else {
             loginBtn.setBackgroundColor(getResources().getColor(R.color.cardview_shadow_start_color));
