@@ -5,7 +5,6 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/screen_background_light_transparent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:scrollbars="vertical"
@@ -50,7 +49,7 @@
                 android:hint="Birthday (dd/mm/yyyy)">
 
                 <EditText
-                    android:id="@+id/birthday"
+                    android:id="@+id/birthdayInit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -66,7 +65,7 @@
                 android:hint="Weight in Pounds">
 
                 <EditText
-                    android:id="@+id/weight"
+                    android:id="@+id/weightInit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -82,7 +81,7 @@
                 android:hint="Waist in Inches">
 
                 <EditText
-                    android:id="@+id/waist"
+                    android:id="@+id/waistInit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -97,7 +96,7 @@
                 android:hint="Height in Inches">
 
                 <EditText
-                    android:id="@+id/height"
+                    android:id="@+id/heightInit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -112,7 +111,7 @@
                 android:hint="Neck in Inches">
 
                 <EditText
-                    android:id="@+id/neck"
+                    android:id="@+id/neckInit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -129,7 +128,7 @@
                 android:visibility="gone">
 
                 <EditText
-                    android:id="@+id/hips"
+                    android:id="@+id/hipsInit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"

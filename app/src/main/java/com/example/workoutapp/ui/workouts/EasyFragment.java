@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +48,7 @@ public class EasyFragment extends Fragment implements RecyclerViewAdapter.Workou
         recyclerViewAdapter = new RecyclerViewAdapter(getContext(), workoutNames, workoutImages, this);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         return view;
     }
 
@@ -56,6 +57,8 @@ public class EasyFragment extends Fragment implements RecyclerViewAdapter.Workou
         String[] description = getResources().getStringArray(R.array.easy_workouts_descriptions);
         homeViewModel.setText(description[position]);
         homeViewModel.setImage(ContextCompat.getDrawable(requireActivity(), workoutImages.getResourceId(position, -1)));
-        navController.navigate(R.id.action_navigation_workouts_to_exerciseFragment);
+        Bundle bundle = new Bundle();
+        bundle.putInt("difficulty", 3);
+        navController.navigate(R.id.action_navigation_workouts_to_exerciseFragment, bundle);
     }
 }

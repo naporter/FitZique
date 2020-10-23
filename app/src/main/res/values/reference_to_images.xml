@@ -29,14 +29,14 @@
     </integer-array>
 
     <integer-array name="hard_workout_images">
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
-        <item>@drawable/no_image_found</item>
+        <item>@drawable/plankswithrotations</item>
+        <item>@drawable/raisedlegcircles</item>
+        <item>@drawable/getups</item>
+        <item>@drawable/singlelegbridges</item>
+        <item>@drawable/sideplanks</item>
+        <item>@drawable/sideplankrotations</item>
+        <item>@drawable/backkick</item>
+        <item>@drawable/raisedlegpushup</item>
     </integer-array>
 
 </resources>

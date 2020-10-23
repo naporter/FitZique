@@ -5,7 +5,6 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/screen_background_light_transparent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".ui.logon.LoginFragment">
@@ -14,24 +13,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:textColorHint="@color/textColor"
         android:hint="Email">
 
         <EditText
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="24sp"
+            android:autoSizeMinTextSize="14sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
             android:ems="10"
             android:focusedByDefault="true"
             android:fontFamily="sans-serif-light"
             android:inputType="textWebEmailAddress"
+            android:textColorHighlight="@android:color/white"
+            android:textColorLink="@color/colorAccent"
             android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        android:hint="Password">
+        android:textColorHint="@color/textColor"
+        android:hint="Password"
+        app:passwordToggleEnabled="true">
 
         <EditText
             android:id="@+id/loginPassword"

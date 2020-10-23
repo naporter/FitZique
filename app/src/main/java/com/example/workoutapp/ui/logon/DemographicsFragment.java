@@ -21,11 +21,8 @@ import android.widget.EditText;
 
 import com.example.workoutapp.LoginPageActivity;
 import com.example.workoutapp.R;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.Objects;
 
 public class DemographicsFragment extends Fragment implements View.OnClickListener, TextWatcher, TabLayout.OnTabSelectedListener{
 
@@ -56,12 +53,12 @@ public class DemographicsFragment extends Fragment implements View.OnClickListen
 
         navController = Navigation.findNavController(view);
         gender = view.findViewById(R.id.gender);
-        birthday = view.findViewById(R.id.birthday);
-        weight = view.findViewById(R.id.weight);
-        height = view.findViewById(R.id.height);
-        waist = view.findViewById(R.id.waist);
-        neck = view.findViewById(R.id.neck);
-        hips = view.findViewById(R.id.hips);
+        birthday = view.findViewById(R.id.birthdayInit);
+        weight = view.findViewById(R.id.weightInit);
+        height = view.findViewById(R.id.heightInit);
+        waist = view.findViewById(R.id.waistInit);
+        neck = view.findViewById(R.id.neckInit);
+        hips = view.findViewById(R.id.hipsInit);
         signUpBtn = view.findViewById(R.id.signUpBtn);
         hipsContainer = view.findViewById(R.id.hipsContainer);
 

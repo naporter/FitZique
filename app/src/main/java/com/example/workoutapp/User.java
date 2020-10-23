@@ -1,7 +1,10 @@
 package com.example.workoutapp;
 
+import androidx.lifecycle.ViewModel;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 @IgnoreExtraProperties
@@ -14,6 +17,8 @@ public class User {
     private int neckSize;
     private int waistSize;
     private int hipSize;
+    private int age;
+    private double bodyFatPercent;
     private String birthday;
     private String gender;
     private String email;
@@ -167,5 +172,22 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getBodyFatPercent() {
+        return bodyFatPercent;
+    }
+
+    public void setBodyFatPercent(double bodyFatPercent) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        this.bodyFatPercent = Double.parseDouble(df.format(bodyFatPercent));
     }
 }

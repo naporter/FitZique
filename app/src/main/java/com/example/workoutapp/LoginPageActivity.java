@@ -1,8 +1,10 @@
 package com.example.workoutapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -24,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -39,7 +43,6 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     protected void onStart() {
         super.onStart();
         firebaseUser = mAuth.getCurrentUser();
-//        thisUser = new User();
         //TODO: handle event when user is already signed in
 //        updateUI(currentUser.toString());
     }
@@ -56,12 +59,12 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         this.mAuth = FirebaseAuth.getInstance();
     }
     public void signIn(final String username, final String password){
-        updateUI("Checking credentials...");
+        updateUI("Checking credentials...", true);
         mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    updateUI("Login Successful.\nRetrieving your data... Please wait.");
+                    updateUI("Login Successful.\nRetrieving your data... Please wait.", true);
                     firebaseUser = mAuth.getCurrentUser();
                     startActivity(firebaseUser);
                 } else {
@@ -75,7 +78,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     public void createAccount(final String email, String password, final String firstName, final String lastName, final String phoneNumber,
                               final int weight, final int height, final int neckSize, final int waistSize, final int hipSize, final String birthday,
                               final String gender){ //creates users account
-        updateUI("Creating account...");
+        updateUI("Creating account...", true);
         mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -83,7 +86,6 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                 if(task.isSuccessful()) {
                     firebaseUser = mAuth.getCurrentUser();
                     database = FirebaseDatabase.getInstance().getReference();
-//                    User userPoints = new User(0, 0,0 );
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("dailyPoints", 0);
                     map.put("weeklyPoints", 0);
@@ -91,15 +93,14 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                     database.child("Users").child(firebaseUser.getUid()).child("points").setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            updateUI("Points initialized.");
+                            updateUI("Points initialized.", false);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            updateUI("An error has occurred while initializing points: " + e.toString());
+                            updateUI("An error has occurred while initializing points: " + e.toString(), true);
                         }
                     });
-//                    User userMeasurements = new User(weight, height, neckSize, waistSize, hipSize);
                     map.clear();
                     map.put("weight", weight);
                     map.put("height", height);
@@ -109,15 +110,14 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                     database.child("Users").child(firebaseUser.getUid()).child("measurements").setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            updateUI("Setting your measurements.");
+                            updateUI("Setting your measurements.", false);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            updateUI("An error has occurred while setting measurements: " + e.toString());
+                            updateUI("An error has occurred while setting measurements: " + e.toString(), true);
                         }
                     });
-//                    User userDemographics = new User(email, firstName, lastName, phoneNumber, birthday, gender);
                     map.clear();
                     map.put("email", email);
                     map.put("firstName", firstName);
@@ -128,29 +128,44 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                     database.child("Users").child(firebaseUser.getUid()).child("demographics").setValue(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            updateUI("Demographics added.");
-                            updateUI("Account created successfully.");
+                            updateUI("Demographics added.", false);
+                            updateUI("Account created successfully.", true);
                             startActivity(firebaseUser);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            updateUI("An error has occurred: " + e.toString());
+                            updateUI("An error has occurred: " + e.toString(), true);
                         }
                     });
                 }else{
                     //TODO: handle event of user already exists
-                    updateUI("A user with " + email + " email already exists.");
+                    updateUI("A user with " + email + " email already exists.", true);
                 }
             }
         });
     }
 
-    public void updateUI(String message){ //updates the ui with a given message, considering adding another value for if error occurs and only update certain elements
+    public void updateUI(String message, Boolean error){ //updates the ui with a given message, considering adding another value for if error occurs and only update certain elements
         fragmentLayout.setVisibility(View.GONE);
         userPrompt.setText(message);
         progressBar.setVisibility(View.VISIBLE);
         appName.setTextSize(50);
+        if(error){
+            progressBar.setVisibility(View.GONE);
+            Timer timer = new Timer(false);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            onClick(appName);
+                        }
+                    });
+                }
+            }, 1000);
+        }
     }
 
     public void startActivity(FirebaseUser firebaseUser){
