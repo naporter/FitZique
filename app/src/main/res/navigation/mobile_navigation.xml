@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/navigation_workouts"
         android:name="com.example.workoutapp.ui.workouts.HomeFragment"
-        android:label="Workouts"
+        android:label="@string/title_workouts"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_workouts_to_exerciseFragment"
@@ -30,4 +30,9 @@
         android:name="com.example.workoutapp.ui.workouts.ExerciseFragment"
         android:label="Details"
         tools:layout="@layout/fragment_exercise" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.workoutapp.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

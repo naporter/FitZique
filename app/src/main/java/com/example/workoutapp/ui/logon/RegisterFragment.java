@@ -1,6 +1,5 @@
 package com.example.workoutapp.ui.logon;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,24 +20,19 @@ import android.widget.EditText;
 
 import com.example.workoutapp.LoginPageActivity;
 import com.example.workoutapp.R;
-import com.example.workoutapp.MainActivity;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.Objects;
 
 
 public class RegisterFragment extends Fragment implements View.OnClickListener, TextWatcher{
 
     private NavController navController;
-    private EditText firstName, lastName, phoneNumber, password, email;
-    private Button signUpBtn;
+    public EditText firstName, lastName, phoneNumber, password, email;
+    private Button nextBtn;
 
     public RegisterFragment() {
         // Required empty public constructor
-    }
-
-    public static RegisterFragment newInstance() {
-        RegisterFragment fragment = new RegisterFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -51,18 +45,21 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         view.findViewById(R.id.goBack).setOnClickListener(this);
-        view.findViewById(R.id.signUpBtn).setOnClickListener(this);
+        view.findViewById(R.id.nextBtn).setOnClickListener(this);
         firstName = view.findViewById(R.id.firstName);
         lastName = view.findViewById(R.id.lastName);
         email = view.findViewById(R.id.email);
         phoneNumber = view.findViewById(R.id.phoneNumber);
         password = view.findViewById(R.id.password);
-        signUpBtn = view.findViewById(R.id.signUpBtn);
+        nextBtn = view.findViewById(R.id.nextBtn);
+
         firstName.addTextChangedListener(this);
         lastName.addTextChangedListener(this);
         phoneNumber.addTextChangedListener(this);
         password.addTextChangedListener(this);
         email.addTextChangedListener(this);
+
+        nextBtn.setClickable(false);
     }
 
     @Override
@@ -77,9 +74,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
             case R.id.goBack:
                 navController.navigateUp();
                 break;
-            case R.id.signUpBtn:
-                ((LoginPageActivity)getActivity()).createAccount(email.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), phoneNumber.getText().toString(), password.getText().toString());
-
+            case R.id.nextBtn:
+                Bundle bundle = new Bundle(); // bundles the users info from registerFragment to use in Demographics fragment
+                bundle.putString("firstName", this.firstName.getText().toString());
+                bundle.putString("lastName", this.lastName.getText().toString());
+                bundle.putString("phoneNumber", this.phoneNumber.getText().toString());
+                bundle.putString("email", this.email.getText().toString());
+                bundle.putString("password", this.password.getText().toString());
+                navController.navigate(R.id.action_registerFragment_to_demographicsFragment, bundle);
                 break;
         }
     }
@@ -98,12 +100,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     public void afterTextChanged(Editable s) {
         if (!TextUtils.isEmpty(firstName.getText().toString()) && !TextUtils.isEmpty(lastName.getText().toString())&& !TextUtils.isEmpty(phoneNumber.getText().toString())
                 && !TextUtils.isEmpty(password.getText().toString())) {
-            signUpBtn.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.ripple_effect));
-            signUpBtn.setClickable(true);
+            nextBtn.setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.ripple_effect));
+            nextBtn.setClickable(true);
 
         }else {
-            signUpBtn.setBackgroundColor(getResources().getColor(R.color.cardview_shadow_start_color));
-            signUpBtn.setClickable(false);
+            nextBtn.setBackgroundColor(getResources().getColor(R.color.cardview_shadow_start_color));
+            nextBtn.setClickable(false);
         }
     }
+
 }

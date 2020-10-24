@@ -5,7 +5,6 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/screen_background_light_transparent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".ui.logon.RegisterFragment">
@@ -24,6 +23,7 @@
             android:fontFamily="sans-serif-light"
             android:inputType="textPersonName"
             android:textSize="24sp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -38,21 +38,6 @@
             android:ems="10"
             android:fontFamily="sans-serif-light"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Email">
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:fontFamily="sans-serif-light"
-            android:inputType="textWebEmailAddress"
             android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,8 +59,23 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        android:hint="Password">
+        android:hint="Email">
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="sans-serif-light"
+            android:inputType="textWebEmailAddress"
+            android:textSize="24sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        app:passwordToggleEnabled="true">
 
         <EditText
             android:id="@+id/password"
@@ -87,31 +87,15 @@
             android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Confirm Password"-->
-<!--        android:visibility="gone">-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/confirmPassword"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:ems="10"-->
-<!--            android:fontFamily="sans-serif-light"-->
-<!--            android:inputType="textPassword"-->
-<!--            android:textSize="24sp" />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
 
     <Button
-        android:id="@+id/signUpBtn"
+        android:id="@+id/nextBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:background="@color/cardview_shadow_start_color"
         android:fontFamily="sans-serif-light"
-        android:text="Sign Up"
+        android:text="Next"
         android:textColor="@color/textColor" />
 
     <LinearLayout

@@ -18,5 +18,38 @@
         android:id="@+id/registerFragment"
         android:name="com.example.workoutapp.ui.logon.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_demographicsFragment"
+            app:destination="@id/demographicsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/demographicsFragment"
+        android:name="com.example.workoutapp.ui.logon.DemographicsFragment"
+        android:label="fragment_demographics"
+        tools:layout="@layout/fragment_demographics" >
+        <argument
+            android:name="firstName"
+            app:argType="string"
+            android:defaultValue="firstName" />
+        <argument
+            android:name="lastName"
+            app:argType="string"
+            android:defaultValue="lastName" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string"
+            android:defaultValue="phoneNumber" />
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="email" />
+        <argument
+            android:name="password"
+            app:argType="string"
+            android:defaultValue="password" />
+        <argument
+            android:name="userDemographics"
+            android:defaultValue="null" />
+    </fragment>
 </navigation>
