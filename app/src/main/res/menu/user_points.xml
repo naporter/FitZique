@@ -3,9 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/pointsBtn"
-        android:orderInCategory="100"
         android:title=""
         android:tooltipText="Touched"
         app:actionLayout="@layout/user_points_layout"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/logoutBtn"
+        android:icon="@drawable/logout_icons"
+        android:title="Logout"
+        app:showAsAction="ifRoom"/>
 </menu>

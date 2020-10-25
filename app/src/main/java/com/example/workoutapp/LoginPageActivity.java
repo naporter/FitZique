@@ -41,10 +41,11 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     protected void onStart() {
+        if(firebaseUser != null) {
+            updateUI("Logging in.", false);
+            startActivity(firebaseUser);
+        }
         super.onStart();
-        firebaseUser = mAuth.getCurrentUser();
-        //TODO: handle event when user is already signed in
-//        updateUI(currentUser.toString());
     }
 
     @Override
@@ -57,6 +58,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         this.userPrompt = findViewById(R.id.userPrompt);
         this.progressBar = findViewById(R.id.progressBar);
         this.mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
     }
     public void signIn(final String username, final String password){
         updateUI("Checking credentials...", true);
@@ -68,8 +70,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                     firebaseUser = mAuth.getCurrentUser();
                     startActivity(firebaseUser);
                 } else {
-                    userPrompt.setText("Incorrect credentials.");
-                    //TODO: handle event when credentials are incorrect
+                    updateUI("Incorrect credentials, please try again.", true);
                 }
             }
         });
@@ -169,10 +170,10 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     }
 
     public void startActivity(FirebaseUser firebaseUser){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("User", firebaseUser);
-        startActivity(intent); //may need to bundle this classes instance of User to use in MainActivity
-        finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("User", firebaseUser);
+            startActivity(intent); //may need to bundle this classes instance of User to use in MainActivity
+            finish();
     }
 
     public void displayError(String error){

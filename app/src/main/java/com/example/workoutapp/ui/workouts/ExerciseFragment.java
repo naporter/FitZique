@@ -81,6 +81,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener, 
         descriptionText = view.findViewById(R.id.descriptionText);
         addPointsBtn = view.findViewById(R.id.addPointsBtn);
         addPointsBtn.setOnClickListener(this);
+        addPointsBtn.setClickable(false);
         return view;
     }
 
@@ -93,6 +94,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener, 
         String message = userPoints + " points added for this workout.";
         Snackbar snackbar = Snackbar.make(v, message, Snackbar.LENGTH_SHORT);
         snackbar.show();
+        addPointsBtn.setClickable(false);
     }
 
     @Override

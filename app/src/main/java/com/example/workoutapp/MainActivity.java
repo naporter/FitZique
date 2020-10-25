@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,11 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static User thisUser;
     private TextView dailyPoints, weeklyPoints, lifetimePoints;
     private MenuItem userPointsItem;
+    private MenuItem logoutBtn;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         thisUser = new User();
+        mAuth = FirebaseAuth.getInstance();
         initGender();
         measurementListener();
         initBirthday();
@@ -69,6 +74,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user_points, menu);
         userPointsItem = menu.findItem(R.id.pointsBtn);
+        logoutBtn = menu.findItem(R.id.logoutBtn);
+        logoutBtn.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                mAuth.signOut();
+                Intent intent = new Intent(getBaseContext(), LoginPageActivity.class);
+                startActivity(intent);
+                finish();
+                return false;
+            }
+        });
         dailyPoints = userPointsItem.getActionView().findViewById(R.id.dailyPoints);
         weeklyPoints = userPointsItem.getActionView().findViewById(R.id.weeklyPoints);
         lifetimePoints = userPointsItem.getActionView().findViewById(R.id.lifetimePoints);
@@ -234,6 +250,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == (R.id.logoutBtn)){
+            mAuth.signOut();
+        }
         if(v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.lifetime_points)).getConstantState()){
             v.setBackground(ContextCompat.getDrawable(this, R.drawable.weekly_points));
             weeklyPoints.setText(String.valueOf(thisUser.getWeeklyPoints()));
