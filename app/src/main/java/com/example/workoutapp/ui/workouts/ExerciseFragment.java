@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.workoutapp.MainActivity;
 import com.example.workoutapp.R;
+import com.example.workoutapp.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -34,6 +35,7 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener, 
     private TextView descriptionText;
     private EditText numReps;
     private HomeViewModel homeViewModel;
+    private UserViewModel userViewModel;
     private Button addPointsBtn;
     private int difficulty;
 
@@ -56,6 +58,8 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+//        userViewModel.initBodyFat();
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         this.difficulty = getArguments().getInt("difficulty");
         numReps = view.findViewById(R.id.numReps);
@@ -87,11 +91,12 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
-        int userPoints = MainActivity.updatePoints(difficulty, Integer.parseInt(numReps.getText().toString()));
+        int numRepsValue = Integer.parseInt(numReps.getText().toString());
+        int points = userViewModel.updatePoints(difficulty, numRepsValue);
         numReps.getText().clear();
         InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(addPointsBtn.getWindowToken(), 0);
-        String message = userPoints + " points added for this workout.";
+        String message = points + " points added for this workout.";
         Snackbar snackbar = Snackbar.make(v, message, Snackbar.LENGTH_SHORT);
         snackbar.show();
         addPointsBtn.setClickable(false);
