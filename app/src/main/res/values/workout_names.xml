@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="easy_workouts">
+        <item>Push ups</item>
+        <item>Jumping jacks</item>
+        <item>Crunches</item>
+        <item>Planks</item>
+        <item>High knees</item>
+        <item>Squats</item>
+        <item>Lunges</item>
+        <item>Side leg raises</item>
+        <item>Climbers</item>
+        <item>Knee push-ups</item>
+        <item>Jump squats</item>
+        <item>Sit-ups</item>
+        <item>Bicycle crunches</item>
+        <item>Flutter kicks</item>
+    </string-array>
+    <string-array name="medium_workouts">
+        <item>Plank arm raises</item>
+        <item>Plank leg raises</item>
+        <item>Plank jump-ins</item>
+        <item>Sitting twists</item>
+        <item>Crunch kicks</item>
+        <item>Butterfly sit-ups</item>
+        <item>Jumping lunges</item>
+        <item>Side-to-side lunges</item>
+    </string-array>
+    <string-array name="hard_workouts">
+        <item>Planks with rotations</item>
+        <item>Raised leg circles</item>
+        <item>Get-ups</item>
+        <item>Single leg bridges</item>
+        <item>Side planks</item>
+        <item>Side plank rotations</item>
+        <item>Back kicks</item>
+        <item>Raised leg push-ups</item>
+    </string-array>
+</resources>

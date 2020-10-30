@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="easy_workout_images">
+        <item>@drawable/pushupimage</item>
+        <item>@drawable/jumpingjack</item>
+        <item>@drawable/crunches</item>
+        <item>@drawable/plank</item>
+        <item>@drawable/high_knees</item>
+        <item>@drawable/squats</item>
+        <item>@drawable/lunges</item>
+        <item>@drawable/side_leg_raise</item>
+        <item>@drawable/climbers</item>
+        <item>@drawable/knee_pushups</item>
+        <item>@drawable/jump_squats</item>
+        <item>@drawable/situps</item>
+        <item>@drawable/bicycle_crunches</item>
+        <item>@drawable/flutter_kicks</item>
+    </integer-array>
+
+    <integer-array name="medium_workout_images">
+        <item>@drawable/arm_raises</item>
+        <item>@drawable/plank_leg_raises</item>
+        <item>@drawable/plank_jumpins</item>
+        <item>@drawable/sitting_twist</item>
+        <item>@drawable/crunch_kicks</item>
+        <item>@drawable/butterfly_situps</item>
+        <item>@drawable/jumping_lunges</item>
+        <item>@drawable/side_to_side_lunges</item>
+    </integer-array>
+
+    <integer-array name="hard_workout_images">
+        <item>@drawable/plankswithrotations</item>
+        <item>@drawable/raisedlegcircles</item>
+        <item>@drawable/getups</item>
+        <item>@drawable/singlelegbridges</item>
+        <item>@drawable/sideplanks</item>
+        <item>@drawable/sideplankrotations</item>
+        <item>@drawable/backkick</item>
+        <item>@drawable/raisedlegpushup</item>
+    </integer-array>
+
+</resources>

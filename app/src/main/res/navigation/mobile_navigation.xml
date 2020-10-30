@@ -7,84 +7,32 @@
 
     <fragment
         android:id="@+id/navigation_leaderboard"
-        android:name="com.example.workoutapp.ui.dashboard.LeaderboardFragment"
+        android:name="com.example.workoutapp.ui.leaderboard.LeaderboardFragment"
         android:label="@string/title_leaderboard"
         tools:layout="@layout/fragment_leaderboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.workoutapp.ui.notifications.BadgesFragment"
+        android:name="com.example.workoutapp.ui.badges.BadgesFragment"
         android:label="@string/title_badges"
         tools:layout="@layout/fragment_badges" />
     <fragment
         android:id="@+id/navigation_workouts"
-        android:name="com.example.workoutapp.ui.home.HomeFragment"
-        android:label="Workouts"
+        android:name="com.example.workoutapp.ui.workouts.HomeFragment"
+        android:label="@string/title_workouts"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_legsFragment"
-            app:destination="@id/legsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_armsFragment"
-            app:destination="@id/armsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_chestFragment"
-            app:destination="@id/chestFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_backFragment"
-            app:destination="@id/backFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_absFragment"
-            app:destination="@id/absFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/legsFragment"
-        android:name="com.example.workoutapp.ui.home.LegsFragment"
-        android:label="Leg Exercises"
-        tools:layout="@layout/fragment_legs" >
-        <action
-            android:id="@+id/action_legsFragment_to_exerciseFragment"
-            app:destination="@id/exerciseFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/armsFragment"
-        android:name="com.example.workoutapp.ui.home.ArmsFragment"
-        android:label="Arm Exercises"
-        tools:layout="@layout/fragment_arms" >
-        <action
-            android:id="@+id/action_armsFragment_to_exerciseFragment"
+            android:id="@+id/action_navigation_workouts_to_exerciseFragment"
             app:destination="@id/exerciseFragment" />
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
-        android:name="com.example.workoutapp.ui.home.ExerciseFragment"
+        android:name="com.example.workoutapp.ui.workouts.ExerciseFragment"
         android:label="Details"
         tools:layout="@layout/fragment_exercise" />
     <fragment
-        android:id="@+id/chestFragment"
-        android:name="com.example.workoutapp.ui.home.ChestFragment"
-        android:label="Chest Exercises"
-        tools:layout="@layout/fragment_chest" >
-        <action
-            android:id="@+id/action_chestFragment_to_exerciseFragment"
-            app:destination="@id/exerciseFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/absFragment"
-        android:name="com.example.workoutapp.ui.home.AbsFragment"
-        android:label="Abdominal Exercises"
-        tools:layout="@layout/fragment_abs" >
-        <action
-            android:id="@+id/action_absFragment_to_exerciseFragment"
-            app:destination="@id/exerciseFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/backFragment"
-        android:name="com.example.workoutapp.ui.home.BackFragment"
-        android:label="Back Exercises"
-        tools:layout="@layout/fragment_back" >
-        <action
-            android:id="@+id/action_backFragment_to_exerciseFragment"
-            app:destination="@id/exerciseFragment" />
-    </fragment>
+        android:id="@+id/navigation_profile"
+        android:name="com.example.workoutapp.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

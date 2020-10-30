@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pointsBtn"
+        android:title=""
+        android:tooltipText="Touched"
+        app:actionLayout="@layout/user_points_layout"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/logoutBtn"
+        android:icon="@drawable/logout_icons"
+        android:title="Logout"
+        app:showAsAction="ifRoom"/>
+</menu>
