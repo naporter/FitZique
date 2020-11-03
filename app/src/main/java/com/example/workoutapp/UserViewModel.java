@@ -6,9 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 
 public class UserViewModel extends AndroidViewModel {
 
@@ -26,6 +27,9 @@ public class UserViewModel extends AndroidViewModel {
     public MutableLiveData<Double> mutableBodyFat;
     public MutableLiveData<String> mutableGender;
     private MutableLiveData<String> mutableBirthday;
+    private MutableLiveData<ArrayList<String>> friends;
+    private MutableLiveData<ArrayList<String>> friendFirstNames;
+    private MutableLiveData<ArrayList<String>> friendLastNames;
     private Application application;
 
     public UserViewModel(@NonNull Application application) {
@@ -45,6 +49,9 @@ public class UserViewModel extends AndroidViewModel {
         mutableGender = firebaseRepository.getMutableGender();
         mutableBirthday = firebaseRepository.getMutableBirthday();
         mutableBodyFat = firebaseRepository.getMutableBodyFat();
+        friends = firebaseRepository.getFriends();
+        friendFirstNames = firebaseRepository.getFriendFirstNames();
+        friendLastNames = firebaseRepository.getFriendLastNames();
     }
 
     public LiveData<FirebaseUser> getUserMutableLiveData() {
@@ -95,6 +102,18 @@ public class UserViewModel extends AndroidViewModel {
         return mutableGender;
     }
 
+    public LiveData<ArrayList<String>> getFriends() {
+        return friends;
+    }
+
+    public MutableLiveData<ArrayList<String>> getFriendFirstNames() {
+        return friendFirstNames;
+    }
+
+    public MutableLiveData<ArrayList<String>> getFriendLastNames() {
+        return friendLastNames;
+    }
+
     public void register(String email, String password){
         firebaseRepository.register(email, password);
     }
@@ -111,8 +130,8 @@ public class UserViewModel extends AndroidViewModel {
         firebaseRepository.initPoints();
     }
 
-    public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize){
-        firebaseRepository.initMeasurements(weight, height, neckSize, waistSize, hipSize);
+    public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize, String gender){
+        firebaseRepository.initMeasurements(weight, height, neckSize, waistSize, hipSize, gender);
     }
 
     public void initDemographics(String email, String firstName, String lastName, String phoneNumber, String birthday, String gender){
@@ -125,6 +144,15 @@ public class UserViewModel extends AndroidViewModel {
         initGender();
         measurementListener();
         pointListener();
+        friendsListener();
+    }
+
+    public void addFriend(String phoneNumber){
+        firebaseRepository.addFriend(phoneNumber);
+    }
+
+    public void removeFriend(int index){
+        firebaseRepository.removeFriend(index);
     }
 
     public void initCurrentUser(){
@@ -154,5 +182,9 @@ public class UserViewModel extends AndroidViewModel {
     public int updatePoints(int difficulty, int numReps){
         int points = firebaseRepository.updatePoints(difficulty, numReps);
         return points;
+    }
+
+    public void friendsListener(){
+        firebaseRepository.friendsListener();
     }
 }

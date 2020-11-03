@@ -155,10 +155,7 @@ public class DemographicsFragment extends Fragment implements View.OnClickListen
                 }
                 ((LoginPageActivity)getActivity()).initDemographics(email, firstName, lastName, phoneNumber, birthday.getText().toString(), gender.getTabAt(gender.getSelectedTabPosition()).getText().toString());
                 ((LoginPageActivity)getActivity()).initMeasurements(Integer.parseInt(weight.getText().toString()), Integer.parseInt(height.getText().toString()),
-                        Integer.parseInt(neck.getText().toString()), Integer.parseInt(waist.getText().toString()), Integer.parseInt(hips.getText().toString()));
-//                ((LoginPageActivity) requireActivity()).createAccount(email, password, firstName, lastName, phoneNumber, Integer.parseInt(weight.getText().toString()), Integer.parseInt(height.getText().toString()),
-//                        Integer.parseInt(neck.getText().toString()), Integer.parseInt(waist.getText().toString()), Integer.parseInt(hips.getText().toString()),
-//                        birthday.getText().toString(), gender.getTabAt(gender.getSelectedTabPosition()).getText().toString());
+                        Integer.parseInt(neck.getText().toString()), Integer.parseInt(waist.getText().toString()), Integer.parseInt(hips.getText().toString()), gender.getTabAt(gender.getSelectedTabPosition()).getText().toString());
                 break;
         }
     }

@@ -42,7 +42,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         holder.workoutName.setText(workoutName[position]);
 //        holder.workoutName.setCompoundDrawablesRelativeWithIntrinsicBounds(null, ContextCompat.getDrawable(context, workoutImages.getResourceId(position, -1)), null, null);
-
         holder.workoutImage.setImageResource(workoutImages.getResourceId(position, -1));
     }
 

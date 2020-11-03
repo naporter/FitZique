@@ -1,10 +1,9 @@
 package com.example.workoutapp;
 
 import android.app.Application;
-import android.content.Intent;
+import android.provider.ContactsContract;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -45,6 +45,9 @@ public class FirebaseRepository {
     public MutableLiveData<Double> mutableBodyFat;
     public MutableLiveData<String> mutableGender;
     private MutableLiveData<String> mutableBirthday;
+    private MutableLiveData<ArrayList<String>> friends;
+    private MutableLiveData<ArrayList<String>> friendFirstNames;
+    private MutableLiveData<ArrayList<String>> friendLastNames;
 
     public FirebaseRepository(Application application){
         this.application = application;
@@ -63,6 +66,9 @@ public class FirebaseRepository {
         mutableGender = new MutableLiveData<>();
         mutableBirthday = new MutableLiveData<>();
         mutableBodyFat = new MutableLiveData<>();
+        friends = new MutableLiveData<>();
+        friendFirstNames = new MutableLiveData<>();
+        friendLastNames = new MutableLiveData<>();
     }
 
     public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
@@ -117,6 +123,18 @@ public class FirebaseRepository {
         return mutableBirthday;
     }
 
+    public MutableLiveData<ArrayList<String>> getFriends() {
+        return friends;
+    }
+
+    public MutableLiveData<ArrayList<String>> getFriendFirstNames() {
+        return friendFirstNames;
+    }
+
+    public MutableLiveData<ArrayList<String>> getFriendLastNames() {
+        return friendLastNames;
+    }
+
     public void initCurrentUser(){
         userMutableLiveData.setValue(firebaseAuth.getCurrentUser());
     }
@@ -126,6 +144,7 @@ public class FirebaseRepository {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) { //new account created
                 registerUserLiveData.setValue(firebaseAuth.getCurrentUser());
+                initPoints();
             }
         });
     }
@@ -162,10 +181,10 @@ public class FirebaseRepository {
         });
     }
 
-    public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize){ //for registering a new account only
+    public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize, String gender){ //for registering a new account only
         DecimalFormat df = new DecimalFormat("####0.00");
         double bodyFat;
-        if(getMutableGender().getValue().equals("Female")){
+        if(gender.equals("Female")){
             bodyFat = 163.205 * Math.log10(waistSize + hipSize - neckSize) - 97.684 * Math.log10(height) + 36.76;
         }else{
             bodyFat = 86.010 * Math.log10(waistSize - neckSize) - 70.041 * Math.log10(height) + 36.76;
@@ -173,7 +192,8 @@ public class FirebaseRepository {
         if (bodyFat < 0.1 || isNaN(bodyFat)){
             bodyFat = 0.1;
         }
-        mutableBodyFat.postValue(Double.parseDouble(df.format(bodyFat)));
+        bodyFat = Double.parseDouble(df.format(bodyFat)); //reduce body fat to two decimal places
+        mutableBodyFat.postValue(bodyFat);
         final HashMap<String, Object> map = new HashMap<>();
         map.put("weight", weight);
         map.put("height", height);
@@ -200,6 +220,7 @@ public class FirebaseRepository {
     }
 
     public void initDemographics(String email, String firstName, String lastName, String phoneNumber, String birthday, String gender){ //for registering a new account only
+        database.child("UsersByNumber").child(phoneNumber).setValue(Objects.requireNonNull(registerUserLiveData.getValue()).getUid()); //adds user to UsersByNumber child
         final HashMap<String, String> map = new HashMap<>();
         map.put("email", email);
         map.put("firstName", firstName);
@@ -267,7 +288,7 @@ public class FirebaseRepository {
         database.addValueEventListener(new ValueEventListener() { //sets the values for the users measurements based on what is in the database
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) { //this method will run initially and again anytime data changes
-                //not a final approach. resets all values even if just one changes. TODO: find a way to set only the value that changes.
+                //not a final approach. resets all values even if just one changes. TODO: find a way to set only the value that changes
                 mutableHeight.setValue(snapshot.child("height").getValue(int.class));
                 mutableHipSize.setValue(snapshot.child("hipSize").getValue(int.class));
                 mutableNeckSize.setValue(snapshot.child("neckSize").getValue(int.class));
@@ -277,6 +298,83 @@ public class FirebaseRepository {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    public void friendsListener(){
+        database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/friends");
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<String> friends = new ArrayList<>();
+                final ArrayList<String> friendsFirstNames = new ArrayList<>();
+                final ArrayList<String> friendsLastNames = new ArrayList<>();
+//                for(DataSnapshot child : snapshot.getChildren()) {
+//                    String friendCode = child.getKey();
+//                    friends.add(friendCode);
+//                }
+//                getFriends().postValue(friends);
+                for(DataSnapshot child : snapshot.getChildren()){
+                    String friendCode = child.getKey();
+                    friends.add(friendCode);
+                    database = FirebaseDatabase.getInstance().getReference("Users/" + friendCode + "/demographics/");
+                    database.child("firstName").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            friendsFirstNames.add(snapshot.getValue(String.class));
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            System.out.println("Friend not found");
+                        }
+                    });
+                    database.child("lastName").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            friendsLastNames.add(snapshot.getValue(String.class));
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            System.out.println("Friend not found");
+                        }
+                    });
+                }
+                getFriends().postValue(friends);
+                getFriendFirstNames().postValue(friendsFirstNames);
+                getFriendLastNames().postValue(friendsLastNames);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("No friends to display");
+            }
+        });
+    }
+
+    public void addFriend(String phoneNumber){
+        database = FirebaseDatabase.getInstance().getReference("UsersByNumber/" + phoneNumber);
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String newFriendUID = snapshot.getValue(String.class);
+                database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/friends/" + newFriendUID);
+                database.setValue(true);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("Failed to add friend. " + error);
+            }
+        });
+    }
+
+    public void removeFriend(final int index){
+        database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/friends/" + friends.getValue().get(index));
+        database.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+//                friends.getValue().remove(index);
+//                friendFirstNames.getValue().remove(index);
+//                friendLastNames.remove(index);
             }
         });
     }

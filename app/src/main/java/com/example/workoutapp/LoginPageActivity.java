@@ -80,10 +80,11 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
 
     public void register(String email, String password){
         userViewModel.register(email, password);
+
     }
 
-    public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize){
-        userViewModel.initMeasurements(weight, height, neckSize, waistSize, hipSize);
+    public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize, String  gender){
+        userViewModel.initMeasurements(weight, height, neckSize, waistSize, hipSize, gender);
     }
 
     public void initDemographics(String email, String firstName, String lastName, String phoneNumber, String birthday, String gender){
