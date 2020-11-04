@@ -53,7 +53,6 @@ public class FirebaseRepository {
     private MutableLiveData<ArrayList<String>> friends;
     private MutableLiveData<ArrayList<String>> friendFirstNames;
     private MutableLiveData<ArrayList<String>> friendLastNames;
-    private MutableLiveData<String> weeklyDate;
 
     public FirebaseRepository(Application application){
         this.application = application;
@@ -75,7 +74,6 @@ public class FirebaseRepository {
         friends = new MutableLiveData<>();
         friendFirstNames = new MutableLiveData<>();
         friendLastNames = new MutableLiveData<>();
-        weeklyDate = new MutableLiveData<>();
 
     }
 
@@ -459,12 +457,18 @@ public class FirebaseRepository {
         SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
         final String output = sdf1.format(calendar.getTime());
 
-//        database = FirebaseDatabase.getInstance().getReference("Dates/EndOfWeek");
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String newWeeklyDate = output;
                 database = FirebaseDatabase.getInstance().getReference("Dates/Daily");
+                database.setValue(output);
+
+                Calendar calendar = Calendar.getInstance();
+
+                calendar.add(Calendar.DATE, 1);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
+                SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+                final String output = sdf1.format(calendar.getTime());
+                database = FirebaseDatabase.getInstance().getReference("Dates/NextDay");
                 database.setValue(output);
             }
             @Override
@@ -494,7 +498,6 @@ public class FirebaseRepository {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String newWeeklyDate = output;
                 database = FirebaseDatabase.getInstance().getReference("Dates/EndOfWeek");
                 database.setValue(output);
             }
@@ -516,7 +519,6 @@ public class FirebaseRepository {
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String newWeeklyDate = output;
                 database = FirebaseDatabase.getInstance().getReference("Dates/EndOfMonth");
                 database.setValue(output);
             }
