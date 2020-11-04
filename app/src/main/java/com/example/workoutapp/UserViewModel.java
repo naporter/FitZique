@@ -187,4 +187,16 @@ public class UserViewModel extends AndroidViewModel {
     public void friendsListener(){
         firebaseRepository.friendsListener();
     }
+
+    public void updateDailyDate(){
+        firebaseRepository.updateDailyDate();
+    }
+
+    public void updateWeeklyDate(){
+        firebaseRepository.updateWeeklyDate();
+    }
+
+    public void updateMonthlyDate(){
+        firebaseRepository.updateMonthlyDate();
+    }
 }

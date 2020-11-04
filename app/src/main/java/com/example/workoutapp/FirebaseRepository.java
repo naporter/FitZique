@@ -2,6 +2,7 @@ package com.example.workoutapp;
 
 import android.app.Application;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -20,9 +21,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Calendar;
+import java.text.DateFormat;
 
 import static java.lang.Double.isNaN;
 
@@ -48,6 +53,7 @@ public class FirebaseRepository {
     private MutableLiveData<ArrayList<String>> friends;
     private MutableLiveData<ArrayList<String>> friendFirstNames;
     private MutableLiveData<ArrayList<String>> friendLastNames;
+    private MutableLiveData<String> weeklyDate;
 
     public FirebaseRepository(Application application){
         this.application = application;
@@ -69,6 +75,8 @@ public class FirebaseRepository {
         friends = new MutableLiveData<>();
         friendFirstNames = new MutableLiveData<>();
         friendLastNames = new MutableLiveData<>();
+        weeklyDate = new MutableLiveData<>();
+
     }
 
     public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
@@ -434,6 +442,89 @@ public class FirebaseRepository {
         mutableBodyFat.postValue(Double.parseDouble(df.format(bodyFat)));
         database = FirebaseDatabase.getInstance().getReference("Users/" + userMutableLiveData.getValue().getUid() + "/measurements/bodyFatPercent");
         database.setValue(Double.parseDouble(df.format(bodyFat)));
+    }
+
+    public void updateDailyDate(){
+//      Creates weekly start and end date for when the points need updating.
+        Calendar calendar = Calendar.getInstance();
+
+        final String startDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());  // Start date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            calendar.setTime(sdf.parse(startDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+        final String output = sdf1.format(calendar.getTime());
+
+//        database = FirebaseDatabase.getInstance().getReference("Dates/EndOfWeek");
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String newWeeklyDate = output;
+                database = FirebaseDatabase.getInstance().getReference("Dates/Daily");
+                database.setValue(output);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("Daily Date not updated" + error);
+            }
+        });
+    }
+
+    public void updateWeeklyDate(){
+//      Creates weekly start and end date for when the points need updating.
+        Calendar calendar = Calendar.getInstance();
+
+        final String startDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());  // Start date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            calendar.setTime(sdf.parse(startDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //        advance one week
+        calendar.add(Calendar.DATE, 7);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
+        SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+        final String output = sdf1.format(calendar.getTime());
+
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String newWeeklyDate = output;
+                database = FirebaseDatabase.getInstance().getReference("Dates/EndOfWeek");
+                database.setValue(output);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("Weekly Date not updated" + error);
+            }
+        });
+    }
+
+    public void updateMonthlyDate(){
+
+        Calendar calendar = Calendar.getInstance();
+        //        advance one month
+        calendar.add(Calendar.MONTH, 1);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
+        SimpleDateFormat sdf2 = new SimpleDateFormat("MM-dd-yyyy");
+        final String output = sdf2.format(calendar.getTime());
+
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String newWeeklyDate = output;
+                database = FirebaseDatabase.getInstance().getReference("Dates/EndOfMonth");
+                database.setValue(output);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("Monthly Date not updated" + error);
+            }
+        });
     }
 
 }

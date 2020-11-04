@@ -28,6 +28,10 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+
 public class LoginPageActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView appName;
@@ -60,6 +64,9 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         this.mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.updateDailyDate();
+        userViewModel.updateWeeklyDate();
+        userViewModel.updateMonthlyDate();
         userViewModel.getUserMutableLiveData().observe(this, new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
