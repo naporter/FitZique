@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.leaderboard;
+package com.example.workoutapp.ui.badges;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,27 +14,27 @@ import com.example.workoutapp.R;
 
 import java.util.ArrayList;
 
-public class BadgesRecyclerViewAdapter extends RecyclerView.Adapter<com.example.workoutapp.ui.leaderboard.BadgesRecyclerViewAdapter.BadgeViewHolder>{
+public class BadgesRecyclerViewAdapter extends RecyclerView.Adapter<BadgesRecyclerViewAdapter.BadgeViewHolder>{
     //TODO: class needs restructured for Badges recyclerview, elements were copied from FriendRecyclerViewAdapter
 
     private ArrayList<Friend> friends;
     private Context context;
-    private com.example.workoutapp.ui.leaderboard.BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener;
+    private BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener;
 
-    public BadgesRecyclerViewAdapter(Context context, ArrayList<Friend> friends, com.example.workoutapp.ui.leaderboard.BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener){
+    public BadgesRecyclerViewAdapter(Context context, ArrayList<Friend> friends, BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener){
         this.onClickListener = onClickListener;
     }
 
     @NonNull
     @Override
-    public com.example.workoutapp.ui.leaderboard.BadgesRecyclerViewAdapter.BadgeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BadgesRecyclerViewAdapter.BadgeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.friend_layout, parent, false);
-        return new com.example.workoutapp.ui.leaderboard.BadgesRecyclerViewAdapter.BadgeViewHolder(view, onClickListener);
+        return new BadgesRecyclerViewAdapter.BadgeViewHolder(view, onClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.example.workoutapp.ui.leaderboard.BadgesRecyclerViewAdapter.BadgeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BadgesRecyclerViewAdapter.BadgeViewHolder holder, int position) {
         holder.friendFirstName.setText(this.friends.get(position).getFirstName());
         holder.friendLastName.setText(this.friends.get(position).getLastName());
     }
@@ -49,9 +49,9 @@ public class BadgesRecyclerViewAdapter extends RecyclerView.Adapter<com.example.
 
         private TextView friendFirstName;
         private TextView friendLastName;
-        private com.example.workoutapp.ui.leaderboard.BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener;
+        private BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener;
 
-        public BadgeViewHolder(@NonNull View itemView, com.example.workoutapp.ui.leaderboard.BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener) {
+        public BadgeViewHolder(@NonNull View itemView, BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener) {
             super(itemView);
             friendFirstName = itemView.findViewById(R.id.friendFirstName);
             friendLastName = itemView.findViewById(R.id.friendLastName);
