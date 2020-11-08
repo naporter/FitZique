@@ -11,23 +11,60 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutapp.R;
+import com.example.workoutapp.UserViewModel;
+import com.example.workoutapp.ui.profile.FriendRecyclerViewAdapter;
 
-public class LeaderboardFragment extends Fragment {
+public class LeaderboardFragment extends Fragment implements View.OnClickListener, LeaderboardRecyclerViewAdapter.FriendViewHolder.OnClickListener {
 
-    private LeaderboardViewModel leaderboardViewModel;
-//    used to display how many points the user has
-//    String points = String.valueOf(user.getPoints());
+    private UserViewModel userViewModel;
+    private RecyclerView friendRecyclerView;
+    private LeaderboardRecyclerViewAdapter leaderboardRecyclerViewAdapter;
+    private TextView pointsSelector;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        leaderboardViewModel = new ViewModelProvider(requireActivity()).get(LeaderboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_leaderboard, container, false);
-        leaderboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-            }
-        });
-        return root;
+        View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        friendRecyclerView = view.findViewById(R.id.leaderboardRecyclerView);
+        pointsSelector = view.findViewById(R.id.pointsSelector);
+        pointsSelector.setText("Lifetime");
+        pointsSelector.setOnClickListener(this);
+        leaderboardRecyclerViewAdapter = new LeaderboardRecyclerViewAdapter(getContext(), pointsSelector, userViewModel.getFriends().getValue(), this);
+        friendRecyclerView.setAdapter(leaderboardRecyclerViewAdapter);
+        friendRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        return view;
+    }
+
+    @Override
+    public void onClickListener(int position, String friendFirstName, String friendLastName, String friendPoints) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.pointsSelector:
+                if (pointsSelector.getText().equals("Lifetime")){
+                    pointsSelector.setText("Weekly");
+                    leaderboardRecyclerViewAdapter.notifyDataSetChanged();
+                }
+                else if (pointsSelector.getText().equals("Weekly")){
+                    pointsSelector.setText("Daily");
+                    leaderboardRecyclerViewAdapter.notifyDataSetChanged();
+                }
+                else if (pointsSelector.getText().equals("Daily")){
+                    pointsSelector.setText("Lifetime");
+                    leaderboardRecyclerViewAdapter.notifyDataSetChanged();
+                }
+        }
     }
 }
