@@ -1,10 +1,9 @@
 package com.example.workoutapp;
 
 import android.app.Application;
-import android.provider.ContactsContract;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -14,6 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Calendar;
 import java.text.DateFormat;
@@ -50,11 +51,17 @@ public class FirebaseRepository {
     public MutableLiveData<Double> mutableBodyFat;
     public MutableLiveData<String> mutableGender;
     private MutableLiveData<String> mutableBirthday;
-    private MutableLiveData<ArrayList<String>> friends;
-    private MutableLiveData<ArrayList<String>> friendFirstNames;
-    private MutableLiveData<ArrayList<String>> friendLastNames;
+    private MutableLiveData<ArrayList<Friend>> friends;
+    private Calendar calendar;
+    private SimpleDateFormat sdf;
+    private String dateString;
+    private ArrayList<Friend> friendsArray;
 
     public FirebaseRepository(Application application){
+        friendsArray = new ArrayList<>();
+        calendar = Calendar.getInstance();
+        sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
+        dateString = sdf.format(calendar.getTime());
         this.application = application;
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference();
@@ -71,10 +78,7 @@ public class FirebaseRepository {
         mutableGender = new MutableLiveData<>();
         mutableBirthday = new MutableLiveData<>();
         mutableBodyFat = new MutableLiveData<>();
-        friends = new MutableLiveData<>();
-        friendFirstNames = new MutableLiveData<>();
-        friendLastNames = new MutableLiveData<>();
-
+        friends = new MutableLiveData<>(friendsArray);
     }
 
     public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
@@ -129,16 +133,8 @@ public class FirebaseRepository {
         return mutableBirthday;
     }
 
-    public MutableLiveData<ArrayList<String>> getFriends() {
+    public MutableLiveData<ArrayList<Friend>> getFriends() {
         return friends;
-    }
-
-    public MutableLiveData<ArrayList<String>> getFriendFirstNames() {
-        return friendFirstNames;
-    }
-
-    public MutableLiveData<ArrayList<String>> getFriendLastNames() {
-        return friendLastNames;
     }
 
     public void initCurrentUser(){
@@ -162,10 +158,6 @@ public class FirebaseRepository {
                 userMutableLiveData.setValue(firebaseAuth.getCurrentUser());
             }
         });
-    }
-
-    public void signOut(){
-        firebaseAuth.signOut();
     }
 
     public void initPoints(){ //for registering a new account only
@@ -248,7 +240,6 @@ public class FirebaseRepository {
     }
 
     public void initBirthday(){
-        userMutableLiveData.getValue().getUid();
         database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/demographics/birthday");
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -294,7 +285,7 @@ public class FirebaseRepository {
         database.addValueEventListener(new ValueEventListener() { //sets the values for the users measurements based on what is in the database
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) { //this method will run initially and again anytime data changes
-                //not a final approach. resets all values even if just one changes. TODO: find a way to set only the value that changes
+                //not a final approach. resets all values even if just one changes. TODO: find a way to set only the value that changes, possibly a childEventListener
                 mutableHeight.setValue(snapshot.child("height").getValue(int.class));
                 mutableHipSize.setValue(snapshot.child("hipSize").getValue(int.class));
                 mutableNeckSize.setValue(snapshot.child("neckSize").getValue(int.class));
@@ -308,79 +299,125 @@ public class FirebaseRepository {
         });
     }
 
-    public void friendsListener(){
-        database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/friends");
+    public void populateFriendPoints(final Friend friend, String friendCode){
+        database = FirebaseDatabase.getInstance().getReference("Users/" + friendCode + "/points");
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<String> friends = new ArrayList<>();
-                final ArrayList<String> friendsFirstNames = new ArrayList<>();
-                final ArrayList<String> friendsLastNames = new ArrayList<>();
-//                for(DataSnapshot child : snapshot.getChildren()) {
-//                    String friendCode = child.getKey();
-//                    friends.add(friendCode);
-//                }
-//                getFriends().postValue(friends);
-                for(DataSnapshot child : snapshot.getChildren()){
-                    String friendCode = child.getKey();
-                    friends.add(friendCode);
-                    database = FirebaseDatabase.getInstance().getReference("Users/" + friendCode + "/demographics/");
-                    database.child("firstName").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            friendsFirstNames.add(snapshot.getValue(String.class));
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            System.out.println("Friend not found");
-                        }
-                    });
-                    database.child("lastName").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            friendsLastNames.add(snapshot.getValue(String.class));
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            System.out.println("Friend not found");
-                        }
-                    });
-                }
-                getFriends().postValue(friends);
-                getFriendFirstNames().postValue(friendsFirstNames);
-                getFriendLastNames().postValue(friendsLastNames);
+                friend.setDailyPoints(snapshot.child("dailyPoints").getValue(int.class));
+                friend.setWeeklyPoints(snapshot.child("weeklyPoints").getValue(int.class));
+                friend.setLifetimePoints(snapshot.child("lifetimePoints").getValue(int.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void populateFriendNames(final Friend friend, String friendCode){
+        database = FirebaseDatabase.getInstance().getReference("Users/" + friendCode + "/demographics/");
+        database.child("firstName").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friend.setFirstName(snapshot.getValue(String.class));
+                friendsArray.add(friend);
+                friends.setValue(friendsArray);// lets observers know the data set has changed
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("No friends to display");
+                System.out.println("Friend not found");
+            }
+        });
+        database.child("lastName").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friend.setLastName(snapshot.getValue(String.class));
+                friends.setValue(friendsArray);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("Friend not found");
+            }
+        });
+    }
+
+    public void friendsListener(){
+        database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/friends");
+        database.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Friend friend = new Friend(snapshot.getKey()); //creates a friend with the given uid
+                populateFriendNames(friend, snapshot.getKey()); //populates the friends first and last name
+                populateFriendPoints(friend, snapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                for(Friend friend : Objects.requireNonNull(getFriends().getValue())){
+                    if(friend.getUid().equals(snapshot.getKey())){
+                        getFriends().getValue().remove(friend);
+                        friends.postValue(friendsArray);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println(error);
             }
         });
     }
 
     public void addFriend(String phoneNumber){
         database = FirebaseDatabase.getInstance().getReference("UsersByNumber/" + phoneNumber);
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String newFriendUID = snapshot.getValue(String.class);
-                database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/friends/" + newFriendUID);
-                database.setValue(true);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Failed to add friend. " + error);
-            }
-        });
+            database.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String newFriendUID = snapshot.getValue(String.class);
+                    if (newFriendUID != null && !newFriendUID.equals(Objects.requireNonNull(userMutableLiveData.getValue()).getUid())){ //someone with that phone number exists and it is not the users phone number
+                        boolean alreadyFriend = false;
+                        for(Friend friend : Objects.requireNonNull(getFriends().getValue())){
+                            if(friend.getUid().equals(newFriendUID)){
+                                alreadyFriend = true;
+                                break;
+                            }
+                        }
+                        if (!alreadyFriend){
+                            database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/friends/" + newFriendUID);
+                            database.setValue(true); //we could use this value as an approval for friend request
+                        }else {
+                            //TODO: communicate to user that they are already friends with the person they tried to add.
+                        }
+                    }else {
+                        //TODO: communicate to user that a user with that phone number does not exist or it is their own number.
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    System.out.println("Failed to add friend. " + error);
+                }
+            });
     }
 
     public void removeFriend(final int index){
-        database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/friends/" + friends.getValue().get(index));
+        database = FirebaseDatabase.getInstance().getReference("Users/" + Objects.requireNonNull(userMutableLiveData.getValue()).getUid() + "/friends/" + Objects.requireNonNull(friends.getValue()).get(index).getUid());
         database.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-//                friends.getValue().remove(index);
-//                friendFirstNames.getValue().remove(index);
-//                friendLastNames.remove(index);
+                //TODO: communicate to user that the friend was removed
             }
         });
     }
@@ -444,18 +481,17 @@ public class FirebaseRepository {
 
     public void updateDailyDate(){
 //      Creates weekly start and end date for when the points need updating.
-        Calendar calendar = Calendar.getInstance();
-
+//        final Calendar calendar = Calendar.getInstance();
         final String startDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());  // Start date
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             calendar.setTime(sdf.parse(startDate));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
-        final String output = sdf1.format(calendar.getTime());
+//        SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+        final String output = sdf.format(calendar.getTime());
 
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -463,7 +499,7 @@ public class FirebaseRepository {
                 database = FirebaseDatabase.getInstance().getReference("Dates/Daily");
                 database.setValue(output);
 
-                Calendar calendar = Calendar.getInstance();
+//                Calendar calendar = Calendar.getInstance();
 
                 calendar.add(Calendar.DATE, 1);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
                 SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
@@ -480,10 +516,10 @@ public class FirebaseRepository {
 
     public void updateWeeklyDate(){
 //      Creates weekly start and end date for when the points need updating.
-        Calendar calendar = Calendar.getInstance();
+//        Calendar calendar = Calendar.getInstance();
 
         final String startDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());  // Start date
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             calendar.setTime(sdf.parse(startDate));
         } catch (ParseException e) {
@@ -508,23 +544,43 @@ public class FirebaseRepository {
         });
     }
 
-    public void updateMonthlyDate(){
-
-        Calendar calendar = Calendar.getInstance();
-        //        advance one month
-        calendar.add(Calendar.MONTH, 1);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
-        SimpleDateFormat sdf2 = new SimpleDateFormat("MM-dd-yyyy");
-        final String output = sdf2.format(calendar.getTime());
-
+    public void checkForNewDay(){
+        database = FirebaseDatabase.getInstance().getReference("Dates/NextDay");
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                database = FirebaseDatabase.getInstance().getReference("Dates/EndOfMonth");
-                database.setValue(output);
+                String SDF = snapshot.getValue(String.class);
+                System.out.println(SDF);
+//                checks to see if the daily points need to be reset
+                if(SDF.equals(dateString)){
+                    updateDailyDate();
+                    database = FirebaseDatabase.getInstance().getReference("Users/" + getUserMutableLiveData().getValue().getUid() + "/points/dailyPoints");
+                    database.setValue(0);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Monthly Date not updated" + error);
+                System.out.println("Weekly Date not updated" + error);
+            }
+        });
+    }
+
+    public void checkWeeklyDate(){
+        database = FirebaseDatabase.getInstance().getReference("Dates/EndOfWeek");
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String SDF = snapshot.getValue(String.class);
+//                checks to see if the weekly points need to be reset
+                if(SDF.equals(dateString)){
+                    updateWeeklyDate();
+                    database = FirebaseDatabase.getInstance().getReference("Users/" + getUserMutableLiveData().getValue().getUid() + "/points/weeklyPoints");
+                    database.setValue(0);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("Weekly Date not updated" + error);
             }
         });
     }

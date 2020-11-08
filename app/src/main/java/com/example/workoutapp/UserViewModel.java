@@ -27,9 +27,7 @@ public class UserViewModel extends AndroidViewModel {
     public MutableLiveData<Double> mutableBodyFat;
     public MutableLiveData<String> mutableGender;
     private MutableLiveData<String> mutableBirthday;
-    private MutableLiveData<ArrayList<String>> friends;
-    private MutableLiveData<ArrayList<String>> friendFirstNames;
-    private MutableLiveData<ArrayList<String>> friendLastNames;
+    private MutableLiveData<ArrayList<Friend>> friends;
     private Application application;
 
     public UserViewModel(@NonNull Application application) {
@@ -50,8 +48,6 @@ public class UserViewModel extends AndroidViewModel {
         mutableBirthday = firebaseRepository.getMutableBirthday();
         mutableBodyFat = firebaseRepository.getMutableBodyFat();
         friends = firebaseRepository.getFriends();
-        friendFirstNames = firebaseRepository.getFriendFirstNames();
-        friendLastNames = firebaseRepository.getFriendLastNames();
     }
 
     public LiveData<FirebaseUser> getUserMutableLiveData() {
@@ -102,16 +98,8 @@ public class UserViewModel extends AndroidViewModel {
         return mutableGender;
     }
 
-    public LiveData<ArrayList<String>> getFriends() {
+    public MutableLiveData<ArrayList<Friend>> getFriends() {
         return friends;
-    }
-
-    public MutableLiveData<ArrayList<String>> getFriendFirstNames() {
-        return friendFirstNames;
-    }
-
-    public MutableLiveData<ArrayList<String>> getFriendLastNames() {
-        return friendLastNames;
     }
 
     public void register(String email, String password){
@@ -120,14 +108,6 @@ public class UserViewModel extends AndroidViewModel {
 
     public void signIn(String username, String password){
         firebaseRepository.signIn(username, password);
-    }
-
-    public void signOut(){
-        firebaseRepository.signOut();
-    }
-
-    public void initPoints(){
-        firebaseRepository.initPoints();
     }
 
     public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize, String gender){
@@ -145,6 +125,9 @@ public class UserViewModel extends AndroidViewModel {
         measurementListener();
         pointListener();
         friendsListener();
+        //checks to see if dates need reset in firebase
+        firebaseRepository.checkForNewDay();
+        firebaseRepository.checkWeeklyDate();
     }
 
     public void addFriend(String phoneNumber){
@@ -186,17 +169,5 @@ public class UserViewModel extends AndroidViewModel {
 
     public void friendsListener(){
         firebaseRepository.friendsListener();
-    }
-
-    public void updateDailyDate(){
-        firebaseRepository.updateDailyDate();
-    }
-
-    public void updateWeeklyDate(){
-        firebaseRepository.updateWeeklyDate();
-    }
-
-    public void updateMonthlyDate(){
-        firebaseRepository.updateMonthlyDate();
     }
 }

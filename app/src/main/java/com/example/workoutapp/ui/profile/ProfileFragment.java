@@ -29,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.workoutapp.Friend;
 import com.example.workoutapp.R;
 import com.example.workoutapp.UserViewModel;
 import com.example.workoutapp.ui.workouts.RecyclerViewAdapter;
@@ -57,6 +58,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, V
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        friendRecyclerViewAdapter = new FriendRecyclerViewAdapter(getContext(), userViewModel.getFriends().getValue(), this);
     }
 
     @Override
@@ -65,8 +68,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, V
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         friendRecyclerView = view.findViewById(R.id.friendRecyclerView);
         imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        friendRecyclerViewAdapter = new FriendRecyclerViewAdapter(getContext(), userViewModel.getFriendFirstNames(), userViewModel.getFriendLastNames(), this);
+
         friendRecyclerView.setAdapter(friendRecyclerViewAdapter);
         friendRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         addFriendRow = view.findViewById(R.id.addFriendRow);
@@ -93,9 +95,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, V
             }
         });
 
-        userViewModel.getFriendFirstNames().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
+        userViewModel.getFriends().observe(getViewLifecycleOwner(), new Observer<ArrayList<Friend>>() {
             @Override
-            public void onChanged(ArrayList<String> strings) {
+            public void onChanged(ArrayList<Friend> friend) {
+                System.out.println(friend);
                 friendRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
@@ -111,13 +114,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, V
             @Override
             public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
                 AlertDialog.Builder confirmDelete = new AlertDialog.Builder(getContext());
-                confirmDelete.setMessage("Are you sure you want to remove " + userViewModel.getFriendFirstNames().getValue().get(viewHolder.getAdapterPosition()) + " as a friend?");
+                confirmDelete.setMessage("Are you sure you want to remove " + userViewModel.getFriends().getValue().get(viewHolder.getAdapterPosition()).getFirstName() + " as a friend?");
                 confirmDelete.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         userViewModel.removeFriend(viewHolder.getAdapterPosition());
-//                        friendRecyclerViewAdapter.notifyDataSetChanged();
-//                        friendRecyclerViewAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                     }
                 });
                 confirmDelete.setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -161,10 +162,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, V
     }
 
     @Override
-    public void onClick(View v) { // TODO: shouldn't update them all, just update the ones that changed.
-
+    public void onClick(View v) {
         switch (v.getId()){
             case R.id.recalcBtn:
+                // TODO: shouldn't update them all, just update the ones that changed.
                 userViewModel.updateMeasurement("height", Integer.parseInt(height.getText().toString()));
                 userViewModel.updateMeasurement("hipSize", Integer.parseInt(hipSize.getText().toString()));
                 userViewModel.updateMeasurement("neckSize", Integer.parseInt(neckSize.getText().toString()));
@@ -187,7 +188,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, V
                     newFriendPhoneNumber.getText().clear();
                     addFriendRow.setVisibility(View.GONE);
                     addFriendBtn.animate().rotation(0).start();
-//                    friendRecyclerViewAdapter.notifyDataSetChanged();
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 }
                 break;

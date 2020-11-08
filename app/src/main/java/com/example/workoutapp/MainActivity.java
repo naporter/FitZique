@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -20,14 +21,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -46,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.initUser();
-        setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         getSupportActionBar().setElevation(0); //removes drop shadows from the action bar and next line is navigation view
         navView.setElevation(0);
@@ -87,6 +81,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dailyPoints = userPointsItem.getActionView().findViewById(R.id.dailyPoints);
         weeklyPoints = userPointsItem.getActionView().findViewById(R.id.weeklyPoints);
         lifetimePoints = userPointsItem.getActionView().findViewById(R.id.lifetimePoints);
+        pointListeners();
+        return true;
+    }
+
+    public void pointListeners(){ //automatically updates the text when the points change
         userViewModel.getDailyPoints().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -105,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 lifetimePoints.setText(String.valueOf(integer));
             }
         });
-        return true;
     }
 
     @Override

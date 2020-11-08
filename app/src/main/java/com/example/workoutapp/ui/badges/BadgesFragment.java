@@ -21,11 +21,9 @@ public class BadgesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         badgesViewModel = new ViewModelProvider(requireActivity()).get(BadgesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_badges, container, false);
-        final TextView textView = root.findViewById(R.id.text_badges);
         badgesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
             }
         });
         return root;

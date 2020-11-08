@@ -85,7 +85,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
                     navController.navigate(R.id.action_registerFragment_to_demographicsFragment, bundle);
                 }
                 else {
-                    String message = "User already exists.";
+                    String message = "A user with that email already exists.";
                     System.out.println(message);
                     Snackbar snackbar = Snackbar.make(requireActivity().findViewById(R.id.registerLayout), message, Snackbar.LENGTH_SHORT);
                     snackbar.show();

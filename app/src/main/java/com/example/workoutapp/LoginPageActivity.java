@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,15 +51,15 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     private FirebaseUser firebaseUser;
     private UserViewModel userViewModel;
     private Calendar calendar;
-    private MutableLiveData<FirebaseUser> userMutableLiveData;
 
     @Override
     protected void onStart() {
+        super.onStart();
+        observer();
         firebaseUser = mAuth.getCurrentUser();
         if(firebaseUser != null) {
-            startActivity(firebaseUser);
+            userViewModel.initCurrentUser();
         }
-        super.onStart();
     }
 
     @Override
@@ -68,35 +69,11 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
         appName = findViewById(R.id.appName);
         appName.findViewById(R.id.appName).setOnClickListener(this);
         database = FirebaseDatabase.getInstance().getReference();
-        userMutableLiveData = new MutableLiveData<>();
         this.fragmentLayout = findViewById(R.id.fragmentLayout);
         this.userPrompt = findViewById(R.id.userPrompt);
         this.progressBar = findViewById(R.id.progressBar);
         this.mAuth = FirebaseAuth.getInstance();
-        firebaseUser = mAuth.getCurrentUser();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.getUserMutableLiveData().observe(this, new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if(firebaseUser != null){
-                    updateUI("Logging in.", false);
-                    startActivity(firebaseUser);
-//                    Date Functions
-                    calendar = Calendar.getInstance();
-                    SimpleDateFormat sdf2 = new SimpleDateFormat("MM-dd-yyyy");
-                    final String dateString = sdf2.format(calendar.getTime());
-                    checkForNewDay(dateString);
-                    checkWeeklyDate(dateString);//see's if the weekly points need to be reset
-                    checkMonthlyDate(dateString);//see's if the weekly points need to be reset.
-                }
-                else {
-                    updateUI("Incorrect credentials", true);
-                }
-            }
-        });
-    }
-    public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
-        return userMutableLiveData;
     }
 
     public void signIn(final String username, final String password){
@@ -106,6 +83,25 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     public void register(String email, String password){
         userViewModel.register(email, password);
 
+    }
+
+    public void observer(){
+        userViewModel.getUserMutableLiveData().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if(firebaseUser != null){
+                    updateUI("Logging in.", false);
+                    startActivity(firebaseUser);
+                }
+                else {
+                    updateUI("Incorrect credentials", true);
+                }
+            }
+        });
+    }
+
+    public void initUser(){
+        userViewModel.initUser();
     }
 
     public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize, String  gender){
@@ -130,7 +126,15 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            onClick(appName);
+                            if (fragmentLayout.getVisibility() == View.VISIBLE){
+                                fragmentLayout.setVisibility(View.GONE);
+                                appName.setTextSize(50);
+                            } else{
+                                progressBar.setVisibility(View.GONE);
+                                fragmentLayout.setVisibility(View.VISIBLE);
+                                appName.setTextSize(36);
+                            }
+//                            onClick(appName);
                         }
                     });
                 }
@@ -161,66 +165,7 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
 //        }
     }
 
-    public void checkForNewDay(final String dateString){
 
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String SDF = snapshot.child("Dates").child("NextDay").getValue(String.class);
-//                checks to see if the weekly points need to be reset
-                if(SDF.equals(dateString)){
-                    userViewModel.updateDailyDate();
-                    database = FirebaseDatabase.getInstance().getReference("Users/" + userViewModel.getUserMutableLiveData().getValue().getUid() + "/points/dailyPoints");
-                    database.setValue(0);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Weekly Date not updated" + error);
-            }
-        });
-    }
-
-    public void checkWeeklyDate(final String dateString){
-
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String SDF = snapshot.child("Dates").child("EndOfWeek").getValue(String.class);
-//                checks to see if the weekly points need to be reset
-                if(SDF.equals(dateString)){
-                    userViewModel.updateWeeklyDate();
-                    database = FirebaseDatabase.getInstance().getReference("Users/" + userViewModel.getUserMutableLiveData().getValue().getUid() + "/points/weeklyPoints");
-                    database.setValue(0);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Weekly Date not updated" + error);
-            }
-        });
-    }
-
-    public void checkMonthlyDate(final String dateString){
-
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String SDF = snapshot.child("Dates").child("EndOfMonth").getValue(String.class);
-//                checks to see if the weekly points need to be reset
-                if(SDF.equals(dateString)){
-                    userViewModel.updateMonthlyDate();
-                    userViewModel.updateWeeklyDate();
-                    database = FirebaseDatabase.getInstance().getReference("Users/" + userViewModel.getUserMutableLiveData().getValue().getUid() + "/points/weeklyPoints");
-                    database.setValue(0);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Monthly Date not updated" + error);
-            }
-        });
-    }
 
 
 }
