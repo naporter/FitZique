@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:hint="First Name">
+        android:hint="First Name"
+        android:textColorHint="@color/textColor">
 
         <EditText
             android:id="@+id/firstName"
@@ -22,14 +23,16 @@
             android:ems="10"
             android:fontFamily="sans-serif-light"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColorHighlight="@android:color/white"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Last Name">
+        android:hint="Last Name"
+        android:textColorHint="@color/textColor">
 
         <EditText
             android:id="@+id/lastName"
@@ -38,13 +41,15 @@
             android:ems="10"
             android:fontFamily="sans-serif-light"
             android:inputType="textPersonName"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColorHighlight="@android:color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Phone Number">
+        android:hint="Phone Number"
+        android:textColorHint="@color/textColor">
 
         <EditText
             android:id="@+id/phoneNumber"
@@ -53,13 +58,15 @@
             android:ems="10"
             android:fontFamily="sans-serif-light"
             android:inputType="number|phone"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColorHighlight="@android:color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Email">
+        android:hint="Email"
+        android:textColorHint="@color/textColor">
 
         <EditText
             android:id="@+id/email"
@@ -68,14 +75,16 @@
             android:ems="10"
             android:fontFamily="sans-serif-light"
             android:inputType="textWebEmailAddress"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColorHighlight="@android:color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Password"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        android:textColorHint="@color/textColor">
 
         <EditText
             android:id="@+id/password"
@@ -84,7 +93,8 @@
             android:ems="10"
             android:fontFamily="sans-serif-light"
             android:inputType="textPassword"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textColorHighlight="@android:color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 

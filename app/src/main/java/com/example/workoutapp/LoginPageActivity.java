@@ -50,7 +50,6 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
     private DatabaseReference database;
     private FirebaseUser firebaseUser;
     private UserViewModel userViewModel;
-    private Calendar calendar;
 
     @Override
     protected void onStart() {
@@ -164,8 +163,4 @@ public class LoginPageActivity extends AppCompatActivity implements View.OnClick
 //                break;
 //        }
     }
-
-
-
-
 }

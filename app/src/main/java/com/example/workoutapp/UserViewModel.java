@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
@@ -48,6 +49,9 @@ public class UserViewModel extends AndroidViewModel {
         mutableBirthday = firebaseRepository.getMutableBirthday();
         mutableBodyFat = firebaseRepository.getMutableBodyFat();
         friends = firebaseRepository.getFriends();
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            initUser(); //initializes user
+        }
     }
 
     public LiveData<FirebaseUser> getUserMutableLiveData() {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,17 +24,16 @@ public class LeaderboardFragment extends Fragment implements View.OnClickListene
     private UserViewModel userViewModel;
     private RecyclerView friendRecyclerView;
     private LeaderboardRecyclerViewAdapter leaderboardRecyclerViewAdapter;
-    private TextView pointsSelector;
+    private Button pointsSelector;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         friendRecyclerView = view.findViewById(R.id.leaderboardRecyclerView);
         pointsSelector = view.findViewById(R.id.pointsSelector);
         pointsSelector.setText("Lifetime");

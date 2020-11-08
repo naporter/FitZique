@@ -1,6 +1,7 @@
 package com.example.workoutapp.ui.workouts;
 
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         viewPager = view.findViewById(R.id.viewPager);
         viewPager.setAdapter(new ViewPagerAdapter(this));
 
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() { //Changes tab focus and fragment when clicking tabs
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -64,6 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 

@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.initUser();
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class); //initializes user attributes in constructor
         BottomNavigationView navView = findViewById(R.id.nav_view);
         getSupportActionBar().setElevation(0); //removes drop shadows from the action bar and next line is navigation view
         navView.setElevation(0);
@@ -112,9 +111,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) { //provides a way to cycle through the different point views
+    public void onClick(View v) {
         if (v.getId() == (R.id.logoutBtn)){
             mAuth.signOut();
+            finish();
         }
         //getConstantState will return the source of the drawable image. comparing these to the current view that calls the on click will result in true if they are equal
         if(v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.lifetime_points)).getConstantState()){

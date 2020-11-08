@@ -26,20 +26,18 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:text="Leaderboard"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <Button
                     android:id="@+id/pointsSelector"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="8dp"
-                    android:clickable="true"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ripple_effect"
+                    android:textColor="@color/textColor" />
 
             </TableRow>
 

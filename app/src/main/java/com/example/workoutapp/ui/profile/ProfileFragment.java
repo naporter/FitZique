@@ -60,6 +60,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, V
         super.onCreate(savedInstanceState);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         friendRecyclerViewAdapter = new FriendRecyclerViewAdapter(getContext(), userViewModel.getFriends().getValue(), this);
+        this.getParentFragmentManager().beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override

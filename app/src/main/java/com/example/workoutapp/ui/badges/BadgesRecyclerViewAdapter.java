@@ -22,6 +22,8 @@ public class BadgesRecyclerViewAdapter extends RecyclerView.Adapter<BadgesRecycl
     private BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener;
 
     public BadgesRecyclerViewAdapter(Context context, ArrayList<Friend> friends, BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener onClickListener){
+        this.context = context;
+        this.friends = friends;
         this.onClickListener = onClickListener;
     }
 

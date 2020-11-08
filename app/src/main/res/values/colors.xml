@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#03A9F4</color>
     <color name="colorPrimaryDark">#01577E</color>
-    <color name="colorAccent">#C5C5C5</color>
+    <color name="colorAccent">#FF8762</color>
     <color name="textColor">#FFFFFF</color>
     <color name="textColorDark">#2C2C2C</color>
     <color name="defaultButton">@color/cardview_shadow_start_color</color>
