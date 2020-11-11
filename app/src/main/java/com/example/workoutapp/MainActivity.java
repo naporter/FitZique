@@ -22,7 +22,17 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -54,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) { //hides back button on Leaderboard, Badges, and Profile tabs
-                if(destination.getId() == R.id.navigation_leaderboard || destination.getId() == R.id.navigation_notifications || destination.getId() == R.id.navigation_profile){
+                if (destination.getId() == R.id.navigation_leaderboard || destination.getId() == R.id.navigation_notifications || destination.getId() == R.id.navigation_profile) {
                     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setHomeButtonEnabled(false);
                 }
@@ -84,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    public void pointListeners(){ //automatically updates the text when the points change
+    public void pointListeners() { //automatically updates the text when the points change
         userViewModel.getDailyPoints().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -112,20 +122,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == (R.id.logoutBtn)){
+        if (v.getId() == (R.id.logoutBtn)) {
             mAuth.signOut();
             finish();
         }
         //getConstantState will return the source of the drawable image. comparing these to the current view that calls the on click will result in true if they are equal
-        if(v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.lifetime_points)).getConstantState()){
+        if (v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.lifetime_points)).getConstantState()) {
             v.setBackground(ContextCompat.getDrawable(this, R.drawable.weekly_points));
             lifetimePoints.setVisibility(View.GONE);
             weeklyPoints.setVisibility(View.VISIBLE);
-        } else if(v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.weekly_points)).getConstantState()){
+        } else if (v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.weekly_points)).getConstantState()) {
             v.setBackground(ContextCompat.getDrawable(this, R.drawable.daily_points));
             weeklyPoints.setVisibility(View.GONE);
             dailyPoints.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             v.setBackground(ContextCompat.getDrawable(this, R.drawable.lifetime_points));
             dailyPoints.setVisibility(View.GONE);
             lifetimePoints.setVisibility(View.VISIBLE);

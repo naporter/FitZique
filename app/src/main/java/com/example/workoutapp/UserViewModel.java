@@ -51,6 +51,9 @@ public class UserViewModel extends AndroidViewModel {
         friends = firebaseRepository.getFriends();
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
             initUser(); //initializes user
+            //checks to see if dates need reset in firebase
+            firebaseRepository.checkForNewDay();
+            firebaseRepository.checkWeeklyDate();
         }
     }
 
@@ -126,12 +129,11 @@ public class UserViewModel extends AndroidViewModel {
         initCurrentUser();
         initBirthday();
         initGender();
+        initDates();
         measurementListener();
         pointListener();
         friendsListener();
-        //checks to see if dates need reset in firebase
-        firebaseRepository.checkForNewDay();
-        firebaseRepository.checkWeeklyDate();
+
     }
 
     public void addFriend(String phoneNumber){
@@ -153,6 +155,10 @@ public class UserViewModel extends AndroidViewModel {
     public void initGender(){
         firebaseRepository.initGender();
     }
+
+    public void initDates(){
+        firebaseRepository.initDailyDate();
+        firebaseRepository.initWeeklyDate();}
 
     public void pointListener(){
         firebaseRepository.pointListener();
