@@ -16,9 +16,9 @@ public class UserViewModel extends AndroidViewModel {
 
     private MutableLiveData<FirebaseUser> userMutableLiveData;
     private MutableLiveData<FirebaseUser> registerUserLiveData;
-    private FirebaseRepository firebaseRepository;
     private MutableLiveData<Integer> dailyPoints;
     private MutableLiveData<Integer> weeklyPoints;
+    private FirebaseRepository firebaseRepository;
     private MutableLiveData<Integer> lifetimePoints;
     private MutableLiveData<Integer> mutableWeight;
     private MutableLiveData<Integer> mutableHeight;
@@ -49,7 +49,7 @@ public class UserViewModel extends AndroidViewModel {
         mutableBirthday = firebaseRepository.getMutableBirthday();
         mutableBodyFat = firebaseRepository.getMutableBodyFat();
         friends = firebaseRepository.getFriends();
-        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             initUser(); //initializes user
             //checks to see if dates need reset in firebase
             firebaseRepository.checkForNewDay();
@@ -109,23 +109,23 @@ public class UserViewModel extends AndroidViewModel {
         return friends;
     }
 
-    public void register(String email, String password){
+    public void register(String email, String password) {
         firebaseRepository.register(email, password);
     }
 
-    public void signIn(String username, String password){
+    public void signIn(String username, String password) {
         firebaseRepository.signIn(username, password);
     }
 
-    public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize, String gender){
+    public void initMeasurements(int weight, int height, int neckSize, int waistSize, int hipSize, String gender) {
         firebaseRepository.initMeasurements(weight, height, neckSize, waistSize, hipSize, gender);
     }
 
-    public void initDemographics(String email, String firstName, String lastName, String phoneNumber, String birthday, String gender){
+    public void initDemographics(String email, String firstName, String lastName, String phoneNumber, String birthday, String gender) {
         firebaseRepository.initDemographics(email, firstName, lastName, phoneNumber, birthday, gender);
     }
 
-    public void initUser(){
+    public void initUser() {
         initCurrentUser();
         initBirthday();
         initGender();
@@ -136,48 +136,49 @@ public class UserViewModel extends AndroidViewModel {
 
     }
 
-    public void addFriend(String phoneNumber){
+    public void addFriend(String phoneNumber) {
         firebaseRepository.addFriend(phoneNumber);
     }
 
-    public void removeFriend(int index){
+    public void removeFriend(int index) {
         firebaseRepository.removeFriend(index);
     }
 
-    public void initCurrentUser(){
+    public void initCurrentUser() {
         firebaseRepository.initCurrentUser();
     }
 
-    public void initBirthday(){
+    public void initBirthday() {
         firebaseRepository.initBirthday();
     }
 
-    public void initGender(){
+    public void initGender() {
         firebaseRepository.initGender();
     }
 
-    public void initDates(){
-        firebaseRepository.initDailyDate();
-        firebaseRepository.initWeeklyDate();}
-
-    public void pointListener(){
+    public void pointListener() {
         firebaseRepository.pointListener();
     }
 
-    public void measurementListener(){
+    public void measurementListener() {
         firebaseRepository.measurementListener();
     }
 
-    public void updateMeasurement(String source, int measurement){
+    public void updateMeasurement(String source, int measurement) {
         firebaseRepository.updateMeasurement(source, measurement);
     }
 
-    public int updatePoints(int difficulty, int numReps){
+    public int updatePoints(int difficulty, int numReps) {
         int points = firebaseRepository.updatePoints(difficulty, numReps);
         return points;
     }
 
-    public void friendsListener(){
+    public void friendsListener() {
         firebaseRepository.friendsListener();
+    }
+
+    public void initDates() {
+        firebaseRepository.initDailyDate();
+        firebaseRepository.initWeeklyDate();
     }
 }

@@ -276,7 +276,10 @@ public class FirebaseRepository {
             public void onDataChange(@NonNull DataSnapshot snapshot) { //updates the User class with the users gender and initializes body fat
                 String dailyDate = snapshot.getValue(String.class);
                 database = FirebaseDatabase.getInstance().getReference("Users/" + userMutableLiveData.getValue().getUid() + "/Dates/LastSignedIn");
-                database.setValue(dailyDate);
+                String userDailyDate = snapshot.getValue(String.class);
+                if(userDailyDate.equals(null)) {
+                    database.setValue(dailyDate);
+                }
             }
 
             @Override
@@ -292,8 +295,9 @@ public class FirebaseRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) { //updates the User class with the users gender and initializes body fat
                 String weeklyDate = snapshot.getValue(String.class);
-                database = FirebaseDatabase.getInstance().getReference("Users/" + userMutableLiveData.getValue().getUid() + "/Dates/LastWeekly");
-                database.setValue(weeklyDate);
+                    database = FirebaseDatabase.getInstance().getReference("Users/" + userMutableLiveData.getValue().getUid() + "/Dates/LastWeekly");
+                    String userWeeklyDate = snapshot.getValue(String.class);
+                        database.setValue(weeklyDate);
             }
 
             @Override

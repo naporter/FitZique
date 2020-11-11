@@ -1,5 +1,6 @@
 package com.example.workoutapp.ui.logon;
 
+import android.app.Application;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -19,12 +20,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.workoutapp.FirebaseRepository;
 import com.example.workoutapp.LoginPageActivity;
 import com.example.workoutapp.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class DemographicsFragment extends Fragment implements View.OnClickListener, TextWatcher, TabLayout.OnTabSelectedListener{
+public class DemographicsFragment extends Fragment implements View.OnClickListener, TextWatcher, TabLayout.OnTabSelectedListener {
 
     private NavController navController;
     private EditText weight, height, waist, neck, hips, birthday;
@@ -87,23 +89,23 @@ public class DemographicsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if(birthday.getText().length() == 10) {
-            if(birthday.getText().hashCode() == s.hashCode()){
+        if (birthday.getText().length() == 10) {
+            if (birthday.getText().hashCode() == s.hashCode()) {
                 String birthdayText = birthday.getText().toString();
-                if(birthdayText.charAt(2) != '/' && birthdayText.charAt(4) != '/'){
+                if (birthdayText.charAt(2) != '/' && birthdayText.charAt(4) != '/') {
                     birthday.setTextColor(Color.RED);
-                }else{
+                } else {
                     birthday.setTextColor(Color.BLACK);
                 }
             }
         } else {
             birthday.setTextColor(Color.RED);
         }
-        if (!TextUtils.isEmpty(weight.getText().toString()) && !TextUtils.isEmpty(height.getText().toString())&& !TextUtils.isEmpty(waist.getText().toString())
+        if (!TextUtils.isEmpty(weight.getText().toString()) && !TextUtils.isEmpty(height.getText().toString()) && !TextUtils.isEmpty(waist.getText().toString())
                 && !TextUtils.isEmpty(neck.getText().toString()) && !TextUtils.isEmpty(birthday.getText().toString()) && !(hipsContainer.getVisibility() == View.VISIBLE && TextUtils.isEmpty(hips.getText().toString()))) {
             signUpBtn.setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.ripple_effect));
             signUpBtn.setClickable(true);
-        }else {
+        } else {
             signUpBtn.setBackgroundColor(getResources().getColor(R.color.cardview_shadow_start_color));
             signUpBtn.setClickable(false);
         }
@@ -116,16 +118,16 @@ public class DemographicsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        if(tab.getPosition() == 1){
+        if (tab.getPosition() == 1) {
             hipsContainer.setVisibility(View.VISIBLE);
-            if(TextUtils.isEmpty(hips.getText().toString())){
+            if (TextUtils.isEmpty(hips.getText().toString())) {
                 signUpBtn.setBackgroundColor(getResources().getColor(R.color.cardview_shadow_start_color));
                 signUpBtn.setClickable(false);
             }
-        }else{
+        } else {
             hipsContainer.setVisibility(View.GONE);
             hips.getText().clear();
-            if (!TextUtils.isEmpty(weight.getText().toString()) && !TextUtils.isEmpty(height.getText().toString())&& !TextUtils.isEmpty(waist.getText().toString())
+            if (!TextUtils.isEmpty(weight.getText().toString()) && !TextUtils.isEmpty(height.getText().toString()) && !TextUtils.isEmpty(waist.getText().toString())
                     && !TextUtils.isEmpty(neck.getText().toString()) && !TextUtils.isEmpty(birthday.getText().toString())) {
                 signUpBtn.setBackground(ContextCompat.getDrawable(requireActivity(), R.drawable.ripple_effect));
                 signUpBtn.setClickable(true);
@@ -145,16 +147,16 @@ public class DemographicsFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.goBack:
                 navController.navigateUp();
                 break;
             case R.id.signUpBtn:
-                if(gender.getSelectedTabPosition() == 0){ //hip size is not used when calculating a males body fat percentage
+                if (gender.getSelectedTabPosition() == 0) { //hip size is not used when calculating a males body fat percentage
                     hips.setText("0");
                 }
-                ((LoginPageActivity)getActivity()).initDemographics(email, firstName, lastName, phoneNumber, birthday.getText().toString(), gender.getTabAt(gender.getSelectedTabPosition()).getText().toString());
-                ((LoginPageActivity)getActivity()).initMeasurements(Integer.parseInt(weight.getText().toString()), Integer.parseInt(height.getText().toString()),
+                ((LoginPageActivity) getActivity()).initDemographics(email, firstName, lastName, phoneNumber, birthday.getText().toString(), gender.getTabAt(gender.getSelectedTabPosition()).getText().toString());
+                ((LoginPageActivity) getActivity()).initMeasurements(Integer.parseInt(weight.getText().toString()), Integer.parseInt(height.getText().toString()),
                         Integer.parseInt(neck.getText().toString()), Integer.parseInt(waist.getText().toString()), Integer.parseInt(hips.getText().toString()), gender.getTabAt(gender.getSelectedTabPosition()).getText().toString());
                 break;
         }
