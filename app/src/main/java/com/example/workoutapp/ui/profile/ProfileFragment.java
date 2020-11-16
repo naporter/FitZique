@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -27,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutapp.activities.MainActivity;
 import com.example.workoutapp.R;
-import com.example.workoutapp.adapters.FriendRecyclerViewAdapter;
+import com.example.workoutapp.adapters.ProfileRecyclerViewAdapter;
 import com.example.workoutapp.viewmodels.UserViewModel;
 import com.example.workoutapp.databinding.FragmentProfileBinding;
 import com.google.android.material.textfield.TextInputLayout;
@@ -37,13 +36,13 @@ import java.util.Objects;
 
 import static java.lang.Double.isNaN;
 
-public class ProfileFragment extends Fragment implements View.OnFocusChangeListener, FriendRecyclerViewAdapter.FriendViewHolder.OnClickListener{
+public class ProfileFragment extends Fragment implements View.OnFocusChangeListener, ProfileRecyclerViewAdapter.FriendViewHolder.OnClickListener{
 
     private EditText height, hipSize, neckSize, waistSize, weight, newFriendPhoneNumber;
     private TextInputLayout hipsContainer;
     private TextView bodyFatPercent;
     private ImageButton addFriendBtn, add;
-    private FriendRecyclerViewAdapter friendRecyclerViewAdapter;
+    private ProfileRecyclerViewAdapter profileRecyclerViewAdapter;
     private TableRow addFriendRow;
     private InputMethodManager imm;
     private UserViewModel userViewModel;
@@ -59,7 +58,7 @@ public class ProfileFragment extends Fragment implements View.OnFocusChangeListe
         imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         this.getParentFragmentManager().beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        friendRecyclerViewAdapter = new FriendRecyclerViewAdapter(requireActivity(), Objects.requireNonNull(userViewModel.getUser().getValue()).getFriends(), this);
+        profileRecyclerViewAdapter = new ProfileRecyclerViewAdapter(requireActivity(), Objects.requireNonNull(userViewModel.getUser().getValue()).getFriends(), this);
     }
 
     @Override
@@ -69,7 +68,7 @@ public class ProfileFragment extends Fragment implements View.OnFocusChangeListe
         fragmentProfileBinding.setUser(userViewModel.getUser().getValue());
         fragmentProfileBinding.setProfile(this);
         fragmentProfileBinding.friendRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        fragmentProfileBinding.friendRecyclerView.setAdapter(friendRecyclerViewAdapter);
+        fragmentProfileBinding.friendRecyclerView.setAdapter(profileRecyclerViewAdapter);
         fragmentProfileBinding.setLifecycleOwner(requireActivity());
         fragmentProfileBinding.executePendingBindings();
 
@@ -103,13 +102,13 @@ public class ProfileFragment extends Fragment implements View.OnFocusChangeListe
                     public void onClick(DialogInterface dialog, int which) {
                         ((MainActivity) requireActivity()).removeFriend(userViewModel.getUser().getValue().getFriends().get(viewHolder.getAdapterPosition()).getUid());
                         userViewModel.getUser().getValue().getFriends().remove(viewHolder.getAdapterPosition());
-                        friendRecyclerViewAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+                        profileRecyclerViewAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                     }
                 });
                 confirmDelete.setNegativeButton("No",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        friendRecyclerViewAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                        profileRecyclerViewAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
                     }
                 });
                 AlertDialog alertDialog = confirmDelete.create();

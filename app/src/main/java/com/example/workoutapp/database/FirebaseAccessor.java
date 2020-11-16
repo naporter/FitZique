@@ -37,7 +37,7 @@ public class FirebaseAccessor {
     private static DatabaseReference database;
 
     private final User user = new User();
-    private static MutableLiveData<Boolean> registerable;
+    private MutableLiveData<Boolean> isRegistered;
 
     FirebaseAccessor(Application application){
         this.application = application;
@@ -59,9 +59,9 @@ public class FirebaseAccessor {
         return user;
     }
 
-    public MutableLiveData<Boolean> getRegisterable(){
-        registerable = new MutableLiveData<>();
-        return registerable;
+    public MutableLiveData<Boolean> getIsRegistered(){
+        isRegistered = new MutableLiveData<>();
+        return isRegistered;
     }
 
 
@@ -71,7 +71,7 @@ public class FirebaseAccessor {
         firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
             @Override
             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                registerable.setValue(task.getResult().getSignInMethods().isEmpty());
+                isRegistered.setValue(task.getResult().getSignInMethods().isEmpty());
                 System.out.println(task.getResult().getSignInMethods().toString());
             }
         });
