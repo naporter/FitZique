@@ -1,9 +1,10 @@
-package com.example.workoutapp;
+package com.example.workoutapp.objects;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.workoutapp.BR;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;

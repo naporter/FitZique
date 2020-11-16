@@ -15,13 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.workoutapp.LoginPageActivity;
+import com.example.workoutapp.activities.LoginPageActivity;
 import com.example.workoutapp.R;
-import com.example.workoutapp.UserViewModel;
+import com.example.workoutapp.database.FirebaseAccessor;
+import com.example.workoutapp.viewmodels.UserViewModel;
 
 
 public class RegisterFragment extends Fragment implements View.OnClickListener, TextWatcher{
@@ -29,7 +31,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     private NavController navController;
     public EditText firstName, lastName, phoneNumber, password, email;
     private Button nextBtn;
-    private UserViewModel userViewModel;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -60,7 +61,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
         email.addTextChangedListener(this);
 
         nextBtn.setClickable(false);
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
     }
 
     @Override
@@ -76,17 +76,27 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
                 navController.navigateUp();
                 break;
             case R.id.nextBtn:
-                if(!((LoginPageActivity) requireActivity()).checkIfUserExists(this.email.getText().toString())){
-                    Toast.makeText(getContext(), "Username available.", Toast.LENGTH_SHORT).show();
-                    Bundle bundle = new Bundle(); // bundles the users info from registerFragment to use in Demographics fragment
-                    bundle.putString("firstName", firstName.getText().toString());
-                    bundle.putString("lastName", lastName.getText().toString());
-                    bundle.putString("phoneNumber", phoneNumber.getText().toString());
-                    bundle.putString("email", email.getText().toString());
-                    bundle.putString("password", password.getText().toString());
-                    navController.navigate(R.id.action_registerFragment_to_demographicsFragment, bundle);
-                }
-//
+                final FirebaseAccessor firebaseAccessor = ((LoginPageActivity) requireActivity()).alreadyUser(this.email.getText().toString());
+                firebaseAccessor.getRegisterable().observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        firebaseAccessor.getRegisterable().removeObserver(this);
+                        if(aBoolean){
+                            Toast.makeText(getContext(), "Email available.", Toast.LENGTH_SHORT).show();
+                            Bundle bundle = new Bundle(); // bundles the users info from registerFragment to use in Demographics fragment
+                            bundle.putString("firstName", firstName.getText().toString());
+                            bundle.putString("lastName", lastName.getText().toString());
+                            bundle.putString("phoneNumber", phoneNumber.getText().toString());
+                            bundle.putString("email", email.getText().toString());
+                            bundle.putString("password", password.getText().toString());
+                            navController.navigate(R.id.action_registerFragment_to_demographicsFragment, bundle);
+                        }
+                        else{
+                            Toast.makeText(getContext(), "Email unavailable. Use another email or go back to sign in.", Toast.LENGTH_SHORT).show();
+                        }
+//                        firebaseAccessor.getRegisterable().setValue(null);
+                    }
+                });
                 break;
         }
     }

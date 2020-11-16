@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutapp.R;
+import com.example.workoutapp.adapters.BadgesRecyclerViewAdapter;
 
 public class BadgesFragment extends Fragment implements BadgesRecyclerViewAdapter.BadgeViewHolder.OnClickListener {
 

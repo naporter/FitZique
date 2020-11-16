@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutapp.R;
+import com.example.workoutapp.adapters.RecyclerViewAdapter;
+import com.example.workoutapp.viewmodels.HomeViewModel;
 
 public class MediumFragment extends Fragment implements RecyclerViewAdapter.WorkoutViewHolder.OnClickListener {
 

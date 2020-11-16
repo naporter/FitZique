@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.workoutapp.LoginPageActivity;
+import com.example.workoutapp.activities.LoginPageActivity;
 import com.example.workoutapp.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
@@ -167,7 +167,7 @@ public class DemographicsFragment extends Fragment implements View.OnClickListen
                 DecimalFormat df = new DecimalFormat("####0.00");
                 double bodyFat;
                 if(gender.equals("Female")){
-                    bodyFat = 163.205 * Math.log10(waistSize + hipSize - neckSize) - 97.684 * Math.log10(height) + 36.76;
+                    bodyFat = 163.205 * Math.log10(waistSize + hipSize - neckSize) - 97.684 * Math.log10(height) - 78.387;
                 }else{
                     bodyFat = 86.010 * Math.log10(waistSize - neckSize) - 70.041 * Math.log10(height) + 36.76;
                 }

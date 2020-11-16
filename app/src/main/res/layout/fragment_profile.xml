@@ -5,7 +5,7 @@
     <data>
         <variable
             name="user"
-            type="com.example.workoutapp.User" />
+            type="com.example.workoutapp.objects.User" />
         <variable
             name="profile"
             type="com.example.workoutapp.ui.profile.ProfileFragment" />
@@ -168,11 +168,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Hips in Inches"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <EditText
                             android:id="@+id/hipSize"
-                            android:text="@{String.valueOf(user.hipSize)}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:autoSizeMaxTextSize="16sp"
@@ -182,8 +182,10 @@
                             android:ems="8"
                             android:fontFamily="sans-serif-light"
                             android:inputType="number"
+                            android:text="@{String.valueOf(user.hipSize)}"
                             android:textColorLink="@color/colorAccent"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button

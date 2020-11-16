@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.workouts;
+package com.example.workoutapp.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -24,9 +25,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.workoutapp.MainActivity;
+import com.example.workoutapp.activities.MainActivity;
 import com.example.workoutapp.R;
-import com.example.workoutapp.UserViewModel;
+import com.example.workoutapp.adapters.FriendRecyclerViewAdapter;
+import com.example.workoutapp.viewmodels.UserViewModel;
 import com.example.workoutapp.databinding.FragmentProfileBinding;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -164,8 +166,8 @@ public class ProfileFragment extends Fragment implements View.OnFocusChangeListe
         int height = Integer.parseInt(this.height.getText().toString());
         DecimalFormat df = new DecimalFormat("####0.00");
         double bodyFat;
-        if(userViewModel.getUser().getValue().getGender().equals("Female")){
-            bodyFat = 163.205 * Math.log10(waistSize + hipSize - neckSize) - 97.684 * Math.log10(height) + 36.76;
+        if(Objects.requireNonNull(userViewModel.getUser().getValue()).getGender().equals("Female")){
+            bodyFat = 163.205 * Math.log10(waistSize + hipSize - neckSize) - 97.684 * Math.log10(height) - 78.387;
         }else{
             bodyFat = 86.010 * Math.log10(waistSize - neckSize) - 70.041 * Math.log10(height) + 36.76;
         }
