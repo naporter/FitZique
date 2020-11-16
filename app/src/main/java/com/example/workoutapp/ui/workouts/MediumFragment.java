@@ -2,6 +2,9 @@ package com.example.workoutapp.ui.workouts;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -9,24 +12,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.workoutapp.R;
+import com.example.workoutapp.adapters.WorkoutRecyclerViewAdapter;
+import com.example.workoutapp.viewmodels.HomeViewModel;
 
-import java.util.Objects;
-
-public class MediumFragment extends Fragment implements RecyclerViewAdapter.WorkoutViewHolder.OnClickListener {
+public class MediumFragment extends Fragment implements WorkoutRecyclerViewAdapter.WorkoutViewHolder.OnClickListener {
 
     private String[] workoutNames;
     private TypedArray workoutImages;
     private RecyclerView recyclerView;
     private NavController navController;
-    private RecyclerViewAdapter recyclerViewAdapter;
+    private WorkoutRecyclerViewAdapter workoutRecyclerViewAdapter;
     private HomeViewModel homeViewModel;
 
     public MediumFragment() {
@@ -46,9 +44,9 @@ public class MediumFragment extends Fragment implements RecyclerViewAdapter.Work
         workoutNames = getResources().getStringArray(R.array.medium_workouts);
         workoutImages = getResources().obtainTypedArray(R.array.medium_workout_images);
         navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-        recyclerViewAdapter = new RecyclerViewAdapter(getContext(), workoutNames, workoutImages,this);
+        workoutRecyclerViewAdapter = new WorkoutRecyclerViewAdapter(getContext(), workoutNames, workoutImages,this);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setAdapter(workoutRecyclerViewAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         return view;
     }

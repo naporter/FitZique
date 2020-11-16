@@ -7,14 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.workoutapp.R;
+import com.example.workoutapp.adapters.ViewPagerAdapter;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
@@ -35,6 +34,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         hardTab = view.findViewById(R.id.hardTab);
         viewPager = view.findViewById(R.id.viewPager);
         viewPager.setAdapter(new ViewPagerAdapter(this));
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() { //Changes tab focus and fragment when clicking tabs
             @Override
@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 

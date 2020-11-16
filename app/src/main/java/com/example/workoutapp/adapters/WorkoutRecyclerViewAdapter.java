@@ -1,8 +1,7 @@
-package com.example.workoutapp.ui.workouts;
+package com.example.workoutapp.adapters;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,20 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutapp.R;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.WorkoutViewHolder>{
+public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecyclerViewAdapter.WorkoutViewHolder>{
 
     private String[] workoutName;
     private TypedArray workoutImages;
     private Context context;
     private WorkoutViewHolder.OnClickListener onClickListener;
 
-    public RecyclerViewAdapter(Context context, String[] workoutName, TypedArray workoutImages, WorkoutViewHolder.OnClickListener onClickListener){
+    public WorkoutRecyclerViewAdapter(Context context, String[] workoutName, TypedArray workoutImages, WorkoutViewHolder.OnClickListener onClickListener){
         this.context = context;
         this.workoutName = workoutName;
         this.onClickListener = onClickListener;
@@ -32,7 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @NonNull
     @Override
-    public RecyclerViewAdapter.WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WorkoutRecyclerViewAdapter.WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.workout_button, parent, false);
         return new WorkoutViewHolder(view, onClickListener);
@@ -41,8 +38,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         holder.workoutName.setText(workoutName[position]);
-//        holder.workoutName.setCompoundDrawablesRelativeWithIntrinsicBounds(null, ContextCompat.getDrawable(context, workoutImages.getResourceId(position, -1)), null, null);
-
         holder.workoutImage.setImageResource(workoutImages.getResourceId(position, -1));
     }
 

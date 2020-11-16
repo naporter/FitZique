@@ -1,4 +1,11 @@
-package com.example.workoutapp;
+package com.example.workoutapp.activities;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,22 +19,11 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
+import com.example.workoutapp.R;
+import com.example.workoutapp.viewmodels.UserViewModel;
+import com.example.workoutapp.objects.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -40,28 +36,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView dailyPoints, weeklyPoints, lifetimePoints;
     private MenuItem userPointsItem;
     private MenuItem logoutBtn;
-    private FirebaseAuth mAuth;
     private UserViewModel userViewModel;
+    private User user;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.initUser();
         setContentView(R.layout.activity_main);
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment); //NavHostFragment must be defined when making calls to NavController while using FragmentContainerView
+        navController = navHostFragment.getNavController();
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class); //initializes user attributes in constructor
+        userViewModel.init(getApplication());
+        signOutListener();
+        this.user = userViewModel.getUser().getValue();
         BottomNavigationView navView = findViewById(R.id.nav_view);
         getSupportActionBar().setElevation(0); //removes drop shadows from the action bar and next line is navigation view
         navView.setElevation(0);
-        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment); //NavHostFragment must be defined when making calls to NavController while using FragmentContainerView
-        navController = navHostFragment.getNavController();
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration); //setup back arrow actions in action bar
         NavigationUI.setupWithNavController(navView, navController);
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) { //hides back button on Leaderboard, Badges, and Profile tabs
-                if(destination.getId() == R.id.navigation_leaderboard || destination.getId() == R.id.navigation_notifications || destination.getId() == R.id.navigation_profile){
+                if (destination.getId() == R.id.navigation_leaderboard || destination.getId() == R.id.navigation_notifications || destination.getId() == R.id.navigation_profile) {
                     Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
                     getSupportActionBar().setHomeButtonEnabled(false);
                 }
@@ -70,42 +72,92 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) { //initialize all of the point values and their views
+    public boolean onCreateOptionsMenu(final Menu menu) { //initialize all of the point values and their view
         getMenuInflater().inflate(R.menu.user_points, menu);
         userPointsItem = menu.findItem(R.id.pointsBtn);
         logoutBtn = menu.findItem(R.id.logoutBtn);
         logoutBtn.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) { //consider adding a prompt to logout after button pressed
-                mAuth.signOut();
-                Intent intent = new Intent(getBaseContext(), LoginPageActivity.class);
-                startActivity(intent);
-                finish();
-                return false;
+                FirebaseAuth.getInstance().signOut();
+                return true;
             }
         });
         dailyPoints = userPointsItem.getActionView().findViewById(R.id.dailyPoints);
         weeklyPoints = userPointsItem.getActionView().findViewById(R.id.weeklyPoints);
         lifetimePoints = userPointsItem.getActionView().findViewById(R.id.lifetimePoints);
-        userViewModel.getDailyPoints().observe(this, new Observer<Integer>() {
+        pointListeners();
+        return true;
+    }
+
+    public void signOutListener(){
+        FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null){
+                    clearViewModel();
+                    Intent intent = new Intent(getBaseContext(), LoginPageActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
+        FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
+    }
+
+    public void clearViewModel(){
+        this.getViewModelStore().clear();
+    }
+
+    public void pointListeners() { //automatically updates the text when the points change
+        userViewModel.getUser().getValue().getDailyPoints().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 dailyPoints.setText(String.valueOf(integer));
             }
         });
-        userViewModel.getWeeklyPoints().observe(this, new Observer<Integer>() {
+        userViewModel.getUser().getValue().getWeeklyPoints().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 weeklyPoints.setText(String.valueOf(integer));
             }
         });
-        userViewModel.getLifetimePoints().observe(this, new Observer<Integer>() {
+        userViewModel.getUser().getValue().getLifetimePoints().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 lifetimePoints.setText(String.valueOf(integer));
             }
         });
-        return true;
+    }
+
+    public UserViewModel getUserViewModel(){
+        return userViewModel;
+    }
+
+    public void updateMeasurement(String measurement, int value){
+        String userUID = FirebaseAuth.getInstance().getUid();
+        userViewModel.getFirebaseAccessor().updateMeasurement(userUID, measurement, value);
+    }
+
+    public void updatePoints(int difficulty, int numReps){
+        String userUID = FirebaseAuth.getInstance().getUid();
+        int points = (int) (numReps * difficulty - (difficulty * numReps * (1 - (userViewModel.getUser().getValue().getBodyFatPercent()/100))));
+        userViewModel.getFirebaseAccessor().updatePoints(userUID, points);
+    }
+
+    public void updateBodyFat(double bodyFat){
+        String userUID = FirebaseAuth.getInstance().getUid();
+        userViewModel.getFirebaseAccessor().updateBodyFat(userUID, bodyFat);
+    }
+
+    public void addFriend(String friendUID){
+        String userUID = FirebaseAuth.getInstance().getUid();
+        userViewModel.getFirebaseAccessor().addFriend(userUID, friendUID);
+    }
+
+    public void removeFriend(String friendUID) {
+        String userUID = FirebaseAuth.getInstance().getUid();
+        userViewModel.getFirebaseAccessor().removeFriend(userUID, friendUID);
     }
 
     @Override
@@ -114,20 +166,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) { //provides a way to cycle through the different point views
-        if (v.getId() == (R.id.logoutBtn)){
-            mAuth.signOut();
-        }
+    public void onClick(View v) {
         //getConstantState will return the source of the drawable image. comparing these to the current view that calls the on click will result in true if they are equal
-        if(v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.lifetime_points)).getConstantState()){
+        if (v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.lifetime_points)).getConstantState()) {
             v.setBackground(ContextCompat.getDrawable(this, R.drawable.weekly_points));
             lifetimePoints.setVisibility(View.GONE);
             weeklyPoints.setVisibility(View.VISIBLE);
-        } else if(v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.weekly_points)).getConstantState()){
+        } else if (v.getBackground().getConstantState() == Objects.requireNonNull(ContextCompat.getDrawable(this, R.drawable.weekly_points)).getConstantState()) {
             v.setBackground(ContextCompat.getDrawable(this, R.drawable.daily_points));
             weeklyPoints.setVisibility(View.GONE);
             dailyPoints.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             v.setBackground(ContextCompat.getDrawable(this, R.drawable.lifetime_points));
             dailyPoints.setVisibility(View.GONE);
             lifetimePoints.setVisibility(View.VISIBLE);

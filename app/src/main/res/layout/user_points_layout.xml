@@ -1,75 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="user" type="com.example.workoutapp.objects.User" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/pointsImage"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/weekly_points"
-        android:onClick="onClick"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/pointsImage"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/weekly_points"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/weeklyPoints"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:autoSizeMaxTextSize="18sp"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="sans-serif-light"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
-        app:layout_constraintEnd_toEndOf="@+id/pointsImage"
-        app:layout_constraintStart_toStartOf="@+id/pointsImage"
-        app:layout_constraintTop_toTopOf="@+id/pointsImage" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/weeklyPoints"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="sans-serif-light"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
+            app:layout_constraintEnd_toEndOf="@+id/pointsImage"
+            app:layout_constraintStart_toStartOf="@+id/pointsImage"
+            app:layout_constraintTop_toTopOf="@+id/pointsImage" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/dailyPoints"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:autoSizeMaxTextSize="18sp"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="sans-serif-light"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
-        app:layout_constraintEnd_toEndOf="@+id/pointsImage"
-        app:layout_constraintStart_toStartOf="@+id/pointsImage"
-        app:layout_constraintTop_toTopOf="@+id/pointsImage" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dailyPoints"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="sans-serif-light"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
+            app:layout_constraintEnd_toEndOf="@+id/pointsImage"
+            app:layout_constraintStart_toStartOf="@+id/pointsImage"
+            app:layout_constraintTop_toTopOf="@+id/pointsImage" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/lifetimePoints"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:autoSizeMaxTextSize="18sp"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="sans-serif-light"
-        android:textAlignment="center"
-        android:textColor="@color/textColor"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
-        app:layout_constraintEnd_toEndOf="@+id/pointsImage"
-        app:layout_constraintStart_toStartOf="@+id/pointsImage"
-        app:layout_constraintTop_toTopOf="@+id/pointsImage" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lifetimePoints"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:fontFamily="sans-serif-light"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/pointsImage"
+            app:layout_constraintEnd_toEndOf="@+id/pointsImage"
+            app:layout_constraintStart_toStartOf="@+id/pointsImage"
+            app:layout_constraintTop_toTopOf="@+id/pointsImage" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

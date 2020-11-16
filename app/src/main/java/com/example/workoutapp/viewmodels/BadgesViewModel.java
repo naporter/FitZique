@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.badges;
+package com.example.workoutapp.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
