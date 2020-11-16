@@ -30,8 +30,8 @@ public class FirebaseAccessor {
     private final Application application;
     private static FirebaseAccessor instance;
 
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference database;
+    private static FirebaseAuth firebaseAuth;
+    private static DatabaseReference database;
 
     private final User user = new User();
 
@@ -42,14 +42,14 @@ public class FirebaseAccessor {
     public static FirebaseAccessor getInstance(Application application){
         if(instance == null){
             instance = new FirebaseAccessor(application);
+            database = FirebaseDatabase.getInstance().getReference();
+            firebaseAuth = FirebaseAuth.getInstance();
         }
         return instance;
     }
 
     public MutableLiveData<User> getUser(){
         MutableLiveData<User> user = new MutableLiveData<>();
-        database = FirebaseDatabase.getInstance().getReference();
-        firebaseAuth = FirebaseAuth.getInstance();
         user.setValue(this.user);
         initUser();
         return user;
