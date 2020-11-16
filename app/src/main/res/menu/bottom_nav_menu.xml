@@ -11,10 +11,10 @@
         android:icon="@drawable/graph"
         android:title="@string/title_leaderboard" />
 
-    <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/badge"
-        android:title="@string/title_badges" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_notifications"-->
+<!--        android:icon="@drawable/badge"-->
+<!--        android:title="@string/title_badges" />-->
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/user_icon"

@@ -1,16 +1,7 @@
 package com.example.workoutapp.ui.logon;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,10 +13,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.workoutapp.LoginPageActivity;
 import com.example.workoutapp.R;
-
-import java.util.Objects;
+import com.google.firebase.database.DatabaseReference;
 
 public class LoginFragment extends Fragment implements View.OnClickListener, TextWatcher {
 
@@ -34,6 +31,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     private TextView forgotPassword;
     private Button loginBtn;
     private LinearLayout layout;
+    private DatabaseReference database;
 
     private NavController navController;
 

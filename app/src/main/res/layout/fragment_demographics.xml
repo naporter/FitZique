@@ -26,7 +26,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 app:tabIndicatorGravity="stretch"
-                app:tabTextAppearance="@style/TextAppearance.AppCompat.Display1">
+                app:tabTextAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabTextColor="@color/colorPrimary">
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/genderMale"
@@ -46,7 +48,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Birthday (dd/mm/yyyy)">
+                android:hint="Birthday (dd/mm/yyyy)"
+                android:textColorHint="@color/textColor">
 
                 <EditText
                     android:id="@+id/birthdayInit"
@@ -55,14 +58,16 @@
                     android:ems="10"
                     android:fontFamily="sans-serif-light"
                     android:inputType="date"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColorHighlight="@android:color/white"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Weight in Pounds">
+                android:hint="Weight in Pounds"
+                android:textColorHint="@color/textColor">
 
                 <EditText
                     android:id="@+id/weightInit"
@@ -71,14 +76,16 @@
                     android:ems="10"
                     android:fontFamily="sans-serif-light"
                     android:inputType="number"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColorHighlight="@android:color/white"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Waist in Inches">
+                android:hint="Waist in Inches"
+                android:textColorHint="@color/textColor">
 
                 <EditText
                     android:id="@+id/waistInit"
@@ -87,13 +94,15 @@
                     android:ems="10"
                     android:fontFamily="sans-serif-light"
                     android:inputType="number"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColorHighlight="@android:color/white"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Height in Inches">
+                android:hint="Height in Inches"
+                android:textColorHint="@color/textColor">
 
                 <EditText
                     android:id="@+id/heightInit"
@@ -102,13 +111,15 @@
                     android:ems="10"
                     android:fontFamily="sans-serif-light"
                     android:inputType="number"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColorHighlight="@android:color/white"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Neck in Inches">
+                android:hint="Neck in Inches"
+                android:textColorHint="@color/textColor">
 
                 <EditText
                     android:id="@+id/neckInit"
@@ -117,7 +128,8 @@
                     android:ems="10"
                     android:fontFamily="sans-serif-light"
                     android:inputType="number"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColorHighlight="@android:color/white"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -125,7 +137,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Hips in Inches"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:textColorHint="@color/textColor">
 
                 <EditText
                     android:id="@+id/hipsInit"
@@ -134,7 +147,8 @@
                     android:ems="10"
                     android:fontFamily="sans-serif-light"
                     android:inputType="number"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textColorHighlight="@android:color/white"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

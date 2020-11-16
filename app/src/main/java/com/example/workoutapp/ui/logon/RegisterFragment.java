@@ -1,14 +1,6 @@
 package com.example.workoutapp.ui.logon;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,12 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.workoutapp.LoginPageActivity;
 import com.example.workoutapp.R;
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.Objects;
+import com.example.workoutapp.UserViewModel;
 
 
 public class RegisterFragment extends Fragment implements View.OnClickListener, TextWatcher{
@@ -30,6 +29,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     private NavController navController;
     public EditText firstName, lastName, phoneNumber, password, email;
     private Button nextBtn;
+    private UserViewModel userViewModel;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -60,6 +60,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
         email.addTextChangedListener(this);
 
         nextBtn.setClickable(false);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
     }
 
     @Override
@@ -75,13 +76,17 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
                 navController.navigateUp();
                 break;
             case R.id.nextBtn:
-                Bundle bundle = new Bundle(); // bundles the users info from registerFragment to use in Demographics fragment
-                bundle.putString("firstName", this.firstName.getText().toString());
-                bundle.putString("lastName", this.lastName.getText().toString());
-                bundle.putString("phoneNumber", this.phoneNumber.getText().toString());
-                bundle.putString("email", this.email.getText().toString());
-                bundle.putString("password", this.password.getText().toString());
-                navController.navigate(R.id.action_registerFragment_to_demographicsFragment, bundle);
+                if(!((LoginPageActivity) requireActivity()).checkIfUserExists(this.email.getText().toString())){
+                    Toast.makeText(getContext(), "Username available.", Toast.LENGTH_SHORT).show();
+                    Bundle bundle = new Bundle(); // bundles the users info from registerFragment to use in Demographics fragment
+                    bundle.putString("firstName", firstName.getText().toString());
+                    bundle.putString("lastName", lastName.getText().toString());
+                    bundle.putString("phoneNumber", phoneNumber.getText().toString());
+                    bundle.putString("email", email.getText().toString());
+                    bundle.putString("password", password.getText().toString());
+                    navController.navigate(R.id.action_registerFragment_to_demographicsFragment, bundle);
+                }
+//
                 break;
         }
     }

@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009688</color>
-    <color name="colorPrimaryDark">#3F51B5</color>
-    <color name="colorAccent">#F44336</color>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#01577E</color>
+    <color name="colorAccent">#FF8762</color>
     <color name="textColor">#FFFFFF</color>
     <color name="textColorDark">#2C2C2C</color>
     <color name="defaultButton">@color/cardview_shadow_start_color</color>
 </resources>
+
+<!--Blue with accent silver-->
+<!--<color name="colorPrimary">#2196F3</color>-->
+<!--<color name="colorPrimaryDark">#01577E</color>-->
+<!--<color name="colorAccent">#C5C5C5</color>-->
+
+<!--Green with accent silver-->
+<!--<color name="colorPrimary">#009688</color>-->
+<!--<color name="colorPrimaryDark">#004E47</color>-->
+<!--<color name="colorAccent">#D3D3D3</color>-->

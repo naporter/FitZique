@@ -1,91 +1,65 @@
 package com.example.workoutapp;
 
-import androidx.lifecycle.ViewModel;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.lifecycle.MutableLiveData;
 
-import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.auth.FirebaseUser;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-@IgnoreExtraProperties
-public class User {
-    private int weeklyPoints;
-    private int dailyPoints;
-    private int lifetimePoints;
-    private int weight;
-    private int height;
-    private int neckSize;
-    private int waistSize;
-    private int hipSize;
-    private int age;
-    private double bodyFatPercent;
-    private String birthday;
-    private String gender;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private ArrayList<String> friends;
+public class User extends BaseObservable {
+    //authentication
+    public String UID;
+    //demographics
+    public String birthday;
+    public String firstName;
+    public String gender;
+    public String lastName;
+    public String phoneNumber;
+    //friends
+    private ArrayList<Friend> friends;
+    //measurements
+    public double bodyFatPercent;
+    public int height;
+    public int hipSize;
+    public int neckSize;
+    public int waistSize;
+    public int weight;
+    //points
+    public MutableLiveData<Integer> dailyPoints;
+    public MutableLiveData<Integer> lifetimePoints;
+    public MutableLiveData<Integer> weeklyPoints;
 
     public User(){
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        friends = new ArrayList<>();
+        dailyPoints = new MutableLiveData<>();
+        lifetimePoints = new MutableLiveData<>();
+        weeklyPoints = new MutableLiveData<>();
     }
 
-    User(int dailyPoints, int weeklyPoints, int lifetimePoints){
-        this.setDailyPoints(dailyPoints);
-        this.setWeeklyPoints(weeklyPoints);
-        this.setLifetimePoints(lifetimePoints);
+
+    public void setUser(FirebaseUser user) {
+        this.setUID(user.getUid());
     }
 
-    User(int weight, int height, int neckSize, int waistSize, int hipSize){
-        this.setWeight(weight);
-        this.setHeight(height);
-        this.setNeckSize(neckSize);
-        this.setWaistSize(waistSize);
-        this.setHipSize(hipSize);
+    public String getUID() {
+        return UID;
     }
 
-    User(String email, String firstName, String lastName, String phoneNumber, String birthday, String gender){
-        this.setEmail(email);
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-        this.setPhoneNumber(phoneNumber);
-        this.setBirthday(birthday);
-        this.setGender(gender);
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
-    public void setDailyPoints(int points) {
-        this.dailyPoints = points;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public int getDailyPoints(){
-        return dailyPoints;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
-    public int getWeeklyPoints() {
-        return weeklyPoints;
-    }
-
-    public void setWeeklyPoints(int points) {
-        this.weeklyPoints = points;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public ArrayList<String> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(ArrayList<String> friends) {
-        this.friends = friends;
-    }
-
+    @Bindable
     public String getFirstName() {
         return firstName;
     }
@@ -94,6 +68,15 @@ public class User {
         this.firstName = firstName;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    @Bindable
     public String getLastName() {
         return lastName;
     }
@@ -110,20 +93,23 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getLifetimePoints() {
-        return lifetimePoints;
+    @Bindable
+    public ArrayList<Friend> getFriends() {
+        return friends;
     }
 
-    public void setLifetimePoints(int lifetimePoints) {
-        this.lifetimePoints = lifetimePoints;
+    public void setFriends(ArrayList<Friend> friends) {
+        this.friends = friends;
     }
 
-    public int getWeight() {
-        return weight;
+    @Bindable
+    public double getBodyFatPercent() {
+        return bodyFatPercent;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setBodyFatPercent(double bodyFatPercent) {
+        this.bodyFatPercent = bodyFatPercent;
+        notifyPropertyChanged(BR.bodyFatPercent);
     }
 
     public int getHeight() {
@@ -132,6 +118,14 @@ public class User {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getHipSize() {
+        return hipSize;
+    }
+
+    public void setHipSize(int hipSize) {
+        this.hipSize = hipSize;
     }
 
     public int getNeckSize() {
@@ -150,44 +144,35 @@ public class User {
         this.waistSize = waistSize;
     }
 
-    public int getHipSize() {
-        return hipSize;
+    public int getWeight() {
+        return weight;
     }
 
-    public void setHipSize(int hipSize) {
-        this.hipSize = hipSize;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public MutableLiveData<Integer> getDailyPoints() {
+        return dailyPoints;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setDailyPoints(int dailyPoints) {
+        this.dailyPoints.postValue(dailyPoints);
     }
 
-    public String getGender() {
-        return gender;
+    public MutableLiveData<Integer> getLifetimePoints() {
+        return lifetimePoints;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setLifetimePoints(int lifetimePoints) {
+        this.lifetimePoints.postValue(lifetimePoints);
     }
 
-    public int getAge() {
-        return age;
+    public MutableLiveData<Integer> getWeeklyPoints() {
+        return weeklyPoints;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public double getBodyFatPercent() {
-        return bodyFatPercent;
-    }
-
-    public void setBodyFatPercent(double bodyFatPercent) {
-        DecimalFormat df = new DecimalFormat("0.00");
-        this.bodyFatPercent = Double.parseDouble(df.format(bodyFatPercent));
+    public void setWeeklyPoints(int weeklyPoints) {
+        this.weeklyPoints.postValue(weeklyPoints);
     }
 }

@@ -2,7 +2,6 @@ package com.example.workoutapp.ui.workouts;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutapp.R;
@@ -41,8 +38,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
         holder.workoutName.setText(workoutName[position]);
-//        holder.workoutName.setCompoundDrawablesRelativeWithIntrinsicBounds(null, ContextCompat.getDrawable(context, workoutImages.getResourceId(position, -1)), null, null);
-
         holder.workoutImage.setImageResource(workoutImages.getResourceId(position, -1));
     }
 

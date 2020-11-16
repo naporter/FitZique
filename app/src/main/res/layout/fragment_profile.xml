@@ -1,192 +1,287 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    tools:context=".ui.profile.ProfileFragment">
-
-    <androidx.cardview.widget.CardView
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="user"
+            type="com.example.workoutapp.User" />
+        <variable
+            name="profile"
+            type="com.example.workoutapp.ui.profile.ProfileFragment" />
+    </data>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.profile.ProfileFragment">
 
-        <TableLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp">
 
-            <TableRow
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="4dp">
+                android:layout_margin="8dp">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Measurements"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:text="Measurements"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|end"
+                        android:text="Your body fat %:" />
+
+                    <TextView
+                        android:id="@+id/bodyFatPercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="5dp"
+                        android:gravity="start|center_vertical"
+                        android:text="@{String.valueOf(user.bodyFatPercent)}"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|end"
-                    android:text="Your body fat %:"
-                    android:textStyle="bold" />
+                    android:gravity="center">
 
-                <TextView
-                    android:id="@+id/bodyFatPercent"
-                    android:layout_width="wrap_content"
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Height in Inches">
+
+                        <EditText
+                            android:id="@+id/height"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoSizeMaxTextSize="16sp"
+                            android:autoSizeMinTextSize="8sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:ems="8"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="number"
+                            android:text="@{String.valueOf(user.height)}"
+                            android:textColorLink="@color/colorAccent"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Weight in Pounds">
+
+                        <EditText
+                            android:id="@+id/weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoSizeMaxTextSize="16sp"
+                            android:autoSizeMinTextSize="8sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:ems="8"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="number"
+                            android:text="@{String.valueOf(user.weight)}"
+                            android:textColorLink="@color/colorAccent"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="5dp"
-                    android:gravity="start|center_vertical"
-                    android:textStyle="bold" />
-            </TableRow>
+                    android:gravity="center">
 
-            <TableRow
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Neck in Inches">
+
+                        <EditText
+                            android:id="@+id/neckSize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoSizeMaxTextSize="16sp"
+                            android:autoSizeMinTextSize="8sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:ems="8"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="number"
+                            android:text="@{String.valueOf(user.neckSize)}"
+                            android:textColorLink="@color/colorAccent"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Waist in Inches">
+
+                        <EditText
+                            android:id="@+id/waistSize"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoSizeMaxTextSize="16sp"
+                            android:autoSizeMinTextSize="8sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:ems="8"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="number"
+                            android:text="@{String.valueOf(user.waistSize)}"
+                            android:textColorLink="@color/colorAccent"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/hipsContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Hips in Inches"
+                        android:visibility="gone">
+
+                        <EditText
+                            android:id="@+id/hipSize"
+                            android:text="@{String.valueOf(user.hipSize)}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autoSizeMaxTextSize="16sp"
+                            android:autoSizeMinTextSize="8sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+                            android:ems="8"
+                            android:fontFamily="sans-serif-light"
+                            android:inputType="number"
+                            android:textColorLink="@color/colorAccent"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/recalcBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ripple_effect"
+                        android:onClick="@{() -> profile.recalculateBodyFat()}"
+                        android:text="Recalculate BFP"
+                        android:textColor="@color/textColor" />
+                </TableRow>
+            </TableLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Height in Inches">
+                    android:layout_marginBottom="10dp">
 
-                    <EditText
-                        android:id="@+id/height"
+                    <TextView
+                        android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:autoSizeMaxTextSize="16sp"
-                        android:autoSizeMinTextSize="8sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:ems="8"
-                        android:fontFamily="sans-serif-light"
-                        android:inputType="number"
-                        android:nextFocusDown="@id/weight"
-                        android:textColorLink="@color/colorAccent"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_weight="2"
+                        android:text="Friends List"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
+                    <ImageButton
+                        android:id="@+id/addFriendBtn"
+                        android:onClick="@{() -> profile.setAddFriendVisibility()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/add_btn" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/addFriendRow"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Weight in Pounds">
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
-                    <EditText
-                        android:id="@+id/weight"
-                        android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:autoSizeMaxTextSize="16sp"
-                        android:autoSizeMinTextSize="8sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:ems="8"
-                        android:fontFamily="sans-serif-light"
-                        android:inputType="number"
-                        android:nextFocusDown="@id/neckSize"
-                        android:textColorLink="@color/colorAccent"
-                        android:textSize="14sp" />
+                        android:layout_weight="2"
+                        android:hint="Friend's Phone Number">
 
-                </com.google.android.material.textfield.TextInputLayout>
-            </TableRow>
+                        <EditText
+                            android:id="@+id/newFriendPhoneNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:fontFamily="sans-serif-light"
+                            android:gravity="center_vertical"
+                            android:inputType="phone"
+                            android:textColorLink="@color/colorAccent"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:gravity="center">
+                    <ImageButton
+                        android:id="@+id/add"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@android:color/transparent"
+                        android:onClick="@{() -> profile.addFriend()}"
+                        android:src="@android:drawable/ic_input_add" />
+                </TableRow>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Neck in Inches">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                    <EditText
-                        android:id="@+id/neckSize"
-                        android:layout_width="wrap_content"
+                    <androidx.recyclerview.widget.RecyclerView
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:id="@+id/friendRecyclerView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:autoSizeMaxTextSize="16sp"
-                        android:autoSizeMinTextSize="8sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:ems="8"
-                        android:fontFamily="sans-serif-light"
-                        android:inputType="number"
-                        android:nextFocusDown="@id/waistSize"
-                        android:textColorLink="@color/colorAccent"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_weight="2" />
+                </TableRow>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Waist in Inches">
+            </TableLayout>
+        </androidx.cardview.widget.CardView>
 
-                    <EditText
-                        android:id="@+id/waistSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:autoSizeMaxTextSize="16sp"
-                        android:autoSizeMinTextSize="8sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:ems="8"
-                        android:fontFamily="sans-serif-light"
-                        android:inputType="number"
-                        android:nextFocusDown="@id/hipSize"
-                        android:textColorLink="@color/colorAccent"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="4dp"
-                android:gravity="center">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/hipsContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Hips in Inches"
-                    android:visibility="gone">
-
-                    <EditText
-                        android:id="@+id/hipSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:autoSizeMaxTextSize="16sp"
-                        android:autoSizeMinTextSize="8sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:ems="8"
-                        android:fontFamily="sans-serif-light"
-                        android:inputType="number"
-                        android:textColorLink="@color/colorAccent"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/recalcBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_effect"
-                    android:text="Recalculate BFP"
-                    android:textColor="@color/textColor" />
-            </TableRow>
-        </TableLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+    </LinearLayout>
+</layout>
