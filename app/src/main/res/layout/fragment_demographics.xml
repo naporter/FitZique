@@ -28,7 +28,7 @@
                 app:tabIndicatorGravity="stretch"
                 app:tabTextAppearance="@style/TextAppearance.AppCompat.Display1"
                 app:tabSelectedTextColor="@android:color/white"
-                app:tabTextColor="@color/colorPrimary">
+                app:tabTextColor="@color/colorPrimaryDark">
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/genderMale"
