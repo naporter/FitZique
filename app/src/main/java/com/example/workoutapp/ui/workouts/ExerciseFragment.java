@@ -22,9 +22,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.workoutapp.MainActivity;
+import com.example.workoutapp.activities.MainActivity;
 import com.example.workoutapp.R;
-import com.example.workoutapp.UserViewModel;
+import com.example.workoutapp.viewmodels.HomeViewModel;
+import com.example.workoutapp.viewmodels.UserViewModel;
 
 
 public class ExerciseFragment extends Fragment implements View.OnClickListener, TextWatcher {

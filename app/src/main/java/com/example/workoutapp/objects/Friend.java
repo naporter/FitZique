@@ -1,7 +1,9 @@
-package com.example.workoutapp;
+package com.example.workoutapp.objects;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+
+import com.example.workoutapp.BR;
 
 public class Friend extends BaseObservable {
     private String firstName;
@@ -15,7 +17,7 @@ public class Friend extends BaseObservable {
         //default constructor;
     }
 
-    Friend(String uid){
+    public Friend(String uid){
         this.uid = uid;
     }
 

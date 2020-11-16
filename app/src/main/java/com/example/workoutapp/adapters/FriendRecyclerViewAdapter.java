@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.profile;
+package com.example.workoutapp.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.workoutapp.Friend;
+import com.example.workoutapp.objects.Friend;
 import com.example.workoutapp.R;
 import com.example.workoutapp.databinding.FriendLayoutBinding;
 

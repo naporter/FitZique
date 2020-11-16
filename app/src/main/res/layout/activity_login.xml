@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:theme="@style/LoginTheme"
-    tools:context=".LoginPageActivity"
+    tools:context=".activities.LoginPageActivity"
     android:fitsSystemWindows="true">
 
     <TextView

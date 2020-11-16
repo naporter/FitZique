@@ -1,8 +1,12 @@
-package com.example.workoutapp.ui.workouts;
+package com.example.workoutapp.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.workoutapp.ui.workouts.EasyFragment;
+import com.example.workoutapp.ui.workouts.HardFragment;
+import com.example.workoutapp.ui.workouts.MediumFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 

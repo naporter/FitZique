@@ -1,4 +1,4 @@
-package com.example.workoutapp;
+package com.example.workoutapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
 
+import com.example.workoutapp.database.FirebaseAccessor;
+import com.example.workoutapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Timer;
@@ -33,17 +36,6 @@ public class LoginPageActivity extends AppCompatActivity {
         this.userPrompt = findViewById(R.id.userPrompt);
         this.progressBar = findViewById(R.id.progressBar);
         this.firebaseAccessor = FirebaseAccessor.getInstance(getApplication());
-
-//        Objects.requireNonNull(firebaseAccessor.getUser().getValue()).getUser().observe(this, new Observer<FirebaseUser>() {
-//            @Override
-//            public void onChanged(FirebaseUser firebaseUser) {
-//                if(FirebaseAuth.getInstance().getCurrentUser() != null){
-//                    updateUI("Logging in.", false);
-//                }else {
-//                    updateUI("Failed to login", true);
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -68,12 +60,10 @@ public class LoginPageActivity extends AppCompatActivity {
         return firebaseAccessor;
     }
 
-    public Boolean checkIfUserExists(final String email){
+    public FirebaseAccessor alreadyUser(final String email){
         Toast.makeText(this, "Checking if email is available...", Toast.LENGTH_SHORT).show();
-        if (firebaseAccessor.checkIfUserExists(email)){
-            return true;
-        }
-        return false;
+        firebaseAccessor.alreadyUser(email);
+        return this.firebaseAccessor;
     }
 
     public void signIn(final String email, final String password){

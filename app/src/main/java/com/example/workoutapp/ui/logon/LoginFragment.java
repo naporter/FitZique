@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.workoutapp.LoginPageActivity;
+import com.example.workoutapp.activities.LoginPageActivity;
 import com.example.workoutapp.R;
 import com.google.firebase.database.DatabaseReference;
 

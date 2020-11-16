@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutapp.R;
-import com.example.workoutapp.UserViewModel;
+import com.example.workoutapp.adapters.LeaderboardRecyclerViewAdapter;
+import com.example.workoutapp.viewmodels.UserViewModel;
 import com.example.workoutapp.databinding.FragmentLeaderboardBinding;
 
 public class LeaderboardFragment extends Fragment implements View.OnClickListener, LeaderboardRecyclerViewAdapter.FriendViewHolder.OnClickListener {

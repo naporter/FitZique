@@ -1,4 +1,4 @@
-package com.example.workoutapp;
+package com.example.workoutapp.database;
 
 import android.app.Application;
 import android.widget.Toast;
@@ -7,11 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.workoutapp.objects.Friend;
+import com.example.workoutapp.objects.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +37,7 @@ public class FirebaseAccessor {
     private static DatabaseReference database;
 
     private final User user = new User();
+    private static MutableLiveData<Boolean> registerable;
 
     FirebaseAccessor(Application application){
         this.application = application;
@@ -55,14 +59,22 @@ public class FirebaseAccessor {
         return user;
     }
 
+    public MutableLiveData<Boolean> getRegisterable(){
+        registerable = new MutableLiveData<>();
+        return registerable;
+    }
+
 
     //Methods only ran when registering
 
-    public Boolean checkIfUserExists(final String email){
-        if (firebaseAuth.fetchSignInMethodsForEmail(email).isSuccessful()){
-            return true;
-        }
-        return false;
+    public void alreadyUser(final String email){
+        firebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                registerable.setValue(task.getResult().getSignInMethods().isEmpty());
+                System.out.println(task.getResult().getSignInMethods().toString());
+            }
+        });
     }
 
 

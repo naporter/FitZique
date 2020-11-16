@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.leaderboard;
+package com.example.workoutapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.workoutapp.Friend;
+import com.example.workoutapp.objects.Friend;
 import com.example.workoutapp.R;
-import com.example.workoutapp.User;
+import com.example.workoutapp.objects.User;
 
 import java.util.ArrayList;
 import java.util.Collections;

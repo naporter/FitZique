@@ -1,4 +1,4 @@
-package com.example.workoutapp.ui.workouts;
+package com.example.workoutapp.viewmodels;
 
 import android.graphics.drawable.Drawable;
 
