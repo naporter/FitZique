@@ -16,14 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.workoutapp.activities.LoginPageActivity;
 import com.example.workoutapp.R;
 import com.example.workoutapp.database.FirebaseAccessor;
-import com.example.workoutapp.viewmodels.UserViewModel;
 
 
 public class RegisterFragment extends Fragment implements View.OnClickListener, TextWatcher{
@@ -77,10 +75,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
                 break;
             case R.id.nextBtn:
                 final FirebaseAccessor firebaseAccessor = ((LoginPageActivity) requireActivity()).alreadyUser(this.email.getText().toString());
-                firebaseAccessor.getRegisterable().observe(this, new Observer<Boolean>() {
+                firebaseAccessor.getIsRegistered().observe(this, new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean aBoolean) {
-                        firebaseAccessor.getRegisterable().removeObserver(this);
+                        firebaseAccessor.getIsRegistered().removeObserver(this);
                         if(aBoolean){
                             Toast.makeText(getContext(), "Email available.", Toast.LENGTH_SHORT).show();
                             Bundle bundle = new Bundle(); // bundles the users info from registerFragment to use in Demographics fragment
@@ -94,7 +92,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
                         else{
                             Toast.makeText(getContext(), "Email unavailable. Use another email or go back to sign in.", Toast.LENGTH_SHORT).show();
                         }
-//                        firebaseAccessor.getRegisterable().setValue(null);
                     }
                 });
                 break;

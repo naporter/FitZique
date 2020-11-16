@@ -21,6 +21,7 @@ import java.util.Comparator;
 public class LeaderboardRecyclerViewAdapter extends RecyclerView.Adapter<LeaderboardRecyclerViewAdapter.FriendViewHolder>{
 
     private final ArrayList<Friend> friends;
+    private final User user;
     private final Context context;
     private final FriendViewHolder.OnClickListener onClickListener;
     private final Button pointsSelector;
@@ -29,6 +30,7 @@ public class LeaderboardRecyclerViewAdapter extends RecyclerView.Adapter<Leaderb
         this.context = context;
         this.pointsSelector = pointsSelector;
         this.friends = friends;
+        this.user = user;
         this.onClickListener = onClickListener;
     }
 

@@ -15,7 +15,7 @@ import com.example.workoutapp.R;
 import java.util.ArrayList;
 
 public class BadgesRecyclerViewAdapter extends RecyclerView.Adapter<BadgesRecyclerViewAdapter.BadgeViewHolder>{
-    //TODO: class needs restructured for Badges recyclerview, elements were copied from FriendRecyclerViewAdapter
+    //TODO: class needs restructured for Badges recyclerview, elements were copied from ProfileRecyclerViewAdapter
 
     private ArrayList<Friend> friends;
     private Context context;

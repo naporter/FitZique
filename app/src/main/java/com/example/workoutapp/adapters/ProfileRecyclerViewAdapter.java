@@ -16,13 +16,13 @@ import com.example.workoutapp.databinding.FriendLayoutBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendRecyclerViewAdapter extends RecyclerView.Adapter<FriendRecyclerViewAdapter.FriendViewHolder>{
+public class ProfileRecyclerViewAdapter extends RecyclerView.Adapter<ProfileRecyclerViewAdapter.FriendViewHolder>{
 
     private final List<Friend> friends;
     private final LifecycleOwner lifecycleOwner;
     private final FriendViewHolder.OnClickListener onClickListener;
 
-    public FriendRecyclerViewAdapter(LifecycleOwner lifecycleOwner, ArrayList<Friend> friends, FriendViewHolder.OnClickListener onClickListener){
+    public ProfileRecyclerViewAdapter(LifecycleOwner lifecycleOwner, ArrayList<Friend> friends, FriendViewHolder.OnClickListener onClickListener){
         this.lifecycleOwner = lifecycleOwner;
         this.friends = friends;
         this.onClickListener = onClickListener;

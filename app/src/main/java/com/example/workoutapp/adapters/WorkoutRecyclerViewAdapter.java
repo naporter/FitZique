@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutapp.R;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.WorkoutViewHolder>{
+public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecyclerViewAdapter.WorkoutViewHolder>{
 
     private String[] workoutName;
     private TypedArray workoutImages;
     private Context context;
     private WorkoutViewHolder.OnClickListener onClickListener;
 
-    public RecyclerViewAdapter(Context context, String[] workoutName, TypedArray workoutImages, WorkoutViewHolder.OnClickListener onClickListener){
+    public WorkoutRecyclerViewAdapter(Context context, String[] workoutName, TypedArray workoutImages, WorkoutViewHolder.OnClickListener onClickListener){
         this.context = context;
         this.workoutName = workoutName;
         this.onClickListener = onClickListener;
@@ -29,7 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @NonNull
     @Override
-    public RecyclerViewAdapter.WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WorkoutRecyclerViewAdapter.WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.workout_button, parent, false);
         return new WorkoutViewHolder(view, onClickListener);
