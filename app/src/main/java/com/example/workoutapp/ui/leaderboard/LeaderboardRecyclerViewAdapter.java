@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutapp.Friend;
 import com.example.workoutapp.R;
+import com.example.workoutapp.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +25,7 @@ public class LeaderboardRecyclerViewAdapter extends RecyclerView.Adapter<Leaderb
     private final FriendViewHolder.OnClickListener onClickListener;
     private final Button pointsSelector;
 
-    public LeaderboardRecyclerViewAdapter(Context context, Button pointsSelector, ArrayList<Friend> friends, FriendViewHolder.OnClickListener onClickListener){
+    public LeaderboardRecyclerViewAdapter(Context context, Button pointsSelector, ArrayList<Friend> friends, User user, FriendViewHolder.OnClickListener onClickListener){
         this.context = context;
         this.pointsSelector = pointsSelector;
         this.friends = friends;

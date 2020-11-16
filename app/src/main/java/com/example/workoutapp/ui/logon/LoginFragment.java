@@ -1,16 +1,7 @@
 package com.example.workoutapp.ui.logon;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,21 +13,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.workoutapp.LoginPageActivity;
 import com.example.workoutapp.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Objects;
 
 public class LoginFragment extends Fragment implements View.OnClickListener, TextWatcher {
 
@@ -63,9 +49,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        refreshDate();
-        refreshWeeklyDate();
     }
 
     @Override
@@ -126,98 +109,5 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Tex
             loginBtn.setBackgroundColor(getResources().getColor(R.color.cardview_shadow_start_color));
             loginBtn.setClickable(false);
         }
-    }
-
-    public void refreshDate(){
-        database = FirebaseDatabase.getInstance().getReference("Dates/DailyDay");
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String dailyDate = snapshot.getValue(String.class);
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
-                String currentDate = sdf.format(calendar.getTime());
-                if(dailyDate.equals(currentDate)) {
-//                    do nothing
-                }else{
-                    setDailyDate();
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Daily Date not updated" + error);
-            }
-        });
-    }
-
-    public void refreshWeeklyDate(){
-        database = FirebaseDatabase.getInstance().getReference("Dates/Weekly");
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String weeklyDate = snapshot.getValue(String.class);
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
-                String dailyDate = sdf.format(calendar.getTime());
-                if(dailyDate.equals(weeklyDate)) {
-                    setWeeklyDate();
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Daily Date not updated" + error);
-            }
-        });
-    }
-
-    public void setDailyDate() {
-        final Calendar calendar;
-        calendar = Calendar.getInstance();
-        final SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
-        final String dailyDate = sdf.format(calendar.getTime());
-
-        database = FirebaseDatabase.getInstance().getReference("Dates/DailyDay");
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                database.setValue(dailyDate);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Daily Date not updated" + error);
-            }
-        });
-
-    }
-
-    public void setWeeklyDate() {
-        Calendar calendar = Calendar.getInstance();
-
-        final String startDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());  // Start date
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            calendar.setTime(sdf.parse(startDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        //        advance one week
-        calendar.add(Calendar.DATE, 7);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
-        SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
-        final String weeklyDate = sdf1.format(calendar.getTime());
-
-        database = FirebaseDatabase.getInstance().getReference("Dates/Weekly");
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                database.setValue(weeklyDate);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Weekly Date not updated" + error);
-            }
-        });
     }
 }

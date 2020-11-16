@@ -1,16 +1,7 @@
 package com.example.workoutapp.ui.logon;
 
-import android.app.Application;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -20,11 +11,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.workoutapp.FirebaseRepository;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.workoutapp.LoginPageActivity;
 import com.example.workoutapp.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.text.DecimalFormat;
+
+import static java.lang.Double.isNaN;
 
 public class DemographicsFragment extends Fragment implements View.OnClickListener, TextWatcher, TabLayout.OnTabSelectedListener {
 
@@ -155,9 +156,26 @@ public class DemographicsFragment extends Fragment implements View.OnClickListen
                 if (gender.getSelectedTabPosition() == 0) { //hip size is not used when calculating a males body fat percentage
                     hips.setText("0");
                 }
-                ((LoginPageActivity) getActivity()).initDemographics(email, firstName, lastName, phoneNumber, birthday.getText().toString(), gender.getTabAt(gender.getSelectedTabPosition()).getText().toString());
-                ((LoginPageActivity) getActivity()).initMeasurements(Integer.parseInt(weight.getText().toString()), Integer.parseInt(height.getText().toString()),
-                        Integer.parseInt(neck.getText().toString()), Integer.parseInt(waist.getText().toString()), Integer.parseInt(hips.getText().toString()), gender.getTabAt(gender.getSelectedTabPosition()).getText().toString());
+                String gender = this.gender.getTabAt(this.gender.getSelectedTabPosition()).getText().toString();
+                String birthday = this.birthday.getText().toString();
+                int waistSize = Integer.parseInt(waist.getText().toString());
+                int weight = Integer.parseInt(this.weight.getText().toString());
+                int height = Integer.parseInt(this.height.getText().toString());
+                int neckSize = Integer.parseInt(this.neck.getText().toString());;
+                int hipSize = Integer.parseInt(this.hips.getText().toString());;
+
+                DecimalFormat df = new DecimalFormat("####0.00");
+                double bodyFat;
+                if(gender.equals("Female")){
+                    bodyFat = 163.205 * Math.log10(waistSize + hipSize - neckSize) - 97.684 * Math.log10(height) + 36.76;
+                }else{
+                    bodyFat = 86.010 * Math.log10(waistSize - neckSize) - 70.041 * Math.log10(height) + 36.76;
+                }
+                if (bodyFat < 0.1 || isNaN(bodyFat)){
+                    bodyFat = 0.1;
+                }
+                bodyFat = Double.parseDouble(df.format(bodyFat));
+                ((LoginPageActivity)requireActivity()).register(email, password, phoneNumber, birthday, firstName, lastName, gender, bodyFat, weight, height, neckSize, waistSize, hipSize);
                 break;
         }
     }

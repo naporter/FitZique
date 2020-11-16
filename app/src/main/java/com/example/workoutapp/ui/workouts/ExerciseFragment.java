@@ -3,14 +3,6 @@ package com.example.workoutapp.ui.workouts;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -23,10 +15,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.workoutapp.MainActivity;
 import com.example.workoutapp.R;
 import com.example.workoutapp.UserViewModel;
-import com.google.android.material.snackbar.Snackbar;
 
 
 public class ExerciseFragment extends Fragment implements View.OnClickListener, TextWatcher {
@@ -59,7 +57,6 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener, 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-//        userViewModel.initBodyFat();
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         this.difficulty = getArguments().getInt("difficulty");
         numReps = view.findViewById(R.id.numReps);
@@ -92,13 +89,10 @@ public class ExerciseFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onClick(View v) {
         int numRepsValue = Integer.parseInt(numReps.getText().toString());
-        int points = userViewModel.updatePoints(difficulty, numRepsValue);
+        ((MainActivity)getActivity()).updatePoints(difficulty, numRepsValue);
         numReps.getText().clear();
         InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(addPointsBtn.getWindowToken(), 0);
-        String message = points + " points added for this workout.";
-        Snackbar snackbar = Snackbar.make(v, message, Snackbar.LENGTH_SHORT);
-        snackbar.show();
         addPointsBtn.setClickable(false);
     }
 

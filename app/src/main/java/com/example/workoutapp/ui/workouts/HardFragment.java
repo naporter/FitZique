@@ -2,6 +2,9 @@ package com.example.workoutapp.ui.workouts;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -9,17 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-
 import com.example.workoutapp.R;
-
-import java.util.Objects;
 
 public class HardFragment extends Fragment implements RecyclerViewAdapter.WorkoutViewHolder.OnClickListener {
 

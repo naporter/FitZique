@@ -4,12 +4,17 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "com.example.workoutapp"
         minSdkVersion 28
         targetSdkVersion 30
         versionCode 1
-        versionName "3.4"
+        versionName "3.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

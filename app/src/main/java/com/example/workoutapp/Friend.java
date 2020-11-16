@@ -1,6 +1,9 @@
 package com.example.workoutapp;
 
-public class Friend {
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
+public class Friend extends BaseObservable {
     private String firstName;
     private String lastName;
     private String uid;
@@ -8,7 +11,7 @@ public class Friend {
     private int weeklyPoints;
     private int lifetimePoints;
 
-    Friend(){
+    public Friend(){
         //default constructor;
     }
 
@@ -22,20 +25,24 @@ public class Friend {
         this.uid = uid;
     }
 
+    @Bindable
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        notifyPropertyChanged(BR.lastName);
     }
 
+    @Bindable
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        notifyPropertyChanged(BR.firstName);
     }
 
     public String getUid() {
